@@ -14,7 +14,7 @@ const SignupScreen = ({navigation}) => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(()=>{
-        console.log('Created');
+        navigation.navigate('LoginScreen')
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
