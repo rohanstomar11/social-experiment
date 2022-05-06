@@ -4,6 +4,7 @@ import CustomInputField from '../components/CustomInputField'
 import CustomButton from '../components/CustomButton'
 import { COLORS } from '../assets/color'
 import auth from '@react-native-firebase/auth'
+import CustomDot from '../components/CustomDot'
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -19,20 +20,40 @@ const LoginScreen = ({ navigation }) => {
         console.error(error);
       })
   }
+  
+  const validate = () => {
+    login();
+  }
 
   return (
     <View style={{
       flex: 1,
       justifyContent: 'space-around',
       alignItems: 'center',
-      backgroundColor: COLORS.background,
-    }}>
+      backgroundColor: COLORS.black,
+    }}><CustomDot 
+    top={'-7%'}
+    right={'-7%'}
+    height={220}
+    width={220}
+    />
+    <CustomDot 
+    bottom={'-7%'}
+    left={'-7%'}
+    height={220}
+    width={220}
+    />
+    <CustomDot 
+    top={'35%'}
+    height={250}
+    width={250}
+    />
       <View>
         <Text
           style={{
             fontSize: 25,
             fontWeight: 'bold',
-            color: COLORS.black,
+            color: COLORS.white,
         }}>
           LoginScreen
         </Text>
@@ -59,8 +80,8 @@ const LoginScreen = ({ navigation }) => {
         style={{ flexDirection: 'row' }} 
         onPress={()=>{navigation.navigate('SignupScreen')}}
         activeOpacity={0.6}>
-        <Text>Are you new here?</Text>
-        <Text>SignUp</Text>
+        <Text style={{color: COLORS.white}}>Are you new here?</Text>
+        <Text style={{color: COLORS.white}}>SignUp</Text>
       </TouchableOpacity>
     </View>
   )
