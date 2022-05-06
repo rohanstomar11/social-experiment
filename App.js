@@ -11,13 +11,13 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
-  View,
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from './app/screens/splash';
 import LoginScreen from './app/screens/login';
+import SignupScreen from './app/screens/signup';
+import HomeScreen from './app/screens/home';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -33,6 +33,8 @@ const App = () => {
           }}>
           <Stack.Screen name="SplashScreen" component={SplashScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="SignupScreen" component={SignupScreen} />
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </ScrollView>

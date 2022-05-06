@@ -9,7 +9,7 @@ const LoginScreen = ({navigation}) => {
       alignItems: 'center',
     }}>
       <TouchableOpacity 
-        onPress={()=> navigation.goBack()}>
+        onPress={()=>{navigation.navigate('SignupScreen')}}>
         <Text>LoginScreen</Text>
       </TouchableOpacity>
 
