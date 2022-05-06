@@ -1,6 +1,7 @@
 import { Text, TouchableOpacity } from 'react-native'
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
+import { COLORS } from '../assets/color'
 
 const CustomButton = ({
   colors, 
@@ -29,7 +30,7 @@ const CustomButton = ({
           borderRadius: radius || 12,
         }}>
         <Text style={{
-          color: textcolor || '#FFFFFF',
+          color: textcolor || COLORS.white,
           fontSize: fontsize || 16,
           fontWeight: fontweight || '700',
         }}>

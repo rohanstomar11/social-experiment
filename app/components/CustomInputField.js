@@ -1,7 +1,17 @@
 import {Platform, TextInput } from 'react-native';
 import React from 'react';
 
-export default function CustomInputField({height, width, background, radius, keyboard, onchange, placeholder, hide}) {
+export default function CustomInputField({
+  height,
+  width,
+  background,
+  radius,
+  keyboard,
+  onchange,
+  placeholder,
+  hide,
+  top,
+  }) {
   return (
     <TextInput
         style={{
@@ -12,6 +22,7 @@ export default function CustomInputField({height, width, background, radius, key
             paddingHorizontal: '5%',
             color: '#354354',
             fontSize: 16,
+            marginTop: top || 0,
             ...Platform.select({
               android: {
                 elevation: 24,
