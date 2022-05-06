@@ -13,6 +13,7 @@ const CustomButton = ({
   fontweight, 
   title,
   radius,
+  letterSpacing
 }) => {
   return (
     <TouchableOpacity
@@ -25,7 +26,7 @@ const CustomButton = ({
         end={{x:1, y:0}}
         style={{
           width: '100%',
-          padding: 16,
+          padding: 13,
           alignItems: 'center',
           borderRadius: radius || 12,
         }}>
@@ -33,6 +34,7 @@ const CustomButton = ({
           color: textcolor || COLORS.white,
           fontSize: fontsize || 16,
           fontWeight: fontweight || '700',
+          letterSpacing: letterSpacing || 3,
         }}>
           {title}
         </Text>
