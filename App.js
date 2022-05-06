@@ -20,7 +20,7 @@ const App = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ flex: 1, }}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName='SignupScreen' screenOptions={{
+          <Stack.Navigator initialRouteName='SplashScreen' screenOptions={{
             headerShown: false
           }}>
           <Stack.Screen name="SplashScreen" component={SplashScreen} />

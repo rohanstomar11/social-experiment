@@ -10,7 +10,7 @@ const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const login = () => {
+  const signup = () => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(()=>{
@@ -42,7 +42,7 @@ const SignupScreen = ({navigation}) => {
       <CustomButton
         style={{marginTop: 20, width: '60%'}}
         title={"SIGNUP"}
-        onPress={()=>{login()}}
+        onPress={()=>{signup()}}
       />
     </View>
   )
