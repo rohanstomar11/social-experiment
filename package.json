@@ -14,6 +14,7 @@
     "android-release": "react-native run-android --variant=release"
   },
   "dependencies": {
+    "@react-native-community/blur": "^3.6.0",
     "@react-native-firebase/app": "^14.9.1",
     "@react-native-firebase/auth": "^14.9.1",
     "@react-navigation/native": "^6.0.10",
