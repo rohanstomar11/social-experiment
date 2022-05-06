@@ -21,6 +21,8 @@ export default function CustomInputField({
             borderRadius: radius || 8,
             paddingHorizontal: '5%',
             color: '#354354',
+            borderWidth: 1,
+            borderColor: '#2D6CDF',
             fontSize: 16,
             marginTop: top || 0,
             ...Platform.select({

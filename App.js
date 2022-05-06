@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
 import {
   SafeAreaView,
@@ -28,7 +20,7 @@ const App = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ flex: 1, }}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName='SplashScreen' screenOptions={{
+          <Stack.Navigator initialRouteName='SignupScreen' screenOptions={{
             headerShown: false
           }}>
           <Stack.Screen name="SplashScreen" component={SplashScreen} />

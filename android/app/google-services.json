@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "201570556675",
+    "project_id": "social-experiment-8221b",
+    "storage_bucket": "social-experiment-8221b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201570556675:android:a7e15b2e76e125bcf4a736",
+        "android_client_info": {
+          "package_name": "com.social_experiment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "201570556675-4huvb991jr0g3p0lbtbmciivc3a2lsj4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCA5baGeDT3IjgyHBcNRux9gdegF8mP2XQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "201570556675-4huvb991jr0g3p0lbtbmciivc3a2lsj4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
