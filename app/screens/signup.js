@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import React, {useState} from 'react'
 import { COLORS } from '../assets/color'
 import CustomInputField from '../components/CustomInputField'
@@ -9,6 +9,7 @@ import auth from '@react-native-firebase/auth'
 const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [repassword, setRepassword] = useState('');
 
   const signup = () => {
     auth()
@@ -30,20 +31,28 @@ const SignupScreen = ({navigation}) => {
   }
 
   const validate = () => {
-    signup();
+    if(password===repassword){
+      signup();
+    }
   }
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: COLORS.background}}>
       <CustomInputField
-        placeholder={"Email"}
+        placeholder={"Enter Email"}
         onchange={(text)=>{setEmail(text)}}
       />
       <CustomInputField
-        placeholder={"Password"}
+        placeholder={"Enter Password"}
         hide={true}
         top={20}
         onchange={(text)=>{setPassword(text)}}
+      />
+      <CustomInputField
+        placeholder={"Re-Enter Password"}
+        hide={true}
+        top={20}
+        onchange={(text)=>{setRepassword(text)}}
       />
       <CustomButton
         style={{marginTop: 20, width: '60%'}}
