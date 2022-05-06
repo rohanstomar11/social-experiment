@@ -2,12 +2,19 @@ import { View, Image, } from 'react-native'
 import React, {useEffect} from 'react'
 import { FullLogo } from '../assets/images'
 import { COLORS } from '../assets/color'
+import auth from '@react-native-firebase/auth'
 
 const SplashScreen = ({navigation}) => {
 
   useEffect(()=>{
     timeoutHelper(()=>{
-      navigation.replace('LoginScreen')
+      auth().onAuthStateChanged((user)=>{
+        if(user){
+          navigation.replace('HomeScreen')
+        } else {
+          navigation.replace('LoginScreen')
+        }
+      })
     })
   })
 

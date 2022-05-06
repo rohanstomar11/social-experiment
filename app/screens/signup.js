@@ -14,7 +14,9 @@ const SignupScreen = ({navigation}) => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(()=>{
-        navigation.navigate('LoginScreen')
+        auth()
+          .signOut()
+          .then(()=>{navigation.navigate('LoginScreen')})
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -25,6 +27,10 @@ const SignupScreen = ({navigation}) => {
         }
         console.error(error);
       })
+  }
+
+  const validate = () => {
+    signup();
   }
 
   return (
@@ -42,7 +48,7 @@ const SignupScreen = ({navigation}) => {
       <CustomButton
         style={{marginTop: 20, width: '60%'}}
         title={"SIGNUP"}
-        onPress={()=>{signup()}}
+        onPress={()=>{validate()}}
       />
     </View>
   )
