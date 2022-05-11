@@ -8,13 +8,14 @@ const SplashScreen = ({navigation}) => {
 
   useEffect(()=>{
     timeoutHelper(()=>{
-      auth().onAuthStateChanged((user)=>{
+      const unsubscribe = auth().onAuthStateChanged((user)=>{
         if(user){
           navigation.replace('HomeScreen')
         } else {
           navigation.replace('LoginScreen')
         }
       })
+      unsubscribe();
     })
   })
 
