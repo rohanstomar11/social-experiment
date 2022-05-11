@@ -1,5 +1,5 @@
 {
-    "autoInit": true,
+    "autoInit": false,
     "pushNotifications": {
         "android": {
             "titleColor": null,
