@@ -84,6 +84,7 @@ project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
 ]
 
+apply plugin: 'im.getsocial'
 apply from: "../../node_modules/react-native/react.gradle"
 
 /**
@@ -135,6 +136,10 @@ android {
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
+
+    getsocial {
+    appId "708679lseM8894"
+}
 
     defaultConfig {
         applicationId "com.social_experiment"
