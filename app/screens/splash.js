@@ -19,8 +19,8 @@ const SplashScreen = ({navigation}) => {
         } else {
           navigation.replace('LoginScreen')
         }
+        unsubscribe();
       })
-      unsubscribe();
     })
   })
 
