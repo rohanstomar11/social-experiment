@@ -24,7 +24,7 @@ const SignupScreen = ({navigation}) => {
               console.log('Successfully Logged into' + currentUser.id);
             },
             (conflictUser) => {
-              console.log('Conflict');
+              GetSocial.switchUser(customIdentity);
             },
             (error) => {
               console.log('failed' + error);
