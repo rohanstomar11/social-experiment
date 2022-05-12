@@ -4,6 +4,8 @@ import { COLORS } from '../assets/color'
 import CustomInputField from '../components/CustomInputField'
 import CustomButton from '../components/CustomButton'
 import auth from '@react-native-firebase/auth'
+import GetSocial from 'getsocial-react-native-sdk/GetSocial'
+import Identity from 'getsocial-react-native-sdk/models/communities/Identity'
 
 
 const SignupScreen = ({navigation}) => {
@@ -15,9 +17,21 @@ const SignupScreen = ({navigation}) => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(()=>{
-        auth()
-          .signOut()
-          .then(()=>{navigation.navigate('LoginScreen')})
+        GetSocial.getCurrentUser().then((currentUser)=>{
+          const customIdentity = Identity.createCustomIdentity('firebase', email, auth().currentUser.uid)
+          currentUser.addIdentity(
+            customIdentity, ()=> {
+              console.log('Successfully Logged into' + currentUser.id);
+            },
+            (conflictUser) => {
+              console.log('Conflict');
+            },
+            (error) => {
+              console.log('failed' + error);
+            }
+          )
+          navigation.replace('OnboardScreen');
+        })
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {

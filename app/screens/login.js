@@ -5,6 +5,8 @@ import CustomButton from '../components/CustomButton'
 import { COLORS } from '../assets/color'
 import auth from '@react-native-firebase/auth'
 import CustomDot from '../components/CustomDot'
+import Identity from 'getsocial-react-native-sdk/models/communities/Identity'
+import GetSocial from 'getsocial-react-native-sdk/GetSocial'
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -14,7 +16,21 @@ const LoginScreen = ({ navigation }) => {
     auth()
       .signInWithEmailAndPassword(email, Password)
       .then(()=>{
-        navigation.navigate('HomeScreen');
+        GetSocial.getCurrentUser().then((currentUser)=>{
+          const customIdentity = Identity.createCustomIdentity('firebase', email, auth().currentUser.uid)
+          currentUser.addIdentity(
+            customIdentity, ()=> {
+              console.log('Successfully Logged into' + currentUser.id);
+              navigation.navigate('HomeScreen');
+            },
+            (conflictUser) => {
+              GetSocial.switchUser(customIdentity);
+            },
+            (error) => {
+              console.log('failed' + error);
+            }
+          )
+        })
       })
       .catch(error=>{
         console.error(error);
