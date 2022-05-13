@@ -7,12 +7,14 @@ import GetSocial from 'getsocial-react-native-sdk/GetSocial'
 import UserUpdate from 'getsocial-react-native-sdk/models/UserUpdate'
 import * as ImagePicker from 'react-native-image-picker'
 import FullLogo from '../assets/images/index'
+import storage from '@react-native-firebase/storage'
 
 const OnboardScreen = ({navigation}) => {
 
   const [name, setName] = useState();
   const [filePath,setFilePath] = useState(FullLogo);
   const uid = auth().currentUser.uid
+  const url = 'gs://social-experiment-8221b.appspot.com'+'/'+uid; //change this method of being hardcoded to gather user avatar url dynamically
 
   const selectImage = () => {
     const options = {
@@ -28,16 +30,40 @@ const OnboardScreen = ({navigation}) => {
       } else if (res.error) {
         console.log('ImagePicker Error: ', res.error);
       } else {
-        setFilePath(res.assets[0].uri)
+        let path = res.assets[0].uri
+        setFilePath(path)
+        let fileName = getFileName(uid);
+        uploadImageToStorage(path, fileName);
       }
     });
+  }
+
+  const uploadImageToStorage = (path, name) => {
+    let reference = storage().ref(name);
+    let task = reference.putFile(path);
+    task.then(async () => {
+      console.log('Image uploaded to the bucket!');
+    }).catch((e) => {
+        console.log('uploading image error => ', e);
+    });
+
+  }
+
+  const getFileName = (name, path) => {
+    if (name != null) {
+      return name;
+    }
+    if (Platform.OS === "ios") {
+        path = "~" + path.substring(path.indexOf("/Documents"));
+    }
+    return path.split("/").pop();
   }
 
   const saveData = () => { //fix this later
     GetSocial.getCurrentUser().then((currentUser)=>{
       var batchUpdate = new UserUpdate();
       batchUpdate.displayName = name;
-      batchUpdate.avatarUrl = currentUser.avatarUrl;
+      batchUpdate.avatarUrl = url;
       batchUpdate.publicProperties = currentUser.publicProperties;
       batchUpdate.privateProperties = currentUser.privateProperties;
       currentUser.updateDetails(batchUpdate).then(()=>{
