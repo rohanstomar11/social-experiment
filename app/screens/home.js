@@ -30,7 +30,7 @@ const HomeScreen = ({navigation}) => {
 
   const getData = () => {
     GetSocial.getCurrentUser().then((currentUser)=>{
-      console.log(imageUrl);
+      console.log(currentUser.publicProperties);
     })
   }
 

@@ -17,11 +17,11 @@ const SignupScreen = ({navigation}) => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(()=>{
+        const customIdentity = Identity.createCustomIdentity('firebase-14-05-2022', email, email)
         GetSocial.getCurrentUser().then((currentUser)=>{
-          const customIdentity = Identity.createCustomIdentity('firebase', email, auth().currentUser.uid)
           currentUser.addIdentity(
             customIdentity, ()=> {
-              console.log('Successfully Logged into' + currentUser.id);
+              console.log('Successfully Logged into ' + currentUser.id);
             },
             (conflictUser) => {
               GetSocial.switchUser(customIdentity);

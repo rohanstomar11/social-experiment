@@ -10,17 +10,17 @@ import GetSocial from 'getsocial-react-native-sdk/GetSocial'
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
-  const [Password, setPassword] = useState('');
+  const [password, setPassword] = useState('');
 
   const login = () => {
     auth()
-      .signInWithEmailAndPassword(email, Password)
+      .signInWithEmailAndPassword(email, password)
       .then(()=>{
+        const customIdentity = Identity.createCustomIdentity('firebase-14-05-2022', email, email)
         GetSocial.getCurrentUser().then((currentUser)=>{
-          const customIdentity = Identity.createCustomIdentity('firebase', email, auth().currentUser.uid)
           currentUser.addIdentity(
             customIdentity, ()=> {
-              console.log('Successfully Logged into' + currentUser.id);
+              console.log('Successfully Logged into ' + currentUser.id);
               navigation.navigate('HomeScreen');
             },
             (conflictUser) => {

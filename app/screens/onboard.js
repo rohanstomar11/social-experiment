@@ -13,6 +13,7 @@ const OnboardScreen = ({navigation}) => {
 
   const [name, setName] = useState();
   const [filePath,setFilePath] = useState(FullLogo);
+  const publicProperties = {'college': 'DYPSOET'};
   const uid = auth().currentUser.uid
   const url = 'gs://social-experiment-8221b.appspot.com'+'/'+uid; //change this method of being hardcoded to gather user avatar url dynamically
 
@@ -64,7 +65,7 @@ const OnboardScreen = ({navigation}) => {
       var batchUpdate = new UserUpdate();
       batchUpdate.displayName = name;
       batchUpdate.avatarUrl = url;
-      batchUpdate.publicProperties = currentUser.publicProperties;
+      batchUpdate.publicProperties = publicProperties;
       batchUpdate.privateProperties = currentUser.privateProperties;
       currentUser.updateDetails(batchUpdate).then(()=>{
         navigation.navigate('HomeScreen');
