@@ -11,9 +11,21 @@ import LoginScreen from './app/screens/login';
 import SignupScreen from './app/screens/signup';
 import HomeScreen from './app/screens/home';
 import OnboardScreen from './app/screens/onboard';
+import * as Sentry from '@sentry/react-native';
+
+Sentry.init({
+  dsn: "https://ce38444cb9114e5bb6b523919aceb234@o1247650.ingest.sentry.io/6407586",
+  // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+  // We recommend adjusting this value in production.
+  tracesSampleRate: 1.0,
+  debug: true,
+  attachStacktrace: true,
+  environment: 'development',
+});
 
 const App = () => {
   const Stack = createNativeStackNavigator();
+  // throw new Error("First Sentry Error");
   return (
     <SafeAreaView style={{ flex:1, }}>
       <ScrollView
@@ -40,4 +52,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default App;
+export default Sentry.wrap(App);
