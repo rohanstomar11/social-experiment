@@ -17,20 +17,21 @@ const SignupScreen = ({navigation}) => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(()=>{
-        const customIdentity = Identity.createCustomIdentity('firebase-14-05-2022', email, email)
+        const customIdentity = Identity.createCustomIdentity('firebase-15-05-2022', email.toLocaleLowerCase(), email.toLocaleLowerCase())
         GetSocial.getCurrentUser().then((currentUser)=>{
           currentUser.addIdentity(
             customIdentity, ()=> {
               console.log('Successfully Logged into ' + currentUser.id);
+              navigation.replace('OnboardScreen');
             },
             (conflictUser) => {
               GetSocial.switchUser(customIdentity);
+              navigation.replace('OnboardScreen');
             },
             (error) => {
               console.log('failed' + error);
             }
           )
-          navigation.replace('OnboardScreen');
         })
       })
       .catch(error => {
@@ -55,6 +56,7 @@ const SignupScreen = ({navigation}) => {
       <CustomInputField
         placeholder={"Enter Email"}
         onchange={(text)=>{setEmail(text)}}
+        keyboard={'email-address'}
       />
       <CustomInputField
         placeholder={"Enter Password"}

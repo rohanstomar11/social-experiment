@@ -16,15 +16,17 @@ const LoginScreen = ({ navigation }) => {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(()=>{
-        const customIdentity = Identity.createCustomIdentity('firebase-14-05-2022', email, email)
+        const customIdentity = Identity.createCustomIdentity('firebase-15-05-2022', email.toLocaleLowerCase(), email.toLocaleLowerCase())
         GetSocial.getCurrentUser().then((currentUser)=>{
           currentUser.addIdentity(
             customIdentity, ()=> {
               console.log('Successfully Logged into ' + currentUser.id);
-              navigation.navigate('HomeScreen');
+              navigation.replace('HomeScreen');
             },
             (conflictUser) => {
-              GetSocial.switchUser(customIdentity);
+              GetSocial.switchUser(customIdentity).then(()=>{
+                navigation.replace('HomeScreen');
+              });
             },
             (error) => {
               console.log('failed' + error);
@@ -47,8 +49,9 @@ const LoginScreen = ({ navigation }) => {
       justifyContent: 'space-around',
       alignItems: 'center',
       backgroundColor: COLORS.black,
-    }}><CustomDot 
-    top={'-7%'}
+    }}>
+    <CustomDot 
+      top={'-7%'}
     right={'-7%'}
     height={220}
     width={220}
@@ -78,6 +81,7 @@ const LoginScreen = ({ navigation }) => {
         <CustomInputField
           placeholder={"Email"}
           onchange={(text)=>{setEmail(text)}}
+          keyboard={'email-address'}
         />
         <CustomInputField
           placeholder={"Password"}
