@@ -15,7 +15,7 @@ const OnboardScreen = ({navigation}) => {
   const [filePath,setFilePath] = useState(FullLogo);
   const publicProperties = {'college': 'DYPSOET'};
   const uid = auth().currentUser.uid
-  const url = 'gs://social-experiment-8221b.appspot.com'+'/'+uid; //change this method of being hardcoded to gather user avatar url dynamically
+  const [avatarUrl,setAvatarUrl] = useState(''); //change this method of being hardcoded to gather user avatar url dynamically
 
   const selectImage = () => {
     const options = {
@@ -42,12 +42,15 @@ const OnboardScreen = ({navigation}) => {
   const uploadImageToStorage = (path, name) => {
     let reference = storage().ref(name);
     let task = reference.putFile(path);
-    task.then(async () => {
+    task.then(() => {
       console.log('Image uploaded to the bucket!');
+      reference.getDownloadURL().then((url)=>{
+        console.log("Received!")
+        setAvatarUrl(url);
+      })
     }).catch((e) => {
         console.log('uploading image error => ', e);
     });
-
   }
 
   const getFileName = (name, path) => {
@@ -64,7 +67,7 @@ const OnboardScreen = ({navigation}) => {
     GetSocial.getCurrentUser().then((currentUser)=>{
       var batchUpdate = new UserUpdate();
       batchUpdate.displayName = name;
-      batchUpdate.avatarUrl = url;
+      batchUpdate.avatarUrl = avatarUrl;
       batchUpdate.publicProperties = publicProperties;
       batchUpdate.privateProperties = currentUser.privateProperties;
       currentUser.updateDetails(batchUpdate).then(()=>{
