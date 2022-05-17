@@ -5,7 +5,9 @@ import GetSocial from 'getsocial-react-native-sdk/GetSocial'
 import CustomBanner from '../components/CustomBanner';
 import Communities from 'getsocial-react-native-sdk/Communities';
 import TopicsQuery from 'getsocial-react-native-sdk/models/communities/TopicsQuery';
+import GroupsQuery from 'getsocial-react-native-sdk/models/communities/GroupsQuery'
 import PagingQuery from 'getsocial-react-native-sdk/models/PagingQuery';
+import CustomCard from '../components/CustomCard';
 
 const HomeScreen = ({navigation}) => {
 
@@ -17,17 +19,31 @@ const HomeScreen = ({navigation}) => {
       setName(currentUser.displayName);
       setImageUrl(currentUser.avatarUrl);
     })
-  })
+  }, [name, imageUrl])
 
   const [data, setData] = useState();
   useEffect(()=>{
     const query = TopicsQuery.all();
-      const pagingQuery = new PagingQuery(query);
-      Communities.getTopics(pagingQuery).then((result)=>{
-        var topics = result.entries;
-        setData(topics)
+    const pagingQuery = new PagingQuery(query);
+    Communities.getTopics(pagingQuery).then((result)=>{
+      var topics = result.entries;
+      setData(topics)
+    }).catch((error)=>{
+      //handle errors here
     })
-  })
+  }, [data])
+
+  const [group, setGroup] = useState();
+  useEffect(()=>{
+    const query = GroupsQuery.all();
+    const pagingQuery = new PagingQuery(query);
+    Communities.getGroups(pagingQuery).then((result)=>{
+      var groups = result.entries;
+      setGroup(groups)
+    }).catch((error)=>{
+      //handle errors here
+    })
+  }, [group])
 
   const logout = () => {
     auth().signOut().then(()=>{
@@ -46,7 +62,7 @@ const HomeScreen = ({navigation}) => {
         flex:1,
         alignItems:'center'
     }}>
-      <View style={{width: '100%', padding: 20,flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, backgroundColor: '#AAAAAA', borderRadius: 20}}>
+      <View style={{width: '100%', padding: 20, elevation: 2, flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, backgroundColor: '#AAAAAA', borderRadius: 20}}>
         <View style={{justifyContent: 'center'}}>
           <Text style={{
             fontSize: 25,
@@ -67,6 +83,28 @@ const HomeScreen = ({navigation}) => {
       </View>
       <View style={{width: '100%', height: '100%', alignItems:'center', padding: '5%'}}>
         {data && <CustomBanner data={data} />}
+        <View style={{width: '100%', marginVertical: 12}}>
+          <Text style={{
+            color:'#354354',
+            fontSize: 24
+          }}>
+            Spaces
+          </Text>
+        </View>
+        <ScrollView
+          horizontal={true}
+          contentContainerStyle={{
+            height: 150,
+          }}>
+          {group && (
+            <>
+              <CustomCard data={group[0]} navigation={navigation} />
+              <CustomCard data={group[1]} navigation={navigation} />
+              <CustomCard data={group[2]} navigation={navigation} />
+              <TouchableOpacity onPress={()=>navigation.navigate('ListScreen')} activeOpacity={0.75} style={{justifyContent:'center', alignSelf: 'center', flex:1}}><Text style={{color: '#354354', fontWeight: '600'}}>View All</Text></TouchableOpacity>
+            </>
+          )}
+        </ScrollView>
       </View>
     </ScrollView>
   )
