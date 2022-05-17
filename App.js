@@ -11,6 +11,8 @@ import LoginScreen from './app/screens/login';
 import SignupScreen from './app/screens/signup';
 import HomeScreen from './app/screens/home';
 import OnboardScreen from './app/screens/onboard';
+import ListScreen from './app/screens/list';
+import GroupScreen from './app/screens/group';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -29,6 +31,8 @@ const App = () => {
           <Stack.Screen name="SignupScreen" component={SignupScreen} />
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="OnboardScreen" component={OnboardScreen} />
+          <Stack.Screen name="ListScreen" component={ListScreen} />
+          <Stack.Screen name="GroupScreen" component={GroupScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </ScrollView>
