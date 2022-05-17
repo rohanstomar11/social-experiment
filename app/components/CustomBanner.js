@@ -3,7 +3,7 @@ import React from 'react'
 
 const CustomBanner = ({data}) => {
   return (
-    <TouchableOpacity activeOpacity={0.75} style={{width:'100%', backgroundColor:'#CBC3E3', borderRadius: 12, alignItems: 'center'}} onPress={()=>{Linking.openURL(data[0].settings.properties.url)}}>
+    <TouchableOpacity activeOpacity={0.75} style={{width:'100%', backgroundColor:'#CBC3E3', borderRadius: 12, alignItems: 'center', elevation:2}} onPress={()=>{Linking.openURL(data[0].settings.properties.url)}}>
         <Text style={{fontSize:20, color: '#354354', fontWeight: '700', marginTop:10, textDecorationLine:'underline'}}>
           {data[0].title}
         </Text>
