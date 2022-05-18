@@ -5,7 +5,9 @@ import GroupsQuery from 'getsocial-react-native-sdk/models/communities/GroupsQue
 import PagingQuery from 'getsocial-react-native-sdk/models/PagingQuery';
 import CustomCard from '../components/CustomCard';
 
-const ListScreen = ({navigation}) => {
+const ListScreen = ({route, navigation}) => {
+
+  const {userId} = route.params
 
   const [group, setGroup] = useState();
   useEffect(()=>{
@@ -26,7 +28,7 @@ const ListScreen = ({navigation}) => {
       alignItems: 'center',
     }}>
       {group && group.map((item, key)=>{return(
-        <CustomCard data={item} key={key} navigation={navigation} />
+        <CustomCard data={item} key={key} navigation={navigation} userId={userId} />
       )})}
     </ScrollView>
   )

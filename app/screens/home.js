@@ -12,14 +12,15 @@ import CustomCard from '../components/CustomCard';
 const HomeScreen = ({navigation}) => {
 
   const [name, setName] = useState('User');
-
   const [imageUrl, setImageUrl] = useState();
+  const [userId, setUserId] = useState();
   useEffect(()=>{
     GetSocial.getCurrentUser().then((currentUser)=>{
+      setUserId(currentUser.id);
       setName(currentUser.displayName);
       setImageUrl(currentUser.avatarUrl);
     })
-  }, [name, imageUrl])
+  }, [userId, name, imageUrl])
 
   const [data, setData] = useState();
   useEffect(()=>{
@@ -98,10 +99,10 @@ const HomeScreen = ({navigation}) => {
           }}>
           {group && (
             <>
-              <CustomCard data={group[0]} navigation={navigation} />
-              <CustomCard data={group[1]} navigation={navigation} />
-              <CustomCard data={group[2]} navigation={navigation} />
-              <TouchableOpacity onPress={()=>navigation.navigate('ListScreen')} activeOpacity={0.75} style={{justifyContent:'center', alignSelf: 'center', flex:1}}><Text style={{color: '#354354', fontWeight: '600'}}>View All</Text></TouchableOpacity>
+              <CustomCard data={group[0]} navigation={navigation} userId={userId} />
+              <CustomCard data={group[1]} navigation={navigation} userId={userId} />
+              <CustomCard data={group[2]} navigation={navigation} userId={userId} />
+              <TouchableOpacity onPress={()=>navigation.navigate('ListScreen', {userId: userId})} activeOpacity={0.75} style={{justifyContent:'center', alignSelf: 'center', flex:1}}><Text style={{color: '#354354', fontWeight: '600'}}>View All</Text></TouchableOpacity>
             </>
           )}
         </ScrollView>

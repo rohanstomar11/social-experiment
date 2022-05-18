@@ -41,7 +41,7 @@ export default function CustomInputField({
       })
     }}>
       <View style={styles.iconStyle}>
-        <AntDesign name={iconType} size={25} color="#2D6CDF" />
+        <AntDesign name={iconType || "user"} size={25} color="#2D6CDF" />
       </View>
       <TextInput
         selectionColor={'#2D6CDF'}
