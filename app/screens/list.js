@@ -14,8 +14,7 @@ const ListScreen = ({route, navigation}) => {
     const query = GroupsQuery.all();
     const pagingQuery = new PagingQuery(query);
     Communities.getGroups(pagingQuery).then((result)=>{
-      var groups = result.entries;
-      setGroup(groups)
+      setGroup(result.entries)
     }).catch((error)=>{
       //handle errors here
     })
