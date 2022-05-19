@@ -201,12 +201,12 @@ const GroupScreen = ({route, navigation}) => {
       {feed &&(
         feed.map((item, index)=>{
           if(index<feedIndex){
-            return <CustomPost data={item} key={index} />
+            return <CustomPost data={feed[index]} key={index} />
           }
         })
       )}
       {feed &&
-        feedMaxIndex>3 &&
+        feedMaxIndex>feedIndex &&
           (
             <TouchableOpacity
               onPress={()=> {loadMore()}}

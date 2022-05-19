@@ -37,7 +37,10 @@ const CustomPost = ({data}) => {
 
     const [comments, setComments] = useState(data.commentsCount);
 
-    const [imageUrl, setImageUrl] = useState(JSON.parse(JSON.stringify(data.mediaAttachments[0])).imageUrl);
+    const [imageUrl, setImageUrl] = useState();
+    useEffect(()=>{
+        setImageUrl(JSON.parse(JSON.stringify(data.mediaAttachments[0])).imageUrl);
+    },[])
     
   return (
     <View
