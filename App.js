@@ -25,6 +25,7 @@ Sentry.init({
   attachStacktrace: true,
   environment: 'development',
 });
+import CommentScreen from './app/screens/comment';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -47,6 +48,7 @@ const App = () => {
           <Stack.Screen name="ListScreen" component={ListScreen} />
           <Stack.Screen name="GroupScreen" component={GroupScreen} />
           <Stack.Screen name="PostScreen" component={PostScreen} />
+          <Stack.Screen name="CommentScreen" component={CommentScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </ScrollView>

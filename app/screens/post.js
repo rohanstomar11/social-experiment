@@ -76,13 +76,15 @@ const PostScreen = ({route, navigation}) => {
 
     const postData = () => {
         console.log("posting data...")
-        const action = Action.create('open_url', {'$url': url});
-        const button = ActivityButton.create(title, action);
+            const action = Action.create('open_url', {'$url': url});
+            const button = ActivityButton.create(title, action);
 
         const activityContent = new ActivityContent();
         activityContent.text = text;
         activityContent.button = button;
-        activityContent.attachments.push(MediaAttachment.withImageUrl(imageUrl));
+        if(url){
+            activityContent.attachments.push(MediaAttachment.withImageUrl(imageUrl));
+        }
 
         const target = PostActivityTarget.group(id);
         Communities.postActivity(activityContent, target).then((result)=>{
