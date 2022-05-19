@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Communities from 'getsocial-react-native-sdk/Communities';
 import { COLORS } from '../assets/color';
@@ -21,15 +21,14 @@ const GroupScreen = ({route, navigation}) => {
        setGroup(result);
        result.isFollowedByMe===true ? setGroupMember(true) : setGroupMember(false)
        setMembersCount(result.membersCount)
-     }).catch((error)=>{
-       //Handle Errors
-     })
-  }, [group, groupMember])
+     }), (error)=>{
+       console.error(error)
+     }
+  }, [group, groupMember, membersCount])
 
   const joinGroup = () => {
     const query = JoinGroupQuery.create(id);
     Communities.joinGroup(query).then((member)=>{
-      console.log('User Joined the group');
       setGroupMember(true)
     }, (error) => {
     console.error(error)
@@ -40,7 +39,6 @@ const GroupScreen = ({route, navigation}) => {
     const userIdNew = UserIdList.create([userId])
     const query = RemoveGroupMembersQuery.create(id, userIdNew);
     Communities.removeGroupMembers(query).then((result)=>{
-      console.log('User Removed from the Group');
       setGroupMember(false)
     }, (error) => {
     console.error(error)
@@ -63,21 +61,55 @@ const GroupScreen = ({route, navigation}) => {
       contentContainerStyle={{
       paddingBottom: 20
     }}>
-      {group && <View style={{width:'100%', alignItems: 'center', marginVertical: 20,}}>
-        <Text style={{color: '#354354', fontWeight: '900', fontSize: 30}}>{group.title} Club</Text>
-        <Image source={{uri: group.avatarUrl}} style={{height:150, width:150, marginTop: 20, borderRadius: 15}} />
-        <View style={{marginTop: 8}}>
-          <Text>
-            {group.description}
+      {group &&
+        <View
+          style={{
+            width:'100%',
+            alignItems: 'center',
+            marginVertical: 20,
+          }}>
+          <Text
+            style={{
+              color: '#354354',
+              fontWeight: '900', 
+              fontSize: 30
+            }}>
+            {group.title} Club
           </Text>
-        </View>
-        {groupMember === true ?
-        <View style={{marginTop: 8,
-          backgroundColor: '#AAAAAA',
-          paddingVertical: 8,
-          borderRadius: 12,
-          paddingHorizontal: 30}}>
-          <Text style={{color: '#354354', fontSize: 15}}>Joined!</Text>
+          <Image
+            source={{
+              uri: group.avatarUrl
+            }}
+            style={{
+              height:150,
+              width:150,
+              marginTop: 20,
+              borderRadius: 15
+            }}/>
+          <View 
+            style={{
+              marginTop: 8
+            }}>
+            <Text>
+              {group.description}
+            </Text>
+          </View>
+        {groupMember === true
+        ? <View
+            style={{
+              marginTop: 8,
+              backgroundColor: '#AAAAAA',
+              paddingVertical: 8,
+              borderRadius: 12,
+              paddingHorizontal: 30
+            }}>
+            <Text
+            style={{
+              color: '#354354', 
+              fontSize: 15
+            }}>
+              Joined!
+            </Text>
         </View>
         : <TouchableOpacity
             onPress={()=>{joinGroup()}}
@@ -89,26 +121,79 @@ const GroupScreen = ({route, navigation}) => {
               borderRadius: 12,
               paddingHorizontal: 30
           }}>
-          <Text style={{color: '#FFFFFF', fontSize: 15}}>+ Join</Text>
+          <Text
+            style={{
+              color: '#FFFFFF', 
+              fontSize: 15
+            }}>
+              + Join
+          </Text>
         </TouchableOpacity>}
-        <Text style={{color: '#267967', marginTop: 2}}>Members: {membersCount}</Text>
-        <View style={{width: '100%', marginTop:2, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
-          <Text style={{marginHorizontal: 16, color:'#354354', fontSize: 24, fontWeight:'700'}}>Feed</Text>
-          {groupMember && <CustomButton onPress={()=>{navigation.navigate('PostScreen', {id: id})}} style={{height:39, width:80, marginRight: 10}} title={"POST"} fontsize={12} />}
+        <Text
+          style={{
+            color: '#267967',
+            marginTop: 2
+          }}>
+          Members: {membersCount}
+        </Text>
+        <View
+          style={{
+            width: '100%', 
+            marginTop:2, 
+            flexDirection:'row', 
+            justifyContent:'space-between', 
+            alignItems:'center'
+          }}>
+          <Text
+            style={{
+              marginHorizontal: 16,
+              color:'#354354', 
+              fontSize: 24,
+              fontWeight:'700'
+            }}>
+            Feed
+          </Text>
+          {groupMember &&
+            <CustomButton
+              onPress={()=>{navigation.navigate('PostScreen', {id: id})}}
+              style={{
+                height:39, 
+                width:80, 
+                marginRight: 10
+              }}
+              title={"POST"}
+              fontsize={12}
+            />}
         </View>
       </View>}
-      {!feed && <Text style={{alignSelf:'center', color:'#3036D6', fontSize: 20, fontStyle: 'italic'}}>There are no posts in this group!</Text>}
-      {feed &&
-      (<>
+      {!feed &&
+        <Text
+        style={{
+          alignSelf:'center', 
+          color:'#3036D6', 
+          fontSize: 20, 
+          fontStyle: 'italic'
+        }}>
+          There are no posts in this group!
+        </Text>}
+      {feed &&(
         <CustomPost data={feed[0]} />
-        <CustomPost data={feed[1]} />
-        <CustomPost data={feed[2]} /> 
-      </>)}
+      )}
       {feed &&
         Object.keys(feed).length>3 &&
           (
-            <TouchableOpacity onPress={()=> {console.log("Load More Posts Clicked!")}} activeOpacity={0.6} style={{alignSelf: 'center', alignItems:'center'}}>
-              <Text style={{ color: '#3036D6', fontWeight: '700'}}> 
+            <TouchableOpacity
+              onPress={()=> {console.log("Load More Posts Clicked!")}}
+              activeOpacity={0.6}
+              style={{
+                alignSelf: 'center', 
+                alignItems:'center'
+              }}>
+              <Text
+              style={{
+                color: '#3036D6',
+                fontWeight: '700'
+              }}> 
                 View More
               </Text>
             </TouchableOpacity>
@@ -121,7 +206,6 @@ const GroupScreen = ({route, navigation}) => {
             onPress={()=>{leaveGroup()}}
           />
       )}
-      
     </ScrollView>
   )
 }

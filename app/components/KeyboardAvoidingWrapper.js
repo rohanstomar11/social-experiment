@@ -13,6 +13,7 @@ const KeyboardAvoidingWrapper = ({ children, style }) => {
             style={{ flex: 1, }}
         >
             <ScrollView
+                overScrollMode='never'
                 contentContainerStyle= { style || {
                     justifyContent: 'center',
                     alignItems: 'center',

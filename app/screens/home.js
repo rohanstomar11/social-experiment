@@ -50,6 +50,8 @@ const HomeScreen = ({navigation}) => {
     auth().signOut().then(()=>{
       GetSocial.resetUser().then(()=>{
         navigation.replace('LoginScreen')
+      }, (error)=>{
+        console.error(error)
       })
     })
   }
