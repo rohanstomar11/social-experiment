@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react'
 import CustomButton from '../components/CustomButton'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Communities from 'getsocial-react-native-sdk/Communities'
+import InviteContent from 'getsocial-react-native-sdk/models/invites/InviteContent'
+import Invites from 'getsocial-react-native-sdk/Invites'
 
 const CustomPost = ({data}) => {
 
@@ -41,6 +43,21 @@ const CustomPost = ({data}) => {
     useEffect(()=>{
         setImageUrl(JSON.parse(JSON.stringify(data.mediaAttachments[0])).imageUrl);
     },[])
+    
+    const sharePost = () => {
+        let inviteContent = new InviteContent();
+        inviteContent.text = data.text;
+        inviteContent.mediaAttachment = data.mediaAttachments[0];
+        inviteContent.linkParams.ACTIVITY_ID = data.id;
+
+        Invites.send(
+            inviteContent,
+            'email',
+            () => console.log("Send"),
+            () => console.log("Cancel"),
+            (error) => console.error(error)
+        );
+    }
     
   return (
     <View
@@ -156,7 +173,7 @@ const CustomPost = ({data}) => {
                     <AntDesign
                         name={liked===true?'like1':'like2'}
                         color={'#3036D6'}
-                        size={25}
+                        size={20}
                     />
                 </TouchableOpacity>
                 <Text
@@ -177,7 +194,7 @@ const CustomPost = ({data}) => {
                 <AntDesign
                     name='aliwangwang-o1'
                     color={'#3036D6'}
-                    size={25}
+                    size={20}
                     style={{}} 
                 />
                 <Text
@@ -188,6 +205,29 @@ const CustomPost = ({data}) => {
                     {comments} Comments
                 </Text>
             </TouchableOpacity>
+
+            {/* Uncomment when implementing post share option */}
+            {/* <TouchableOpacity
+                activeOpacity={0.6}
+                onPress={()=>{sharePost()}}
+                style={{
+                    flexDirection:'row',
+                    alignItems: 'flex-end'
+                }}>
+                <AntDesign
+                    name='sharealt'
+                    color={'#3036D6'}
+                    size={20}
+                    style={{}} 
+                />
+                <Text
+                    style={{
+                        marginHorizontal:5,
+                        color: '#3036D6'
+                    }}>
+                    Share
+                </Text>
+            </TouchableOpacity> */}
         </View>
     </View>
   )

@@ -9,6 +9,7 @@ import CustomPost from '../components/CustomPost';
 import CustomButton from '../components/CustomButton';
 import RemoveGroupMembersQuery from 'getsocial-react-native-sdk/models/communities/RemoveGroupMembersQuery';
 import UserIdList from 'getsocial-react-native-sdk/models/UserIdList';
+import AntDesign from 'react-native-vector-icons/AntDesign'
 
 const GroupScreen = ({route, navigation}) => {
   const {id, userId} = route.params;
@@ -75,6 +76,10 @@ const GroupScreen = ({route, navigation}) => {
   const loadMore = () => {
     feedMaxIndex-feedIndex>2 ? setFeedIndex(feedIndex+3) : setFeedIndex(feedMaxIndex)
   }
+
+  const shareGroup = () => {
+        
+  }
   
   return (
     <ScrollView
@@ -90,14 +95,56 @@ const GroupScreen = ({route, navigation}) => {
             alignItems: 'center',
             marginVertical: 20,
           }}>
-          <Text
-            style={{
-              color: '#354354',
-              fontWeight: '900', 
-              fontSize: 30
-            }}>
-            {group.title} Club
-          </Text>
+            <View
+              style={{
+                width: '100%',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
+              <TouchableOpacity
+                onPress={()=>{navigation.goBack()}}
+                activeOpacity={0.6}
+                style={{
+                  marginLeft: 20,
+                  alignSelf:'center',
+                  elevation: 5,
+                  borderRadius: 20,
+                  padding: 5,
+                  backgroundColor: '#F7F3F2'
+                }}>
+                <AntDesign
+                  name='arrowleft'
+                  color={'#2D6CDF'}
+                  size={30}
+                />
+              </TouchableOpacity>
+              <Text
+              style={{
+                color: '#354354',
+                fontWeight: '900', 
+                fontSize: 28,
+              }}>
+                {group.title} Club
+              </Text>
+              <TouchableOpacity
+                onPress={()=>{shareGroup()}}
+                activeOpacity={0.6}
+                style={{
+                  marginRight: 10,
+                  alignSelf:'center',
+                  elevation: 5,
+                  borderRadius: 20,
+                  padding: 5,
+                  backgroundColor: '#F7F3F2',
+                }}>
+                <AntDesign
+                  name='sharealt'
+                  color={'#2D6CDF'}
+                  size={30}
+                />
+              </TouchableOpacity>
+            </View>
           <Image
             source={{
               uri: group.avatarUrl

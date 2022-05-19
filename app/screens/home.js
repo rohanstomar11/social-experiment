@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, ScrollView} from 'react-native'
+import { View, Text, Image, TouchableOpacity, ScrollView, Share } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import auth from '@react-native-firebase/auth'
 import GetSocial from 'getsocial-react-native-sdk/GetSocial'
@@ -8,6 +8,10 @@ import TopicsQuery from 'getsocial-react-native-sdk/models/communities/TopicsQue
 import GroupsQuery from 'getsocial-react-native-sdk/models/communities/GroupsQuery'
 import PagingQuery from 'getsocial-react-native-sdk/models/PagingQuery';
 import CustomCard from '../components/CustomCard';
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import InviteContent from 'getsocial-react-native-sdk/models/invites/InviteContent';
+import MediaAttachment from 'getsocial-react-native-sdk/models/MediaAttachment';
+import Invites from 'getsocial-react-native-sdk/Invites';
 
 const HomeScreen = ({navigation}) => {
 
@@ -56,6 +60,21 @@ const HomeScreen = ({navigation}) => {
     })
   }
 
+  const sendInvite = () => {
+    var inviteContent = new InviteContent();
+    inviteContent.text =  "Welcome to Social Experiment! Download from here \n[APP_INVITE_URL]"
+    inviteContent.subject = 'Social Experiment'
+    inviteContent.mediaAttachment = MediaAttachment.withImageUrl(imageUrl);
+
+    Invites.send(
+      inviteContent,
+      'nativeshare',
+      ()=>console.log("Success"),
+      ()=>console.log("Cancel"),
+      (error)=>console.log(error)
+    );
+  }
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -65,7 +84,7 @@ const HomeScreen = ({navigation}) => {
         flex:1,
         alignItems:'center'
     }}>
-      <View style={{width: '100%', padding: 20, elevation: 2, flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, backgroundColor: '#AAAAAA', borderRadius: 20}}>
+      <View style={{width: '100%', padding: 20, elevation: 2, flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, backgroundColor: '#F0FEFE', borderRadius: 20}}>
         <View style={{justifyContent: 'center'}}>
           <Text style={{
             fontSize: 25,
@@ -109,6 +128,24 @@ const HomeScreen = ({navigation}) => {
           )}
         </ScrollView>
       </View>
+      <TouchableOpacity
+      onPress={()=>sendInvite()}
+        activeOpacity={0.6}
+        style={{
+          position: 'absolute',
+          bottom: 15,
+          right: 15,
+          elevation: 20,
+          borderRadius: 27,
+          padding: 7,
+          backgroundColor: '#F7F3F2',
+        }}>
+        <AntDesign
+          name='sharealt'
+          size={40}
+          color='#2D6CDF'
+          />
+      </TouchableOpacity>
     </ScrollView>
   )
 }
