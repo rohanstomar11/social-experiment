@@ -46,13 +46,21 @@ const GroupScreen = ({route, navigation}) => {
   }
 
   const [feed, setFeed] = useState();
+  const [feedIndex, setFeedIndex] = useState();
+  const [feedMaxIndex, setFeedMaxIndex] = useState();
   useEffect(()=>{
     const query = ActivitiesQuery.inGroup(id);
     const pagingQuery = new PagingQuery(query);
     Communities.getActivities(pagingQuery).then((result)=>{
       Object.keys(result.entries).length!==0? setFeed(result.entries): null
+      Object.keys(result.entries).length<3 ? setFeedIndex(Object.keys(result.entries).length) : setFeedIndex(3)
+      setFeedMaxIndex(Object.keys(result.entries).length);
     })
   },[feed])
+
+  const loadMore = () => {
+    feedMaxIndex-feedIndex>2 ? setFeedIndex(feedIndex+3) : setFeedIndex(feedMaxIndex)
+  }
   
   return (
     <ScrollView
@@ -177,13 +185,17 @@ const GroupScreen = ({route, navigation}) => {
           There are no posts in this group!
         </Text>}
       {feed &&(
-        <CustomPost data={feed[0]} />
+        feed.map((item, index)=>{
+          if(index<feedIndex){
+            return <CustomPost data={feed[0]} key={index} />
+          }
+        })
       )}
       {feed &&
-        Object.keys(feed).length>3 &&
+        feedMaxIndex>3 &&
           (
             <TouchableOpacity
-              onPress={()=> {console.log("Load More Posts Clicked!")}}
+              onPress={()=> {loadMore()}}
               activeOpacity={0.6}
               style={{
                 alignSelf: 'center', 
