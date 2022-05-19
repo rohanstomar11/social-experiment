@@ -39,10 +39,10 @@ const GroupScreen = ({route, navigation}) => {
     const query = ActivitiesQuery.inGroup(id);
     const pagingQuery = new PagingQuery(query);
     Communities.getActivities(pagingQuery).then((result)=>{
-      setFeed(result.entries)
+      Object.keys(result.entries).length!==0? setFeed(result.entries): null
     })
   },[])
-
+  
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
