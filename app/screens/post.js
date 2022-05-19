@@ -9,6 +9,9 @@ import Action from 'getsocial-react-native-sdk/models/actions/Action'
 import ActivityButton from 'getsocial-react-native-sdk/models/communities/ActivityButton'
 import PostActivityTarget from 'getsocial-react-native-sdk/models/communities/PostActivityTarget'
 import Communities from 'getsocial-react-native-sdk/Communities'
+import * as ImagePicker from 'react-native-image-picker'
+import MediaAttachment from 'getsocial-react-native-sdk/models/MediaAttachment'
+import storage from '@react-native-firebase/storage'
 
 const PostScreen = ({route, navigation}) => {
 
@@ -23,6 +26,53 @@ const PostScreen = ({route, navigation}) => {
     
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
+
+
+    const [filePath,setFilePath] = useState();
+    const addImage = () => {
+        const options = {
+            storageOptions: {
+              skipBackup: true,
+              path: 'images',
+            },
+          };
+          ImagePicker.launchImageLibrary(options, res => {
+            console.log('Response = ', res);
+            if (res.didCancel) {
+              console.log('User cancelled image picker');
+            } else if (res.error) {
+              console.log('ImagePicker Error: ', res.error);
+            } else {
+              setFilePath(res.assets[0].uri)
+              uploadImageToStorage(filePath, getFileName(res.assets[0].fileName));
+            }
+        });
+    }
+
+    const getFileName = (name, path) => {
+        if (name != null) {
+          return name;
+        }
+        if (Platform.OS === "ios") {
+            path = "~" + path.substring(path.indexOf("/Documents"));
+        }
+        return path.split("/").pop();
+    }
+
+    const uploadImageToStorage = (path, name) => {
+      let reference = storage().ref('/Posts/'+name);
+      let task = reference.putFile(path);
+      task.then(() => {
+        console.log('Image uploaded to the bucket!');
+        reference.getDownloadURL().then((url)=>{
+          console.log("Received!")
+          setImageUrl(url);
+        })
+      }).catch((e) => {
+          console.log('uploading image error => ', e);
+      });
+    }
 
     const postData = () => {
         console.log("posting data...")
@@ -32,13 +82,14 @@ const PostScreen = ({route, navigation}) => {
         const activityContent = new ActivityContent();
         activityContent.text = text;
         activityContent.button = button;
+        activityContent.attachments.push(MediaAttachment.withImageUrl(imageUrl));
 
         const target = PostActivityTarget.group(id);
         Communities.postActivity(activityContent, target).then((result)=>{
             console.log("Activity successfully Posted!");
             navigation.goBack();
         }, (error)=>{
-            // console.log(error);
+            console.log(error);
         })
     }
 
@@ -130,7 +181,7 @@ const PostScreen = ({route, navigation}) => {
                     marginTop: 20,
                 }}
                 title={"Add Media"}
-                onPress={()=>{addMedia()}}
+                onPress={()=>{addImage()}}
             />
             </View>
         </KeyboardAvoidingWrapper>

@@ -59,8 +59,9 @@ const GroupScreen = ({route, navigation}) => {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
+      overScrollMode={'never'}
       contentContainerStyle={{
-      
+      paddingBottom: 20
     }}>
       {group && <View style={{width:'100%', alignItems: 'center', marginVertical: 20,}}>
         <Text style={{color: '#354354', fontWeight: '900', fontSize: 30}}>{group.title} Club</Text>

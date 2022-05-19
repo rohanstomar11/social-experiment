@@ -37,6 +37,8 @@ const CustomPost = ({data}) => {
 
     const [comments, setComments] = useState(data.commentsCount);
 
+    const [imageUrl, setImageUrl] = useState(JSON.parse(JSON.stringify(data.mediaAttachments[0])).imageUrl);
+
     
   return (
     <View style={{width: '90%', marginHorizontal:'5%', borderRadius: 12, elevation: 4, backgroundColor: '#F0FEFE', padding: 12, borderWidth:1,marginBottom: 10,}}>
@@ -50,8 +52,8 @@ const CustomPost = ({data}) => {
         <View style={{marginTop:5, alignItems: 'center'}}>
             <Text style={{color:'#354354', fontSize: 16,}}>{data.text}</Text>
         </View>
-        {data.source.avatarUrl==='' && (<View style={{width:'100%', alignItems: 'center'}}>
-            <Image source={{uri: data.source.avatarUrl}} style={{ marginVertical: 10, height: 250, width: '80%', borderRadius: 10,}} />
+        {imageUrl && (<View style={{width:'100%', alignItems: 'center'}}>
+            <Image source={{uri: imageUrl}} style={{ marginVertical: 10, height: 250, width: '80%', borderRadius: 10,}} />
         </View>)}
         {data.button!=='' && data.button.action.data.$url!=='' && <CustomButton style={{marginTop: 20}} title={data.button.title} onPress={()=>{Linking.openURL(url)}}/>}
         <View style={{flexDirection: 'row', justifyContent:'space-between', marginTop: 20, marginLeft: 10 }}>

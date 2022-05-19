@@ -15,7 +15,7 @@ const OnboardScreen = ({navigation}) => {
   const [filePath,setFilePath] = useState(FullLogo);
   const publicProperties = {'college': 'DYPSOET'};
   const uid = auth().currentUser.uid
-  const [avatarUrl,setAvatarUrl] = useState(''); //change this method of being hardcoded to gather user avatar url dynamically
+  const [avatarUrl,setAvatarUrl] = useState('');
 
   const selectImage = () => {
     const options = {
@@ -40,7 +40,7 @@ const OnboardScreen = ({navigation}) => {
   }
 
   const uploadImageToStorage = (path, name) => {
-    let reference = storage().ref(name);
+    let reference = storage().ref('/Profile/'+name);
     let task = reference.putFile(path);
     task.then(() => {
       console.log('Image uploaded to the bucket!');
@@ -71,7 +71,7 @@ const OnboardScreen = ({navigation}) => {
       batchUpdate.publicProperties = publicProperties;
       batchUpdate.privateProperties = currentUser.privateProperties;
       currentUser.updateDetails(batchUpdate).then(()=>{
-        navigation.navigate('HomeScreen');
+        navigation.replace('HomeScreen');
       });
     })
   }
