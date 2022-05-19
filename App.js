@@ -14,6 +14,7 @@ import OnboardScreen from './app/screens/onboard';
 import ListScreen from './app/screens/list';
 import GroupScreen from './app/screens/group';
 import PostScreen from './app/screens/post';
+import CommentScreen from './app/screens/comment';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -35,6 +36,7 @@ const App = () => {
           <Stack.Screen name="ListScreen" component={ListScreen} />
           <Stack.Screen name="GroupScreen" component={GroupScreen} />
           <Stack.Screen name="PostScreen" component={PostScreen} />
+          <Stack.Screen name="CommentScreen" component={CommentScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </ScrollView>

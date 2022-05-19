@@ -248,7 +248,7 @@ const GroupScreen = ({route, navigation}) => {
       {feed &&(
         feed.map((item, index)=>{
           if(index<feedIndex){
-            return <CustomPost data={feed[index]} key={index} />
+            return <CustomPost data={feed[index]} key={index} navigation={navigation} showComments={true} />
           }
         })
       )}

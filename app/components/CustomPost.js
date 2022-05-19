@@ -6,7 +6,7 @@ import Communities from 'getsocial-react-native-sdk/Communities'
 import InviteContent from 'getsocial-react-native-sdk/models/invites/InviteContent'
 import Invites from 'getsocial-react-native-sdk/Invites'
 
-const CustomPost = ({data}) => {
+const CustomPost = ({navigation, data, showComments}) => {
 
     const created = new Date(data.createdAt*1000)
     const date = created.getDate();
@@ -46,13 +46,13 @@ const CustomPost = ({data}) => {
     
     const sharePost = () => {
         let inviteContent = new InviteContent();
-        inviteContent.text = data.text;
+        inviteContent.text = data.text+" Invite Link: [APP_INVITE_URL]";
         inviteContent.mediaAttachment = data.mediaAttachments[0];
         inviteContent.linkParams.ACTIVITY_ID = data.id;
 
         Invites.send(
             inviteContent,
-            'email',
+            'nativeshare',
             () => console.log("Send"),
             () => console.log("Cancel"),
             (error) => console.error(error)
@@ -184,30 +184,29 @@ const CustomPost = ({data}) => {
                     {likes} Likes
                 </Text>
             </View>
-            <TouchableOpacity
-                activeOpacity={0.6}
-                onPress={()=>{console.log("Comment Sections")}}
-                style={{
-                    flexDirection:'row',
-                    alignItems: 'flex-end'
-                }}>
-                <AntDesign
-                    name='aliwangwang-o1'
-                    color={'#3036D6'}
-                    size={20}
-                    style={{}} 
-                />
-                <Text
+            {showComments &&
+                <TouchableOpacity
+                    activeOpacity={0.6}
+                    onPress={()=>{navigation.navigate('CommentScreen', {data: data})}}
                     style={{
-                        marginHorizontal:5,
-                        color: '#3036D6'
+                        flexDirection:'row',
+                        alignItems: 'flex-end'
                     }}>
-                    {comments} Comments
-                </Text>
-            </TouchableOpacity>
-
-            {/* Uncomment when implementing post share option */}
-            {/* <TouchableOpacity
+                    <AntDesign
+                        name='aliwangwang-o1'
+                        color={'#3036D6'}
+                        size={20}
+                        style={{}} 
+                    />
+                    <Text
+                        style={{
+                            marginHorizontal:5,
+                            color: '#3036D6'
+                        }}>
+                        {comments} Comments
+                    </Text>
+                </TouchableOpacity>}
+            <TouchableOpacity
                 activeOpacity={0.6}
                 onPress={()=>{sharePost()}}
                 style={{
@@ -227,7 +226,7 @@ const CustomPost = ({data}) => {
                     }}>
                     Share
                 </Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
         </View>
     </View>
   )
