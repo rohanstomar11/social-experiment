@@ -7,6 +7,8 @@ import ActivitiesQuery from 'getsocial-react-native-sdk/models/communities/Activ
 import PagingQuery from 'getsocial-react-native-sdk/models/PagingQuery';
 import CustomPost from '../components/CustomPost';
 import CustomButton from '../components/CustomButton';
+import RemoveGroupMembersQuery from 'getsocial-react-native-sdk/models/communities/RemoveGroupMembersQuery';
+import UserIdList from 'getsocial-react-native-sdk/models/UserIdList';
 
 const GroupScreen = ({route, navigation}) => {
   const {id, userId} = route.params;
@@ -34,6 +36,17 @@ const GroupScreen = ({route, navigation}) => {
     })
   }
 
+  const leaveGroup = () => {
+    const userIdNew = UserIdList.create([userId])
+    const query = RemoveGroupMembersQuery.create(id, userIdNew);
+    Communities.removeGroupMembers(query).then((result)=>{
+      console.log('User Removed from the Group');
+      setGroupMember(false)
+    }, (error) => {
+    console.error(error)
+    })
+  }
+
   const [feed, setFeed] = useState();
   useEffect(()=>{
     const query = ActivitiesQuery.inGroup(id);
@@ -47,7 +60,7 @@ const GroupScreen = ({route, navigation}) => {
     <ScrollView
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
-      flex:1,
+      
     }}>
       {group && <View style={{width:'100%', alignItems: 'center', marginVertical: 20,}}>
         <Text style={{color: '#354354', fontWeight: '900', fontSize: 30}}>{group.title} Club</Text>
@@ -83,11 +96,29 @@ const GroupScreen = ({route, navigation}) => {
           <CustomButton onPress={()=>{console.log("Add Post Clicked!")}} style={{height:39, width:80, marginRight: 10}} title={"POST"} fontsize={12} />
         </View>
       </View>}
-      {feed && (<>
-        <CustomPost data={feed[0]} />
-        {/* <CustomPost data={feed[0]} /> */}
-      </>
+      {!feed && <Text style={{alignSelf:'center', color:'#3036D6', fontSize: 20, fontStyle: 'italic'}}>There are no posts in this group!</Text>}
+      {feed &&
+      (<>
+        <CustomPost data={feed[0]} /> 
+      </>)}
+      {feed &&
+        Object.keys(feed).length<3 &&
+          (
+            <TouchableOpacity onPress={()=> {console.log("Load More Posts Clicked!")}} activeOpacity={0.6} style={{alignSelf: 'center', alignItems:'center'}}>
+              <Text style={{ color: '#3036D6', fontWeight: '700'}}> 
+                View More
+              </Text>
+            </TouchableOpacity>
       )}
+      {groupMember===true && (
+          <CustomButton
+            title={"Leave Group!"}
+            colors={['#B31217', '#E52D27']}
+            style={{marginTop: 20, width: '45%', alignSelf:'center', }}
+            onPress={()=>{leaveGroup()}}
+          />
+      )}
+      
     </ScrollView>
   )
 }
