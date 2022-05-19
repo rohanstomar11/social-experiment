@@ -13,6 +13,7 @@ export default function CustomInputField({
   hide,
   top,
   iconType,
+  multiline
 }) {
   return (
     <View style={{
@@ -50,6 +51,7 @@ export default function CustomInputField({
         onChangeText={onchange}
         placeholder={placeholder}
         secureTextEntry={hide}
+        multiline={multiline}
       />
     </View>
   );

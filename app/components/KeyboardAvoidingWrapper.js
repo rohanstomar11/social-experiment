@@ -7,13 +7,13 @@ import {
     Platform
 } from 'react-native';
 
-const KeyboardAvoidingWrapper = ({ children }) => {
+const KeyboardAvoidingWrapper = ({ children, style }) => {
     return (
         <KeyboardAvoidingView
             style={{ flex: 1, }}
         >
             <ScrollView
-                contentContainerStyle={{
+                contentContainerStyle= { style || {
                     justifyContent: 'center',
                     alignItems: 'center',
                     paddingTop: "20%"

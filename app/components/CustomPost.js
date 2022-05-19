@@ -14,7 +14,7 @@ const CustomPost = ({data}) => {
     const mins = created.getMinutes();
     const url = data.button!==''? data.button.action.data.$url : null;
 
-    const [likes, setLikes] = useState(data.reactionsCount.like);
+    const [likes, setLikes] = useState(data.reactionsCount.like || 0);
     const [liked, setLiked] = useState(data.myReactions[0]==="like"?true:false);
 
     const likePost = () => {
@@ -53,7 +53,7 @@ const CustomPost = ({data}) => {
         {data.source.avatarUrl==='' && (<View style={{width:'100%', alignItems: 'center'}}>
             <Image source={{uri: data.source.avatarUrl}} style={{ marginVertical: 10, height: 250, width: '80%', borderRadius: 10,}} />
         </View>)}
-        {data.button!=='' && <CustomButton style={{marginTop: 20}} title={data.button.title} onPress={()=>{Linking.openURL(url)}}/>}
+        {data.button!=='' && data.button.action.data.$url!=='' && <CustomButton style={{marginTop: 20}} title={data.button.title} onPress={()=>{Linking.openURL(url)}}/>}
         <View style={{flexDirection: 'row', justifyContent:'space-between', marginTop: 20, marginLeft: 10 }}>
             <View style={{flexDirection:'row', alignItems: 'flex-end'}}>
                 <TouchableOpacity activeOpacity={0.6} onPress={()=>{liked===true? unlikePost() : likePost()}}>

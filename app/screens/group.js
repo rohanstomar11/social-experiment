@@ -54,7 +54,7 @@ const GroupScreen = ({route, navigation}) => {
     Communities.getActivities(pagingQuery).then((result)=>{
       Object.keys(result.entries).length!==0? setFeed(result.entries): null
     })
-  },[])
+  },[feed])
   
   return (
     <ScrollView
@@ -93,16 +93,18 @@ const GroupScreen = ({route, navigation}) => {
         <Text style={{color: '#267967', marginTop: 2}}>Members: {membersCount}</Text>
         <View style={{width: '100%', marginTop:2, flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
           <Text style={{marginHorizontal: 16, color:'#354354', fontSize: 24, fontWeight:'700'}}>Feed</Text>
-          <CustomButton onPress={()=>{console.log("Add Post Clicked!")}} style={{height:39, width:80, marginRight: 10}} title={"POST"} fontsize={12} />
+          {groupMember && <CustomButton onPress={()=>{navigation.navigate('PostScreen', {id: id})}} style={{height:39, width:80, marginRight: 10}} title={"POST"} fontsize={12} />}
         </View>
       </View>}
       {!feed && <Text style={{alignSelf:'center', color:'#3036D6', fontSize: 20, fontStyle: 'italic'}}>There are no posts in this group!</Text>}
       {feed &&
       (<>
-        <CustomPost data={feed[0]} /> 
+        <CustomPost data={feed[0]} />
+        <CustomPost data={feed[1]} />
+        <CustomPost data={feed[2]} /> 
       </>)}
       {feed &&
-        Object.keys(feed).length<3 &&
+        Object.keys(feed).length>3 &&
           (
             <TouchableOpacity onPress={()=> {console.log("Load More Posts Clicked!")}} activeOpacity={0.6} style={{alignSelf: 'center', alignItems:'center'}}>
               <Text style={{ color: '#3036D6', fontWeight: '700'}}> 
