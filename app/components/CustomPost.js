@@ -39,9 +39,15 @@ const CustomPost = ({navigation, data, showComments}) => {
 
     const [comments, setComments] = useState(data.commentsCount);
 
+
     const [imageUrl, setImageUrl] = useState();
     useEffect(()=>{
-        setImageUrl(JSON.parse(JSON.stringify(data.mediaAttachments[0])).imageUrl);
+        try{
+            setImageUrl(JSON.parse(JSON.stringify(data.mediaAttachments[0])).imageUrl);
+            
+        } catch {
+            setImageUrl(false)
+        }
     },[])
     
     const sharePost = () => {
