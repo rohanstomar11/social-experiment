@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity} from 'react-native'
+import { View, Text, TouchableOpacity, Platform} from 'react-native'
 import React, {useState} from 'react'
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper'
 import CustomInputField from '../components/CustomInputField'
@@ -29,7 +29,7 @@ const PostScreen = ({route, navigation}) => {
     const [imageUrl, setImageUrl] = useState('');
 
 
-    const [filePath,setFilePath] = useState();
+    const [filePath, setFilePath] = useState();
     const addImage = () => {
         const options = {
             storageOptions: {
@@ -44,8 +44,9 @@ const PostScreen = ({route, navigation}) => {
             } else if (res.error) {
               console.log('ImagePicker Error: ', res.error);
             } else {
-              setFilePath(res.assets[0].uri)
-              uploadImageToStorage(filePath, getFileName(res.assets[0].fileName));
+                const path = res.assets[0].uri.toString()
+                uploadImageToStorage(path, getFileName(res.assets[0].fileName));
+                setFilePath(path)
             }
         });
     }
@@ -76,13 +77,13 @@ const PostScreen = ({route, navigation}) => {
 
     const postData = () => {
         console.log("posting data...")
-            const action = Action.create('open_url', {'$url': url});
-            const button = ActivityButton.create(title, action);
+        const action = Action.create('open_url', {'$url': url});
+        const button = ActivityButton.create(title, action);
 
         const activityContent = new ActivityContent();
         activityContent.text = text;
         activityContent.button = button;
-        if(url){
+        if(imageUrl){
             activityContent.attachments.push(MediaAttachment.withImageUrl(imageUrl));
         }
 
