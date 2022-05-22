@@ -15,6 +15,7 @@ import ListScreen from './app/screens/list';
 import GroupScreen from './app/screens/group';
 import PostScreen from './app/screens/post';
 import CommentScreen from './app/screens/comment';
+import ProfileScreen from './app/screens/profile';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -33,6 +34,7 @@ const App = () => {
           <Stack.Screen name="SignupScreen" component={SignupScreen} />
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="OnboardScreen" component={OnboardScreen} />
+          <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
           <Stack.Screen name="ListScreen" component={ListScreen} />
           <Stack.Screen name="GroupScreen" component={GroupScreen} />
           <Stack.Screen name="PostScreen" component={PostScreen} />
