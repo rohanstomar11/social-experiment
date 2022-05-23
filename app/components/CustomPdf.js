@@ -10,7 +10,7 @@ const CustomPdf = ({navigation, data}) => {
 
   return (
     <View style={{flex:1,
-        backgroundColor: '#3036D6', paddingBottom: 5}}>
+        backgroundColor: '#F8FBFD', paddingBottom: 5}}>
         <View style={{
           width: '100%',
           height: 50,
@@ -25,7 +25,7 @@ const CustomPdf = ({navigation, data}) => {
         >
             <AntDesign
                 name={'arrowleft'}
-                color={'#F0FEFE'}
+                color={'#3036D6'}
                 size={25}
             />
         </TouchableOpacity>
@@ -41,22 +41,23 @@ const CustomPdf = ({navigation, data}) => {
             <Text
                 style={{
                     fontSize: 25,
-                    color: '#F0FEFE',
+                    color: '#3036D6',
+                    fontWeight: '600'
                 }}>
                 {data.title}
             </Text>
-            <View style={{borderRadius: 10, backgroundColor: '#F0FEFE', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 5}}>
+            <View style={{borderRadius: 12, backgroundColor: '#3036D6', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 5, paddingVertical: 2}}>
                 <Text
                     style={{
                         fontSize: 15,
-                        color: '#354354',
+                        color: '#F8FBFD',
                         fontWeight: '500'
                     }}>
                     {current}/{total}
                 </Text>
             </View>
         </View>
-        <TouchableOpacity
+        {/* <TouchableOpacity
             activeOpacity={0.6}
             onPress={()=>{}}
             style={{
@@ -69,7 +70,7 @@ const CustomPdf = ({navigation, data}) => {
                 color={'#F0FEFE'}
                 size={25}
             />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         </View>
         <Pdf
           source={{uri: data.url}}
