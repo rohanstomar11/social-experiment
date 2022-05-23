@@ -12,10 +12,14 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import InviteContent from 'getsocial-react-native-sdk/models/invites/InviteContent';
 import MediaAttachment from 'getsocial-react-native-sdk/models/MediaAttachment';
 import Invites from 'getsocial-react-native-sdk/Invites';
+import { CONFIG } from '../utility/config';
+import { StreamChat } from 'stream-chat'
+
+const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
 const HomeScreen = ({navigation}) => {
 
-  const [name, setName] = useState('User');
+  const [name, setName] = useState();
   const [imageUrl, setImageUrl] = useState();
   const [userId, setUserId] = useState();
   useEffect(()=>{
@@ -23,8 +27,21 @@ const HomeScreen = ({navigation}) => {
       setUserId(currentUser.id);
       setName(currentUser.displayName);
       setImageUrl(currentUser.avatarUrl);
+      client.connectUser({
+        id: currentUser.id,
+        name: currentUser.displayName,
+        image: currentUser.avatarUrl,     
+      },
+      client.devToken(currentUser.id)).
+      then(()=>{
+        console.log('GetStream: User Connected')
+      }),
+      (error)=>{
+        console.log(error);
+      }
     })
-  }, [userId, name, imageUrl])
+    // return ()=>client.disconnectUser();
+  }, [])
 
   const [data, setData] = useState();
   useEffect(()=>{
@@ -59,6 +76,10 @@ const HomeScreen = ({navigation}) => {
       })
     })
   }
+
+  useEffect(()=>{
+    
+  },[])
 
   const sendInvite = () => {
     var inviteContent = new InviteContent();
