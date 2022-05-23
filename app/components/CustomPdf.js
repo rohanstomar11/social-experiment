@@ -57,20 +57,6 @@ const CustomPdf = ({navigation, data}) => {
                 </Text>
             </View>
         </View>
-        {/* <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={()=>{}}
-            style={{
-                height: '100%',
-                justifyContent: 'center', 
-                marginRight: 15
-            }}>
-            <AntDesign
-                name={'download'}
-                color={'#F0FEFE'}
-                size={25}
-            />
-        </TouchableOpacity> */}
         </View>
         <Pdf
           source={{uri: data.url}}
@@ -90,7 +76,7 @@ const CustomPdf = ({navigation, data}) => {
           style={{
             flex:1,
             marginHorizontal: 5,
-            backgroundColor: '#3036D6'
+            backgroundColor: '#F8FBFD'
           }}
         />
       </View>

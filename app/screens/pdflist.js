@@ -1,6 +1,7 @@
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import CustomButton from '../components/CustomButton'
 
 const PdfListScreen = ({navigation}) => {
 
@@ -59,6 +60,7 @@ const PdfListScreen = ({navigation}) => {
               style={{
                   fontSize: 25,
                   color: '#3036D6',
+                  fontWeight: '600'
               }}>
               PDF List
           </Text>
@@ -80,28 +82,19 @@ const PdfListScreen = ({navigation}) => {
     </View>
     {data.map((item, index)=>{
       return (
-      <TouchableOpacity 
-        activeOpacity={0.75}
-        onPress={()=>{ navigation.navigate('PdfScreen', {data: item}) }}
-        style={{
-          backgroundColor: '#3036D6', 
-          width: '80%', 
-          alignItems: 'center', 
-          justifyContent: 'center', 
-          marginVertical:12, 
-          paddingVertical: 10, 
-          borderRadius: 12
-        }}
-        key={index}>
-        <Text
-          style={{
-            fontSize: 20,
-            color: '#F0FEFE',
-            fontWeight: '600'
-          }}>
-          {item.title}
-        </Text>
-      </TouchableOpacity>)
+        <CustomButton
+          onPress={()=>{navigation.navigate('PdfScreen', {data:item})}} 
+          key={index}
+          title={item.title}
+          style={{ 
+            width: '80%', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            marginVertical:12, 
+            borderRadius: 12,
+            elevation: 5
+          }} />
+      )
     })
     }
     </ScrollView>
