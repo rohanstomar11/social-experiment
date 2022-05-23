@@ -15,6 +15,8 @@ import ListScreen from './app/screens/list';
 import GroupScreen from './app/screens/group';
 import PostScreen from './app/screens/post';
 import CommentScreen from './app/screens/comment';
+import PdfListScreen from './app/screens/pdflist';
+import PdfScreen from './app/screens/pdf';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -37,6 +39,8 @@ const App = () => {
           <Stack.Screen name="GroupScreen" component={GroupScreen} />
           <Stack.Screen name="PostScreen" component={PostScreen} />
           <Stack.Screen name="CommentScreen" component={CommentScreen} />
+          <Stack.Screen name="PdfScreen" component={PdfScreen} />
+          <Stack.Screen name="PdfListScreen" component={PdfListScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </ScrollView>

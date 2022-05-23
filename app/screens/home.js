@@ -75,6 +75,10 @@ const HomeScreen = ({navigation}) => {
     );
   }
 
+  const showPdf = () => {
+    navigation.navigate('PdfListScreen');
+  }
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -142,6 +146,24 @@ const HomeScreen = ({navigation}) => {
         }}>
         <AntDesign
           name='sharealt'
+          size={40}
+          color='#2D6CDF'
+          />
+      </TouchableOpacity>
+      <TouchableOpacity
+      onPress={()=>showPdf()}
+        activeOpacity={0.6}
+        style={{
+          position: 'absolute',
+          bottom: 15,
+          left: 15,
+          elevation: 20,
+          borderRadius: 27,
+          padding: 7,
+          backgroundColor: '#F7F3F2',
+        }}>
+        <AntDesign
+          name='folder1'
           size={40}
           color='#2D6CDF'
           />

@@ -23,8 +23,10 @@
     "getsocial-react-native-sdk": "^7.9.2",
     "react": "17.0.2",
     "react-native": "0.68.1",
+    "react-native-blob-util": "^0.16.0",
     "react-native-image-picker": "^4.8.3",
     "react-native-linear-gradient": "^2.5.6",
+    "react-native-pdf": "^6.5.0",
     "react-native-safe-area-context": "^4.2.5",
     "react-native-screens": "^3.13.1",
     "react-native-vector-icons": "^9.1.0"
