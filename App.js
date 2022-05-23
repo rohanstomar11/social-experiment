@@ -15,6 +15,7 @@ import ListScreen from './app/screens/list';
 import GroupScreen from './app/screens/group';
 import PostScreen from './app/screens/post';
 import CommentScreen from './app/screens/comment';
+import CreateGroupScreen from './app/screens/creategroup';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -37,6 +38,7 @@ const App = () => {
           <Stack.Screen name="GroupScreen" component={GroupScreen} />
           <Stack.Screen name="PostScreen" component={PostScreen} />
           <Stack.Screen name="CommentScreen" component={CommentScreen} />
+          <Stack.Screen name="CreateGroupScreen" component={CreateGroupScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </ScrollView>

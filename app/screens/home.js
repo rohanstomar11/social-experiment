@@ -13,7 +13,8 @@ import InviteContent from 'getsocial-react-native-sdk/models/invites/InviteConte
 import MediaAttachment from 'getsocial-react-native-sdk/models/MediaAttachment';
 import Invites from 'getsocial-react-native-sdk/Invites';
 import { CONFIG } from '../utility/config';
-import { StreamChat } from 'stream-chat'
+import { StreamChat } from 'stream-chat';
+import CustomButton from '../components/CustomButton'
 
 const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
@@ -22,11 +23,18 @@ const HomeScreen = ({navigation}) => {
   const [name, setName] = useState();
   const [imageUrl, setImageUrl] = useState();
   const [userId, setUserId] = useState();
+  const [admin, setAdmin] = useState(true);
   useEffect(()=>{
     GetSocial.getCurrentUser().then((currentUser)=>{
       setUserId(currentUser.id);
       setName(currentUser.displayName);
       setImageUrl(currentUser.avatarUrl);
+      currentUser.privateProperties.admin === 'true' ? setAdmin(true) : setAdmin(false)
+    })
+  }, [name, imageUrl, userId, admin])
+
+  useEffect(()=>{
+    GetSocial.getCurrentUser().then((currentUser)=>{
       client.connectUser({
         id: currentUser.id,
         name: currentUser.displayName,
@@ -40,7 +48,7 @@ const HomeScreen = ({navigation}) => {
         console.log(error);
       }
     })
-    // return ()=>client.disconnectUser();
+    return ()=>client.disconnectUser();
   }, [])
 
   const [data, setData] = useState();
@@ -126,13 +134,16 @@ const HomeScreen = ({navigation}) => {
       </View>
       <View style={{width: '100%', height: '100%', alignItems:'center', padding: '5%'}}>
         {data && <CustomBanner data={data} />}
-        <View style={{width: '100%', marginVertical: 12}}>
-          <Text style={{
+        <View style={{width: '100%', marginVertical: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+        <Text style={{
             color:'#354354',
             fontSize: 24
           }}>
             Spaces
           </Text>
+          {admin && <CustomButton
+            title={"Create"}
+            onPress={()=>{navigation.navigate('CreateGroupScreen', {userId: userId})}}/> }
         </View>
         <ScrollView
           horizontal={true}
