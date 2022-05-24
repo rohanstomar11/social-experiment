@@ -44,6 +44,8 @@ const ProfileScreen = ({ navigation }) => {
             }, (error) => {
                 console.error(error)
             })
+        },(error)=>{
+            console.error(error);
         })
     }
 

@@ -16,7 +16,7 @@ const ListScreen = ({route, navigation}) => {
     Communities.getGroups(pagingQuery).then((result)=>{
       setGroup(result.entries)
     }).catch((error)=>{
-      //handle errors here
+      console.error(error);
     })
   }, [group])
 

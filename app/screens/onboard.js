@@ -76,6 +76,8 @@ const OnboardScreen = ({ navigation }) => {
       reference.getDownloadURL().then((url) => {
         console.log("Received!")
         setAvatarUrl(url);
+      },(error)=>{
+        console.error(error);
       })
     }).catch((e) => {
       console.log('uploading image error => ', e);
@@ -101,7 +103,11 @@ const OnboardScreen = ({ navigation }) => {
       batchUpdate.privateProperties = privateProperties;
       currentUser.updateDetails(batchUpdate).then(() => {
         navigation.replace('HomeScreen');
+      },(error)=>{
+        console.error(error);
       });
+    },(error)=>{
+      console.error(error);
     })
   }
 

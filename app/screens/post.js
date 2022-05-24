@@ -69,6 +69,8 @@ const PostScreen = ({route, navigation}) => {
         reference.getDownloadURL().then((url)=>{
           console.log("Received!")
           setImageUrl(url);
+        },(error)=>{
+            console.error(error);
         })
       }).catch((e) => {
           console.log('uploading image error => ', e);

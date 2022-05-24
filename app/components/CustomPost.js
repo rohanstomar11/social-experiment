@@ -44,7 +44,6 @@ const CustomPost = ({navigation, data, showComments}) => {
     useEffect(()=>{
         try{
             setImageUrl(JSON.parse(JSON.stringify(data.mediaAttachments[0])).imageUrl);
-            
         } catch {
             setImageUrl(false)
         }

@@ -27,8 +27,11 @@ const SignupScreen = ({ navigation }) => {
               navigation.replace('OnboardScreen');
             },
             (conflictUser) => {
-              GetSocial.switchUser(customIdentity);
-              navigation.replace('OnboardScreen');
+              GetSocial.switchUser(customIdentity).then(()=>{
+                navigation.replace('OnboardScreen');
+              },(error)=>{
+                console.error(error);
+              });
             },
             (error) => {
               console.log('failed' + error);

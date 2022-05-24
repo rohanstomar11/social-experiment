@@ -28,6 +28,8 @@ const LoginScreen = ({ navigation }) => {
             (conflictUser) => {
               GetSocial.switchUser(customIdentity).then(() => {
                 navigation.replace('HomeScreen');
+              },(error)=>{
+                console.error(error);
               });
             },
             (error) => {

@@ -31,6 +31,8 @@ const HomeScreen = ({navigation}) => {;
       setName(currentUser.displayName);
       setImageUrl(currentUser.avatarUrl);
       currentUser.privateProperties.admin === 'true' ? setAdmin(true) : setAdmin(false)
+    },(error)=>{
+      console.error(error);
     })
   }, [name, imageUrl, userId, admin])
 
@@ -49,6 +51,8 @@ const HomeScreen = ({navigation}) => {;
         (error)=>{
           console.log(error);
         }
+      },(error)=>{
+        console.error(error);
       })
     }
     setupClient();
@@ -64,7 +68,7 @@ const HomeScreen = ({navigation}) => {;
       var topics = result.entries;
       setData(topics)
     }).catch((error) => {
-      //handle errors here
+      console.error(error)
     })
   }, [data])
 
@@ -76,7 +80,7 @@ const HomeScreen = ({navigation}) => {;
       var groups = result.entries;
       setGroup(groups)
     }).catch((error) => {
-      //handle errors here
+      console.error(error);
     })
   }, [group])
 
