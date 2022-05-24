@@ -1,4 +1,4 @@
-import { View, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import CustomInputField from '../components/CustomInputField'
 import CustomButton from '../components/CustomButton'
@@ -10,15 +10,41 @@ import storage from '@react-native-firebase/storage'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { COLORS } from '../assets/color'
+import RadioForm from 'react-native-simple-radio-button';
 
 const OnboardScreen = ({ navigation }) => {
 
   const [name, setName] = useState();
+  const [bio, setBio] = useState();
   const [number, setNumber] = useState();
+  const [uniqueID, setUniqueID] = useState();
   const [filePath, setFilePath] = useState();
-  const publicProperties = { 'college': 'DYPSOET', 'mobile number': number };
+  const [graduation, setGraduation] = useState('UG');
+  const [year, setYear] = useState('FE');
+  const [branch, setBranch] = useState();
+  const publicProperties = { 'college': 'DYPSOET', 'mobile number': number, 'graduation': graduation, 'year': year, 'branch': branch, 'bio': bio };
+  const privateProperties = { 'admin': 'false', 'Uniqie ID': uniqueID };
   const uid = auth().currentUser.uid
   const [avatarUrl, setAvatarUrl] = useState('');
+
+
+  const graduationOptions = [
+    { label: 'UG', value: 'UG' },
+    { label: 'PG', value: 'PG' },
+  ];
+
+  const ugYearOptions = [
+    { label: 'FE', value: 'FE' },
+    { label: 'SE', value: 'SE' },
+    { label: 'TE', value: 'TE' },
+    { label: 'BE', value: 'BE' },
+  ];
+
+  const pgYearOptions = [
+    { label: 'FE', value: 'FE' },
+    { label: 'SE', value: 'SE' },
+  ];
+
 
   const selectImage = () => {
     const options = {
@@ -72,7 +98,7 @@ const OnboardScreen = ({ navigation }) => {
       batchUpdate.displayName = name;
       batchUpdate.avatarUrl = avatarUrl;
       batchUpdate.publicProperties = publicProperties;
-      batchUpdate.privateProperties = currentUser.privateProperties;
+      batchUpdate.privateProperties = privateProperties;
       currentUser.updateDetails(batchUpdate).then(() => {
         navigation.replace('HomeScreen');
       });
@@ -81,7 +107,7 @@ const OnboardScreen = ({ navigation }) => {
 
   return (
     <ScrollView style={{ flex: 1 }}>
-      <View style={{ flex: 1, alignItems: 'center', paddingVertical: '10%' }}>
+      <View style={{ flex: 1, alignItems: 'center', paddingVertical: '10%'}}>
         <TouchableOpacity style={{ width: 100, height: 100, borderRadius: 50, justifyContent: 'center', alignItems: 'center' }} activeOpacity={0.6} onPress={() => { selectImage() }}>
           {filePath ?
             <Image
@@ -110,11 +136,119 @@ const OnboardScreen = ({ navigation }) => {
           onchange={(text) => setName(text)}
         />
         <CustomInputField
+        iconType={'form'}
+          top={20}
+          placeholder={'Bio'}
+          onchange={(text) => setBio(text)}
+          multiline={true}
+        />
+        <CustomInputField
           iconType="mobile1"
           placeholder={"Mobile Number"}
           top={20}
+          maxLength={10}
           keyboard={'numeric'}
           onchange={(text) => { setNumber(text) }}
+        />
+        <CustomInputField
+          iconType="idcard"
+          placeholder={"Unique ID"}
+          top={20}
+          autoCapitalize={'characters'}
+          maxLength={10}
+          onchange={(text) => { setUniqueID(text) }}
+        />
+        <View style={{
+          marginTop: 20,
+          alignSelf: 'flex-start',
+          paddingHorizontal: 25
+        }}>
+          <Text style={{
+            fontSize: 20,
+            fontWeight: '500',
+            color: COLORS.black,
+          }}>
+            Select your graduation?
+          </Text>
+          <RadioForm
+            style={{
+              marginTop: 10,
+              width: '100%',
+              justifyContent: 'space-around',
+            }}
+            buttonColor={COLORS.link}
+            formHorizontal={true}
+            radio_props={graduationOptions}
+            initial={0} //initial value of this group
+            onPress={(value) => {
+              setGraduation(value);
+            }} //if the user changes options, set the new value
+          />
+        </View>
+        {graduation == 'UG'
+          ?
+          <View style={{
+            marginTop: 20,
+            alignSelf: 'flex-start',
+            paddingHorizontal: 25
+          }}>
+            <Text style={{
+              fontSize: 20,
+              fontWeight: '500',
+              color: COLORS.black,
+            }}>
+              Select Year?
+            </Text>
+            <RadioForm
+              style={{
+                marginTop: 10,
+                width: '100%',
+                justifyContent: 'space-around',
+              }}
+              buttonColor={COLORS.link}
+              formHorizontal={true}
+              radio_props={ugYearOptions}
+              initial={0} //initial value of this group
+              onPress={(value) => {
+                setYear(value);
+              }} //if the user changes options, set the new value
+            />
+          </View>
+          :
+          <View style={{
+            marginTop: 20,
+            alignSelf: 'flex-start',
+            paddingHorizontal: 25
+          }}>
+            <Text style={{
+              fontSize: 20,
+              fontWeight: '500',
+              color: COLORS.black,
+            }}>
+              Select Year?
+            </Text>
+            <RadioForm
+              style={{
+                marginTop: 10,
+                width: '100%',
+                justifyContent: 'space-around',
+              }}
+              buttonColor={COLORS.link}
+              formHorizontal={true}
+              radio_props={pgYearOptions}
+              initial={0} //initial value of this group
+              onPress={(value) => {
+                setYear(value);
+              }} //if the user changes options, set the new value
+            />
+          </View>
+        }
+        <CustomInputField
+          iconType="idcard"
+          placeholder={"Ex: CSE, ME, CE"}
+          top={20}
+          autoCapitalize={'characters'}
+          onchange={(text) => { setBranch(text) }}
         />
         <CustomButton
           style={{ width: '90%', marginTop: 20, }}
