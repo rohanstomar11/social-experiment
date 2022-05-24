@@ -8,7 +8,7 @@ import GetSocial from 'getsocial-react-native-sdk/GetSocial'
 import Identity from 'getsocial-react-native-sdk/models/communities/Identity'
 import { CollegeLogo } from '../assets/images'
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper'
-
+import { CONFIG } from '../utility/config'
 
 const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -19,7 +19,7 @@ const SignupScreen = ({ navigation }) => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
-        const customIdentity = Identity.createCustomIdentity('firebase-15-05-2022', email.toLocaleLowerCase(), email.toLocaleLowerCase())
+        const customIdentity = Identity.createCustomIdentity(CONFIG.provider, email.toLocaleLowerCase(), email.toLocaleLowerCase())
         GetSocial.getCurrentUser().then((currentUser) => {
           currentUser.addIdentity(
             customIdentity, () => {
