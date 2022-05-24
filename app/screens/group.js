@@ -100,7 +100,7 @@ const GroupScreen = ({route, navigation}) => {
   }
 
   const openGroupChat = () => {
-    console.log("Open Group Chat");
+    navigation.navigate('GroupChatScreen', {id: id, title: group.title});
   }
   
   return (

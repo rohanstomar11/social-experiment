@@ -16,9 +16,7 @@ import { CONFIG } from '../utility/config';
 import { StreamChat } from 'stream-chat';
 import CustomButton from '../components/CustomButton'
 
-const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
-
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({navigation}) => {;
 
   const [name, setName] = useState();
   const [imageUrl, setImageUrl] = useState();
@@ -32,24 +30,6 @@ const HomeScreen = ({navigation}) => {
       currentUser.privateProperties.admin === 'true' ? setAdmin(true) : setAdmin(false)
     })
   }, [name, imageUrl, userId, admin])
-
-  useEffect(()=>{
-    GetSocial.getCurrentUser().then((currentUser)=>{
-      client.connectUser({
-        id: currentUser.id,
-        name: currentUser.displayName,
-        image: currentUser.avatarUrl,     
-      },
-      client.devToken(currentUser.id)).
-      then(()=>{
-        console.log('GetStream: User Connected')
-      }),
-      (error)=>{
-        console.log(error);
-      }
-    })
-    return ()=>client.disconnectUser();
-  }, [])
 
   const [data, setData] = useState();
   useEffect(()=>{
@@ -85,10 +65,6 @@ const HomeScreen = ({navigation}) => {
     })
   }
 
-  useEffect(()=>{
-    
-  },[])
-
   const sendInvite = () => {
     var inviteContent = new InviteContent();
     inviteContent.text =  "Welcome to Social Experiment! Download from here \n[APP_INVITE_URL]"
@@ -105,80 +81,82 @@ const HomeScreen = ({navigation}) => {
   }
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      alwaysBounceVertical={false}
-      overScrollMode={'never'}
-      contentContainerStyle={{
-        flex:1,
-        alignItems:'center'
-    }}>
-      <View style={{width: '100%', padding: 20, elevation: 2, flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, backgroundColor: '#F0FEFE', borderRadius: 20}}>
-        <View style={{justifyContent: 'center'}}>
-          <Text style={{
-            fontSize: 25,
-            color: '#000000',
-            fontWeight: '600',
-          }}>
-            Hola, {name}!
-          </Text>
-        </View>
-        <TouchableOpacity style={{width: 48, height: 48, borderRadius: 24}} activeOpacity={0.6} onPress={()=>{logout()}}>
-          <Image
-            style={{flex:1, borderRadius: 24, backgroundColor: '#000000'}}
-            source={{
-              uri: imageUrl
-            }}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={{width: '100%', height: '100%', alignItems:'center', padding: '5%'}}>
-        {data && <CustomBanner data={data} />}
-        <View style={{width: '100%', marginVertical: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-        <Text style={{
-            color:'#354354',
-            fontSize: 24
-          }}>
-            Spaces
-          </Text>
-          {admin && <CustomButton
-            title={"Create"}
-            onPress={()=>{navigation.navigate('CreateGroupScreen', {userId: userId})}}/> }
-        </View>
+    <View style={{flex:1}}>
         <ScrollView
-          horizontal={true}
+          showsVerticalScrollIndicator={false}
+          alwaysBounceVertical={false}
+          overScrollMode={'never'}
           contentContainerStyle={{
-            height: 150,
-          }}>
-          {group && (
-            <>
-              <CustomCard data={group[0]} navigation={navigation} userId={userId} />
-              <CustomCard data={group[1]} navigation={navigation} userId={userId} />
-              <CustomCard data={group[2]} navigation={navigation} userId={userId} />
-              <TouchableOpacity onPress={()=>navigation.navigate('ListScreen', {userId: userId})} activeOpacity={0.75} style={{justifyContent:'center', alignSelf: 'center', flex:1}}><Text style={{color: '#354354', fontWeight: '600'}}>View All</Text></TouchableOpacity>
-            </>
-          )}
-        </ScrollView>
-      </View>
-      <TouchableOpacity
-      onPress={()=>sendInvite()}
-        activeOpacity={0.6}
-        style={{
-          position: 'absolute',
-          bottom: 15,
-          right: 15,
-          elevation: 20,
-          borderRadius: 27,
-          padding: 7,
-          backgroundColor: '#F7F3F2',
+            flex:1,
+            alignItems:'center'
         }}>
-        <AntDesign
-          name='sharealt'
-          size={40}
-          color='#2D6CDF'
-          />
-      </TouchableOpacity>
-    </ScrollView>
+          <View style={{width: '100%', padding: 20, elevation: 2, flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, backgroundColor: '#F0FEFE', borderRadius: 20}}>
+            <View style={{justifyContent: 'center'}}>
+              <Text style={{
+                fontSize: 25,
+                color: '#000000',
+                fontWeight: '600',
+              }}>
+                Hola, {name}!
+              </Text>
+            </View>
+            <TouchableOpacity style={{width: 48, height: 48, borderRadius: 24}} activeOpacity={0.6} onPress={()=>{logout()}}>
+              <Image
+                style={{flex:1, borderRadius: 24, backgroundColor: '#000000'}}
+                source={{
+                  uri: imageUrl
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{width: '100%', height: '100%', alignItems:'center', padding: '5%'}}>
+            {data && <CustomBanner data={data} />}
+            <View style={{width: '100%', marginVertical: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+            <Text style={{
+                color:'#354354',
+                fontSize: 24
+              }}>
+                Spaces
+              </Text>
+              {admin && <CustomButton
+                title={"Create"}
+                onPress={()=>{navigation.navigate('CreateGroupScreen', {userId: userId})}}/> }
+            </View>
+            <ScrollView
+              horizontal={true}
+              contentContainerStyle={{
+                height: 150,
+              }}>
+              {group && (
+                <>
+                  <CustomCard data={group[0]} navigation={navigation} userId={userId} />
+                  <CustomCard data={group[1]} navigation={navigation} userId={userId} />
+                  <CustomCard data={group[2]} navigation={navigation} userId={userId} />
+                  <TouchableOpacity onPress={()=>navigation.navigate('ListScreen', {userId: userId})} activeOpacity={0.75} style={{justifyContent:'center', alignSelf: 'center', flex:1}}><Text style={{color: '#354354', fontWeight: '600'}}>View All</Text></TouchableOpacity>
+                </>
+              )}
+            </ScrollView>
+          </View>
+          <TouchableOpacity
+          onPress={()=>sendInvite()}
+            activeOpacity={0.6}
+            style={{
+              position: 'absolute',
+              bottom: 15,
+              right: 15,
+              elevation: 20,
+              borderRadius: 27,
+              padding: 7,
+              backgroundColor: '#F7F3F2',
+            }}>
+            <AntDesign
+              name='sharealt'
+              size={40}
+              color='#2D6CDF'
+              />
+          </TouchableOpacity>
+        </ScrollView>
+    </View>
   )
 }
 export default HomeScreen;
