@@ -9,7 +9,11 @@ import CustomPost from '../components/CustomPost';
 import CustomButton from '../components/CustomButton';
 import RemoveGroupMembersQuery from 'getsocial-react-native-sdk/models/communities/RemoveGroupMembersQuery';
 import UserIdList from 'getsocial-react-native-sdk/models/UserIdList';
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import { CONFIG } from '../utility/config';
+import { StreamChat } from 'stream-chat';
+
+const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
 const GroupScreen = ({route, navigation}) => {
   const {id, userId} = route.params;
@@ -27,10 +31,27 @@ const GroupScreen = ({route, navigation}) => {
      }
   }, [group, groupMember, membersCount])
 
+  const chatJoin = async ()=>{
+    const channel = client.channel('team', id, {
+      name: group.title,
+    });
+    await channel.addMembers([userId]);
+    console.log("Success");
+  }
+
+  const chatLeave = async ()=>{
+    const channel = client.channel('team', id, {
+      name: group.title,
+    });
+    await channel.removeMembers([userId]);
+    console.log("Success");
+  }
+
   const joinGroup = () => {
     const query = JoinGroupQuery.create(id);
     Communities.joinGroup(query).then((member)=>{
       setGroupMember(true)
+      chatJoin();
     }, (error) => {
     console.error(error)
     })
@@ -41,6 +62,7 @@ const GroupScreen = ({route, navigation}) => {
     const query = RemoveGroupMembersQuery.create(id, userIdNew);
     Communities.removeGroupMembers(query).then((result)=>{
       setGroupMember(false)
+      chatLeave();
     }, (error) => {
     console.error(error)
     })
@@ -77,8 +99,8 @@ const GroupScreen = ({route, navigation}) => {
     feedMaxIndex-feedIndex>2 ? setFeedIndex(feedIndex+3) : setFeedIndex(feedMaxIndex)
   }
 
-  const shareGroup = () => {
-        
+  const openGroupChat = () => {
+    console.log("Open Group Chat");
   }
   
   return (
@@ -128,7 +150,7 @@ const GroupScreen = ({route, navigation}) => {
                 {group.title} Club
               </Text>
               <TouchableOpacity
-                onPress={()=>{shareGroup()}}
+                onPress={()=>{openGroupChat()}}
                 activeOpacity={0.6}
                 style={{
                   marginRight: 10,
@@ -139,7 +161,7 @@ const GroupScreen = ({route, navigation}) => {
                   backgroundColor: '#F7F3F2',
                 }}>
                 <AntDesign
-                  name='sharealt'
+                  name='wechat'
                   color={'#2D6CDF'}
                   size={30}
                 />
