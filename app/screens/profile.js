@@ -5,8 +5,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import LinearGradient from 'react-native-linear-gradient';
 import GetSocial from 'getsocial-react-native-sdk/GetSocial';
 import auth from '@react-native-firebase/auth';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import GradientText from '../components/gradienttext';
+import CustomButton from '../components/CustomButton'
+// import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+// import GradientText from '../components/GradientText';
 
 const ProfileScreen = ({ navigation }) => {
 
@@ -45,7 +46,6 @@ const ProfileScreen = ({ navigation }) => {
             })
         })
     }
-
 
     return (
         <ScrollView contentContainerStyle={{flex: 1}}>
@@ -125,7 +125,11 @@ const ProfileScreen = ({ navigation }) => {
                     <Text style={[styles.text, {fontWeight: 'normal'}]}>{"Branch: "}{branch}</Text>
                 </View>
                 <View>
-                    <LinearGradient
+                <CustomButton
+                        style={{width: '80%', alignSelf:'center'}}
+                        title={"Log out"}
+                        onPress={()=>{logout()}}/>
+                    {/* <LinearGradient
                         colors={[COLORS.link, COLORS.formBg]}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 0 }}
@@ -150,7 +154,7 @@ const ProfileScreen = ({ navigation }) => {
                                 Log Out
                             </GradientText>
                         </TouchableOpacity>
-                    </LinearGradient>
+                    </LinearGradient> */}
                 </View>
             </View>
         </ScrollView>
@@ -204,33 +208,4 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: '-22%'
     },
-    logOutBtn: {
-        height: 58,
-        borderRadius: 10,
-        marginTop: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-        ...Platform.select({
-            android: {
-                elevation: 10,
-                shadowColor: COLORS.shadowCards,
-            },
-            ios: {
-                shadowColor: COLORS.shadowCards,
-                shadowOffset: {
-                    width: 0,
-                    height: 5,
-                },
-                shadowOpacity: 0.3,
-                shadowRadius: 6,
-            },
-        }),
-    },
-    logOutBtnText: {
-        fontSize: 30,
-        paddingBottom: 3,
-        paddingLeft: 9,
-        fontWeight: '700',
-        color: COLORS.link,
-    }
 })
