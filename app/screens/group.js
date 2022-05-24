@@ -100,7 +100,7 @@ const GroupScreen = ({route, navigation}) => {
   }
 
   const openGroupChat = () => {
-    navigation.navigate('GroupChatScreen', {id: id, title: group.title});
+    groupMember ? navigation.navigate('GroupChatScreen', {id: id, title: group.title}) : alert("Please Join The Group to access Group Chat!");
   }
   
   return (
