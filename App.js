@@ -1,8 +1,8 @@
 import React from 'react';
 import {
   SafeAreaView,
-  ScrollView,
-  StyleSheet,
+  LogBox,
+  View
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -16,15 +16,17 @@ import GroupScreen from './app/screens/group';
 import PostScreen from './app/screens/post';
 import CommentScreen from './app/screens/comment';
 import ProfileScreen from './app/screens/profile';
+import CreateGroupScreen from './app/screens/creategroup';
+import GroupChatScreen from './app/screens/groupchat'
+
+LogBox.ignoreLogs(["ViewPropTypes will be removed from React Native. Migrate to ViewPropTypes exported from 'deprecated-react-native-prop-types'."]);
 
 const App = () => {
   const Stack = createNativeStackNavigator();
   return (
     <SafeAreaView style={{ flex:1, }}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ flex: 1, }}>
+      <View
+        style={{ flex: 1, }}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName='SplashScreen' screenOptions={{
             headerShown: false
@@ -39,15 +41,13 @@ const App = () => {
           <Stack.Screen name="GroupScreen" component={GroupScreen} />
           <Stack.Screen name="PostScreen" component={PostScreen} />
           <Stack.Screen name="CommentScreen" component={CommentScreen} />
+          <Stack.Screen name="CreateGroupScreen" component={CreateGroupScreen} />
+          <Stack.Screen name="GroupChatScreen" component={GroupChatScreen} />
           </Stack.Navigator>
         </NavigationContainer>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  
-});
 
 export default App;

@@ -27,7 +27,7 @@ const ProfileScreen = ({ navigation }) => {
             setImageUrl(currentUser.avatarUrl);
             setNumber(currentUser.publicProperties['mobile number']);
             setCollege(currentUser.publicProperties['college']);
-            setUniqueID(currentUser.privateProperties['Uniqie ID']);
+            setUniqueID(currentUser.privateProperties['Unique ID']);
             setGraduation(currentUser.publicProperties['graduation']);
             setYear(currentUser.publicProperties['year']);
             setBranch(currentUser.publicProperties['branch']);
@@ -39,7 +39,7 @@ const ProfileScreen = ({ navigation }) => {
     const logout = () => {
         auth().signOut().then(() => {
             GetSocial.resetUser().then(() => {
-                navigation.replace('LoginScreen')
+                navigation.replace('LoginScreen');
             }, (error) => {
                 console.error(error)
             })

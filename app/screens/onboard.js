@@ -23,7 +23,7 @@ const OnboardScreen = ({ navigation }) => {
   const [year, setYear] = useState('FE');
   const [branch, setBranch] = useState();
   const publicProperties = { 'college': 'DYPSOET', 'mobile number': number, 'graduation': graduation, 'year': year, 'branch': branch, 'bio': bio };
-  const privateProperties = { 'admin': 'false', 'Uniqie ID': uniqueID };
+  const privateProperties = { 'admin': 'false', 'Unique ID': uniqueID };
   const uid = auth().currentUser.uid
   const [avatarUrl, setAvatarUrl] = useState('');
 
