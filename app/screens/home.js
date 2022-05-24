@@ -16,6 +16,8 @@ import { CONFIG } from '../utility/config';
 import { StreamChat } from 'stream-chat';
 import CustomButton from '../components/CustomButton'
 
+const client = StreamChat.getInstance(CONFIG.getStreamApiKey)
+
 const HomeScreen = ({navigation}) => {;
 
   const [name, setName] = useState();
@@ -30,6 +32,28 @@ const HomeScreen = ({navigation}) => {;
       currentUser.privateProperties.admin === 'true' ? setAdmin(true) : setAdmin(false)
     })
   }, [name, imageUrl, userId, admin])
+
+  
+  useEffect(()=>{
+    const setupClient = () => {
+      GetSocial.getCurrentUser().then(async (currentUser)=>{
+        await client.connectUser({
+          id: currentUser.id,
+          name: currentUser.displayName,
+          image: currentUser.avatarUrl,  
+        },client.devToken(currentUser.id)).
+        then(()=>{
+          console.log('GetStream: User Connected')
+        }),
+        (error)=>{
+          console.log(error);
+        }
+      })
+    }
+    setupClient();
+
+    return ()=>{client.disconnectUser()}
+  }, [])
 
   const [data, setData] = useState();
   useEffect(()=>{
@@ -127,14 +151,12 @@ const HomeScreen = ({navigation}) => {;
               contentContainerStyle={{
                 height: 150,
               }}>
-              {group && (
-                <>
-                  <CustomCard data={group[0]} navigation={navigation} userId={userId} />
-                  <CustomCard data={group[1]} navigation={navigation} userId={userId} />
-                  <CustomCard data={group[2]} navigation={navigation} userId={userId} />
-                  <TouchableOpacity onPress={()=>navigation.navigate('ListScreen', {userId: userId})} activeOpacity={0.75} style={{justifyContent:'center', alignSelf: 'center', flex:1}}><Text style={{color: '#354354', fontWeight: '600'}}>View All</Text></TouchableOpacity>
-                </>
-              )}
+              {group && group.map((item, index)=>{
+                if(index<3){
+                  return <CustomCard data={item} navigation={navigation} userId={userId} key={index}/>
+                }
+              })}
+              {group && Object.keys(group).length>3 && <TouchableOpacity onPress={()=>navigation.navigate('ListScreen', {userId: userId})} activeOpacity={0.75} style={{justifyContent:'center', alignSelf: 'center', flex:1}}><Text style={{color: '#354354', fontWeight: '600'}}>View All</Text></TouchableOpacity>}
             </ScrollView>
           </View>
           <TouchableOpacity
@@ -143,7 +165,7 @@ const HomeScreen = ({navigation}) => {;
             style={{
               position: 'absolute',
               bottom: 15,
-              right: 15,
+              left: 15,
               elevation: 20,
               borderRadius: 27,
               padding: 7,

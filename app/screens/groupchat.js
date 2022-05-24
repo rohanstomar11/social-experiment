@@ -9,31 +9,6 @@ const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
 const GroupChatScreen = ({navigation, route}) => {
   const {id, title} = route.params;
-  const [clientReady, setClientReady] = useState(false);
-
-  useEffect(()=>{
-    const setupClient = async () => {
-      GetSocial.getCurrentUser().then((currentUser)=>{
-        client.connectUser({
-          id: currentUser.id,
-          name: currentUser.displayName,
-          image: currentUser.avatarUrl,  
-        },client.devToken(currentUser.id)).
-        then(()=>{
-          console.log('GetStream: User Connected')
-          setClientReady(true);
-        }),
-        (error)=>{
-          console.log(error);
-        }
-      })
-    }
-    setupClient();
-
-    return ()=>{client.disconnectUser()}
-  }, [])
-
-  if (!clientReady) return null;
 
   const channel = client.channel('team', id, {
     name: title,

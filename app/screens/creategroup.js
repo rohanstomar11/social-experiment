@@ -1,5 +1,5 @@
 import { View, Text, ScrollView } from 'react-native'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import CustomInputField from  '../components/CustomInputField'
 import CustomButton from '../components/CustomButton'
 import * as ImagePicker from 'react-native-image-picker'
