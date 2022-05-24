@@ -13,7 +13,9 @@ export default function CustomInputField({
   hide,
   top,
   iconType,
-  multiline
+  multiline,
+  maxLength,
+  autoCapitalize
 }) {
   return (
     <View style={{
@@ -52,6 +54,8 @@ export default function CustomInputField({
         placeholder={placeholder}
         secureTextEntry={hide}
         multiline={multiline}
+        maxLength={maxLength}
+        autoCapitalize={autoCapitalize}
       />
     </View>
   );
