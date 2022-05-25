@@ -181,6 +181,24 @@ const HomeScreen = ({navigation}) => {;
               color='#2D6CDF'
               />
           </TouchableOpacity>
+          <TouchableOpacity
+          onPress={()=>navigation.navigate('SearchUserScreen', {userId: userId})}
+            activeOpacity={0.6}
+            style={{
+              position: 'absolute',
+              bottom: 15,
+              right: 15,
+              elevation: 20,
+              borderRadius: 27,
+              padding: 7,
+              backgroundColor: '#F7F3F2',
+            }}>
+            <AntDesign
+              name='user'
+              size={40}
+              color='#2D6CDF'
+              />
+          </TouchableOpacity>
     </ScrollView>
     </View>
   )

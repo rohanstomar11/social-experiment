@@ -6,6 +6,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import GetSocial from 'getsocial-react-native-sdk/GetSocial';
 import auth from '@react-native-firebase/auth';
 import CustomButton from '../components/CustomButton'
+import { CONFIG } from '../utility/config';
+import { StreamChat, } from 'stream-chat';
+
+const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 // import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 // import GradientText from '../components/GradientText';
 
@@ -40,7 +44,11 @@ const ProfileScreen = ({ navigation }) => {
     const logout = () => {
         auth().signOut().then(() => {
             GetSocial.resetUser().then(() => {
-                navigation.replace('LoginScreen');
+                client.disconnectUser().then(()=>{
+                    navigation.replace('LoginScreen');
+                }, (error)=>{
+                    console.error(error)
+                })
             }, (error) => {
                 console.error(error)
             })

@@ -18,6 +18,9 @@ import CommentScreen from './app/screens/comment';
 import ProfileScreen from './app/screens/profile';
 import CreateGroupScreen from './app/screens/creategroup';
 import GroupChatScreen from './app/screens/groupchat'
+import SearchUserScreen from './app/screens/searchuser';
+import UserScreen from './app/screens/user'
+import UserChatScreen from './app/screens/userchat'
 
 LogBox.ignoreLogs(["ViewPropTypes will be removed from React Native. Migrate to ViewPropTypes exported from 'deprecated-react-native-prop-types'."]);
 
@@ -43,6 +46,9 @@ const App = () => {
           <Stack.Screen name="CommentScreen" component={CommentScreen} />
           <Stack.Screen name="CreateGroupScreen" component={CreateGroupScreen} />
           <Stack.Screen name="GroupChatScreen" component={GroupChatScreen} />
+          <Stack.Screen name="SearchUserScreen" component={SearchUserScreen} />
+          <Stack.Screen name="UserScreen" component={UserScreen} />
+          <Stack.Screen name="UserChatScreen" component={UserChatScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
