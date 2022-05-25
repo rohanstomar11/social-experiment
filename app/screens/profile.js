@@ -116,10 +116,10 @@ const ProfileScreen = ({ navigation }) => {
                     <View style={{
                         backgroundColor: COLORS.background,
                         position: 'absolute',
-                        top: '-50%',
-                        left: 20,
+                        top: '-70%',
+                        left: 25,
                         paddingHorizontal: 5
-                        }}><Text style={styles.text}>BIO</Text></View>
+                        }}><Text style={[styles.text, {fontSize: 20}]}>BIO</Text></View>
                 </View>
                 <View
                     style={{
@@ -136,8 +136,9 @@ const ProfileScreen = ({ navigation }) => {
                 </View>
                 <View>
                 <CustomButton
-                        style={{width: '80%', alignSelf:'center'}}
+                        style={{width: '100%', alignSelf:'center', marginTop:30}}
                         title={"Log out"}
+                        fontsize={20}
                         onPress={()=>{logout()}}/>
                     {/* <LinearGradient
                         colors={[COLORS.link, COLORS.formBg]}
