@@ -37,7 +37,7 @@ const ProfileScreen = ({ navigation }) => {
             setYear(currentUser.publicProperties['year']);
             setBranch(currentUser.publicProperties['branch']);
             setBio(currentUser.publicProperties['bio']);
-        })
+        },(error)=>{console.error(error)})
     }, [userId, name, imageUrl, number, college, uniqueID, graduation, year, branch, bio])
 
 

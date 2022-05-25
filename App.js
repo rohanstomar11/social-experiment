@@ -43,7 +43,7 @@ const App = () => {
             tabBarInctiveTintColor: '#354354',
             tabBarIcon: ({focused, color, size}) => {
               const colorIcon=focused?'#2D6CDF': '#354354';
-              const sizeIcon=focused?25:22;
+              const sizeIcon=focused?27:23;
               return (<AntDesign name='home' color={colorIcon} size={sizeIcon} />)
             }
           }}/>
@@ -56,7 +56,7 @@ const App = () => {
             tabBarInctiveTintColor: '#354354',
             tabBarIcon: ({focused, color, size}) => {
               const colorIcon=focused?'#2D6CDF': '#354354';
-              const sizeIcon=focused?25:22;
+              const sizeIcon=focused?27:23;
               return (<AntDesign name='search1' color={colorIcon} size={sizeIcon} />)
             }
           }}/>
@@ -69,7 +69,7 @@ const App = () => {
             tabBarInctiveTintColor: '#354354',
             tabBarIcon: ({focused, color, size}) => {
               const colorIcon=focused?'#2D6CDF': '#354354';
-              const sizeIcon=focused?25:22;
+              const sizeIcon=focused?27:23;
               return (<AntDesign name='team' color={colorIcon} size={sizeIcon} />)
             }
           }}/>
@@ -82,7 +82,7 @@ const App = () => {
             tabBarInctiveTintColor: '#354354',
             tabBarIcon: ({focused, color, size}) => {
               const colorIcon=focused?'#2D6CDF': '#354354';
-              const sizeIcon=focused?25:22;
+              const sizeIcon=focused?27:23;
               return (<AntDesign name='user' color={colorIcon} size={sizeIcon} />)
             }
           }}/>
