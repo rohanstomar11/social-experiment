@@ -119,7 +119,7 @@ const HomeScreen = ({navigation}) => {;
             Hola, {name}!
           </Text>
         </View>
-        <TouchableOpacity style={{ width: 48, height: 48, borderRadius: 24 }} activeOpacity={0.6} onPress={() => { navigation.navigate("ProfileScreen") }}>
+        <View style={{ width: 48, height: 48, borderRadius: 24 }}>
           {imageUrl
             ?
             <Image
@@ -135,7 +135,7 @@ const HomeScreen = ({navigation}) => {;
               color={COLORS.lightgrey}
             />
           }
-        </TouchableOpacity>
+        </View>
       </View>
       <View style={{width: '100%', height: '100%', alignItems:'center', padding: '5%'}}>
             {data && <CustomBanner data={data} />}

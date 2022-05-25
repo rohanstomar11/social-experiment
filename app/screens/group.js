@@ -77,7 +77,7 @@ const GroupScreen = ({route, navigation}) => {
     },(error)=>{
       console.error(error);
     })
-  },[])
+  },[feed])
 
   const [feedIndex, setFeedIndex] = useState();
   useEffect(()=>{
