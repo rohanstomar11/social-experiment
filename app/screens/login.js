@@ -4,11 +4,11 @@ import CustomInputField from '../components/CustomInputField'
 import CustomButton from '../components/CustomButton'
 import { COLORS } from '../assets/color'
 import auth from '@react-native-firebase/auth'
-import CustomDot from '../components/CustomDot'
 import Identity from 'getsocial-react-native-sdk/models/communities/Identity'
 import GetSocial from 'getsocial-react-native-sdk/GetSocial'
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper'
 import { CollegeLogo } from '../assets/images'
+import { CONFIG } from '../utility/config'
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -18,16 +18,18 @@ const LoginScreen = ({ navigation }) => {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        const customIdentity = Identity.createCustomIdentity('firebase-15-05-2022', email.toLocaleLowerCase(), email.toLocaleLowerCase())
+        const customIdentity = Identity.createCustomIdentity(CONFIG.provider, email.toLocaleLowerCase(), email.toLocaleLowerCase())
         GetSocial.getCurrentUser().then((currentUser) => {
           currentUser.addIdentity(
             customIdentity, () => {
               console.log('Successfully Logged into ' + currentUser.id);
-              navigation.replace('HomeScreen');
+              navigation.replace('TabScreen');
             },
             (conflictUser) => {
               GetSocial.switchUser(customIdentity).then(() => {
-                navigation.replace('HomeScreen');
+                navigation.replace('TabScreen');
+              },(error)=>{
+                console.error(error);
               });
             },
             (error) => {

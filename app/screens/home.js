@@ -31,6 +31,8 @@ const HomeScreen = ({navigation}) => {;
       setName(currentUser.displayName);
       setImageUrl(currentUser.avatarUrl);
       currentUser.privateProperties.admin === 'true' ? setAdmin(true) : setAdmin(false)
+    },(error)=>{
+      console.error(error);
     })
   }, [name, imageUrl, userId, admin])
 
@@ -49,6 +51,8 @@ const HomeScreen = ({navigation}) => {;
         (error)=>{
           console.log(error);
         }
+      },(error)=>{
+        console.error(error);
       })
     }
     setupClient();
@@ -64,7 +68,7 @@ const HomeScreen = ({navigation}) => {;
       var topics = result.entries;
       setData(topics)
     }).catch((error) => {
-      //handle errors here
+      console.error(error)
     })
   }, [data])
 
@@ -76,7 +80,7 @@ const HomeScreen = ({navigation}) => {;
       var groups = result.entries;
       setGroup(groups)
     }).catch((error) => {
-      //handle errors here
+      console.error(error);
     })
   }, [group])
 
@@ -115,7 +119,7 @@ const HomeScreen = ({navigation}) => {;
             Hola, {name}!
           </Text>
         </View>
-        <TouchableOpacity style={{ width: 48, height: 48, borderRadius: 24 }} activeOpacity={0.6} onPress={() => { navigation.navigate("ProfileScreen") }}>
+        <View style={{ width: 48, height: 48, borderRadius: 24 }}>
           {imageUrl
             ?
             <Image
@@ -131,7 +135,7 @@ const HomeScreen = ({navigation}) => {;
               color={COLORS.lightgrey}
             />
           }
-        </TouchableOpacity>
+        </View>
       </View>
       <View style={{width: '100%', height: '100%', alignItems:'center', padding: '5%'}}>
             {data && <CustomBanner data={data} />}
@@ -156,7 +160,7 @@ const HomeScreen = ({navigation}) => {;
                   return <CustomCard data={item} navigation={navigation} userId={userId} key={index}/>
                 }
               })}
-              {group && Object.keys(group).length>3 && <TouchableOpacity onPress={()=>navigation.navigate('ListScreen', {userId: userId})} activeOpacity={0.75} style={{justifyContent:'center', alignSelf: 'center', flex:1}}><Text style={{color: '#354354', fontWeight: '600'}}>View All</Text></TouchableOpacity>}
+              {group && Object.keys(group).length>3 && <TouchableOpacity onPress={()=>navigation.navigate('ListScreen')} activeOpacity={0.75} style={{justifyContent:'center', alignSelf: 'center', flex:1}}><Text style={{color: '#354354', fontWeight: '600'}}>View All</Text></TouchableOpacity>}
             </ScrollView>
           </View>
           <TouchableOpacity

@@ -64,6 +64,8 @@ const CreateGroupScreen = ({navigation, route}) => {
         console.log("Received!")
         setImageUrl(url);
         setIndicator(true);
+      },(error)=>{
+        console.error(error);
       })
     }).catch((e) => {
         console.log('uploading image error => ', e);

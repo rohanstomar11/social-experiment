@@ -138,7 +138,7 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     getsocial {
-    appId "708679lseM8894"
+    appId "7EH8u6N76s092"
 }
 
     defaultConfig {

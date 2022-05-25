@@ -19,6 +19,8 @@ const CommentScreen = ({route, navigation}) => {
     var pagingQuery = new PagingQuery(query);
     Communities.getActivities(pagingQuery).then((result)=>{
       setComments(result.entries);
+    }, (error)=>{
+      console.error(error);
     })
   },[comments])
 

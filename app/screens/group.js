@@ -74,8 +74,10 @@ const GroupScreen = ({route, navigation}) => {
     const pagingQuery = new PagingQuery(query);
     Communities.getActivities(pagingQuery).then((result)=>{
       Object.keys(result.entries).length!==0? setFeed(result.entries): null
+    },(error)=>{
+      console.error(error);
     })
-  },[])
+  },[feed])
 
   const [feedIndex, setFeedIndex] = useState();
   useEffect(()=>{
@@ -83,6 +85,8 @@ const GroupScreen = ({route, navigation}) => {
     const pagingQuery = new PagingQuery(query);
     Communities.getActivities(pagingQuery).then((result)=>{
       Object.keys(result.entries).length<3 ? setFeedIndex(Object.keys(result.entries).length) : setFeedIndex(3)
+    },(error)=>{
+      console.error(error);
     })
   },[])
 
@@ -92,6 +96,8 @@ const GroupScreen = ({route, navigation}) => {
     const pagingQuery = new PagingQuery(query);
     Communities.getActivities(pagingQuery).then((result)=>{
       setFeedMaxIndex(Object.keys(result.entries).length);
+    }, (error)=>{
+      console.error(error);
     })
   },[])
 

@@ -4,10 +4,18 @@ import Communities from 'getsocial-react-native-sdk/Communities';
 import GroupsQuery from 'getsocial-react-native-sdk/models/communities/GroupsQuery'
 import PagingQuery from 'getsocial-react-native-sdk/models/PagingQuery';
 import CustomCard from '../components/CustomCard';
+import GetSocial from 'getsocial-react-native-sdk/GetSocial';
 
-const ListScreen = ({route, navigation}) => {
+const ListScreen = ({navigation}) => {
 
-  const {userId} = route.params
+  const [userId, setUserId] = useState();
+  useEffect(()=>{
+        GetSocial.getCurrentUser().then((currentUser)=>{
+        setUserId(currentUser.id);
+        },(error)=>{
+        console.error(error);
+        })
+  }, [])
 
   const [group, setGroup] = useState();
   useEffect(()=>{
@@ -16,7 +24,7 @@ const ListScreen = ({route, navigation}) => {
     Communities.getGroups(pagingQuery).then((result)=>{
       setGroup(result.entries)
     }).catch((error)=>{
-      //handle errors here
+      console.error(error);
     })
   }, [group])
 
