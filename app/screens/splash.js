@@ -15,7 +15,7 @@ const SplashScreen = ({navigation}) => {
     timeoutHelper(()=>{
       const unsubscribe = auth().onAuthStateChanged((user)=>{
         if(user){
-          navigation.replace('HomeScreen')
+          navigation.replace('TabScreen')
         } else {
           navigation.replace('LoginScreen')
         }

@@ -1,15 +1,23 @@
-import { View, ScrollView } from 'react-native'
-import React, {useState} from 'react'
+import { View, ScrollView, Text } from 'react-native'
+import React, {useState, useEffect} from 'react'
 import CustomInputField from '../components/CustomInputField'
 import CustomButton from '../components/CustomButton'
 import UsersQuery from 'getsocial-react-native-sdk/models/communities/UsersQuery'
 import PagingQuery from 'getsocial-react-native-sdk/models/PagingQuery'
 import Communities from 'getsocial-react-native-sdk/Communities'
 import CustomProfileCard from '../components/CustomProfileCard'
+import GetSocial from 'getsocial-react-native-sdk/GetSocial'
 
-const SearchUserScreen = ({navigation, route}) => {
+const SearchUserScreen = ({navigation}) => {
 
-    const {userId} = route.params;
+    const [userId, setUserId] = useState();
+    useEffect(()=>{
+        GetSocial.getCurrentUser().then((currentUser)=>{
+        setUserId(currentUser.id);
+        },(error)=>{
+        console.error(error);
+        })
+    }, [])
 
     const [name, setName] = useState();
 
@@ -34,6 +42,16 @@ const SearchUserScreen = ({navigation, route}) => {
                 width: '100%',
                 alignItems: 'center'
             }}>
+            <Text
+                style={{
+                    fontSize: 30,
+                    marginTop: 20,
+                    color: '#2D6CDF',
+                    fontWeight: '700',
+                    letterSpacing: 2,
+                }}>
+                SEARCH
+            </Text>
             <CustomInputField
             top={20}
             radius={30}

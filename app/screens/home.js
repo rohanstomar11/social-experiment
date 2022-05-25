@@ -160,7 +160,7 @@ const HomeScreen = ({navigation}) => {;
                   return <CustomCard data={item} navigation={navigation} userId={userId} key={index}/>
                 }
               })}
-              {group && Object.keys(group).length>3 && <TouchableOpacity onPress={()=>navigation.navigate('ListScreen', {userId: userId})} activeOpacity={0.75} style={{justifyContent:'center', alignSelf: 'center', flex:1}}><Text style={{color: '#354354', fontWeight: '600'}}>View All</Text></TouchableOpacity>}
+              {group && Object.keys(group).length>3 && <TouchableOpacity onPress={()=>navigation.navigate('ListScreen')} activeOpacity={0.75} style={{justifyContent:'center', alignSelf: 'center', flex:1}}><Text style={{color: '#354354', fontWeight: '600'}}>View All</Text></TouchableOpacity>}
             </ScrollView>
           </View>
           <TouchableOpacity
@@ -177,24 +177,6 @@ const HomeScreen = ({navigation}) => {;
             }}>
             <AntDesign
               name='sharealt'
-              size={40}
-              color='#2D6CDF'
-              />
-          </TouchableOpacity>
-          <TouchableOpacity
-          onPress={()=>navigation.navigate('SearchUserScreen', {userId: userId})}
-            activeOpacity={0.6}
-            style={{
-              position: 'absolute',
-              bottom: 15,
-              right: 15,
-              elevation: 20,
-              borderRadius: 27,
-              padding: 7,
-              backgroundColor: '#F7F3F2',
-            }}>
-            <AntDesign
-              name='user'
               size={40}
               color='#2D6CDF'
               />

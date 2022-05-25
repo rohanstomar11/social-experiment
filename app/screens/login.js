@@ -27,7 +27,7 @@ const LoginScreen = ({ navigation }) => {
             },
             (conflictUser) => {
               GetSocial.switchUser(customIdentity).then(() => {
-                navigation.replace('HomeScreen');
+                navigation.replace('TabScreen');
               },(error)=>{
                 console.error(error);
               });
