@@ -11,7 +11,7 @@ const CustomProfileCard = ({data, navigation, userId}) => {
   const url = data.avatarUrl===''? DefaultUser:{uri: data.avatarUrl};
 
   const userProfile = () => {
-    navigation.navigate('UserScreen', {userId: userId,id: data.userId});
+    navigation.navigate('UserScreen', {userId: userId,data: data});
   }
   
   return (

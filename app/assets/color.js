@@ -8,4 +8,5 @@ export const COLORS = {
     lightgrey: '#5F6380',
     shadowCards: '#92AAD4',
     red: '#900000',
+    darkGreen: '#00D999',
 };
