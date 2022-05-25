@@ -102,7 +102,7 @@ const OnboardScreen = ({ navigation }) => {
       batchUpdate.publicProperties = publicProperties;
       batchUpdate.privateProperties = privateProperties;
       currentUser.updateDetails(batchUpdate).then(() => {
-        navigation.replace('HomeScreen');
+        navigation.replace('TabScreen');
       },(error)=>{
         console.error(error);
       });

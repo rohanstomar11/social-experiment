@@ -23,7 +23,7 @@ const LoginScreen = ({ navigation }) => {
           currentUser.addIdentity(
             customIdentity, () => {
               console.log('Successfully Logged into ' + currentUser.id);
-              navigation.replace('HomeScreen');
+              navigation.replace('TabScreen');
             },
             (conflictUser) => {
               GetSocial.switchUser(customIdentity).then(() => {
