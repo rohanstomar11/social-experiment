@@ -1,8 +1,13 @@
-import { Platform, TextInput, View, StyleSheet } from 'react-native';
+import {
+  Platform,
+  TextInput,
+  View,
+  StyleSheet,
+} from 'react-native';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export default function CustomInputField({
+const CustomInputField = ({
   height,
   width,
   background,
@@ -15,8 +20,8 @@ export default function CustomInputField({
   iconType,
   multiline,
   maxLength,
-  autoCapitalize
-}) {
+  autoCapitalize,
+}) => {
   return (
     <View style={{
       flexDirection: 'row',
@@ -59,7 +64,7 @@ export default function CustomInputField({
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   iconStyle: {
@@ -80,3 +85,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export default CustomInputField;

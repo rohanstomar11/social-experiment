@@ -1,15 +1,23 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useState } from 'react'
-import CustomInputField from '../components/CustomInputField'
-import CustomButton from '../components/CustomButton'
-import auth from '@react-native-firebase/auth'
-import GetSocial from 'getsocial-react-native-sdk/GetSocial'
-import UserUpdate from 'getsocial-react-native-sdk/models/UserUpdate'
-import * as ImagePicker from 'react-native-image-picker'
-import storage from '@react-native-firebase/storage'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import { COLORS } from '../assets/color'
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  Platform,
+  StyleSheet,
+} from 'react-native';
+import React, {useState} from 'react';
+import CustomInputField from '../components/CustomInputField';
+import CustomButton from '../components/CustomButton';
+import auth from '@react-native-firebase/auth';
+import GetSocial from 'getsocial-react-native-sdk/GetSocial';
+import UserUpdate from 'getsocial-react-native-sdk/models/UserUpdate';
+import * as ImagePicker from 'react-native-image-picker';
+import storage from '@react-native-firebase/storage';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {COLORS} from '../assets/color';
 import RadioForm from 'react-native-simple-radio-button';
 
 const OnboardScreen = ({ navigation }) => {
@@ -22,29 +30,59 @@ const OnboardScreen = ({ navigation }) => {
   const [graduation, setGraduation] = useState('UG');
   const [year, setYear] = useState('FE');
   const [branch, setBranch] = useState();
-  const publicProperties = { 'college': 'DYPSOET', 'mobile number': number, 'graduation': graduation, 'year': year, 'branch': branch, 'bio': bio };
-  const privateProperties = { 'admin': 'false', 'Unique ID': uniqueID };
   const uid = auth().currentUser.uid
   const [avatarUrl, setAvatarUrl] = useState('');
 
-
+  const publicProperties = {
+    'college': 'DYPSOET',
+    'mobile number': number,
+    'graduation': graduation,
+    'year': year,
+    'branch': branch,
+    'bio': bio,
+  };
+  const privateProperties = {
+    'admin': 'false',
+    'Unique ID': uniqueID,
+  };
   const graduationOptions = [
-    { label: 'UG', value: 'UG' },
-    { label: 'PG', value: 'PG' },
+    {
+      label: 'UG',
+      value: 'UG',
+    },
+    {
+      label: 'PG',
+      value: 'PG',
+    },
   ];
-
   const ugYearOptions = [
-    { label: 'FE', value: 'FE' },
-    { label: 'SE', value: 'SE' },
-    { label: 'TE', value: 'TE' },
-    { label: 'BE', value: 'BE' },
+    {
+      label: 'FE',
+      value: 'FE',
+    },
+    {
+      label: 'SE',
+      value: 'SE',
+    },
+    {
+      label: 'TE',
+      value: 'TE',
+    },
+    {
+      label: 'BE',
+      value: 'BE',
+    },
   ];
-
   const pgYearOptions = [
-    { label: 'FE', value: 'FE' },
-    { label: 'SE', value: 'SE' },
+    {
+      label: 'FE',
+      value: 'FE',
+    },
+    {
+      label: 'SE',
+      value: 'SE',
+    },
   ];
-
 
   const selectImage = () => {
     const options = {
@@ -94,7 +132,7 @@ const OnboardScreen = ({ navigation }) => {
     return path.split("/").pop();
   }
 
-  const saveData = () => { //fix this later
+  const saveData = () => {
     GetSocial.getCurrentUser().then((currentUser) => {
       var batchUpdate = new UserUpdate();
       batchUpdate.displayName = name;
@@ -112,15 +150,26 @@ const OnboardScreen = ({ navigation }) => {
   }
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <View style={{ flex: 1, alignItems: 'center', paddingVertical: '10%'}}>
-        <TouchableOpacity style={{ width: 100, height: 100, borderRadius: 50, justifyContent: 'center', alignItems: 'center' }} activeOpacity={0.6} onPress={() => { selectImage() }}>
-          {filePath ?
+    <ScrollView
+      contentContainerStyle={{
+        flexGrow: 1
+      }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          paddingVertical: '10%',
+        }}>
+        <TouchableOpacity
+          style={styles.imageButton}
+          activeOpacity={0.6}
+          onPress={() => {selectImage()}}
+          >
+          {filePath
+            ?
             <Image
-              style={{ flex: 1, borderRadius: 50, width: 100, height: 100, borderWidth: 2, borderColor: COLORS.black }}
-              source={{
-                uri: filePath
-              }}
+              style={styles.image}
+              source={{uri: filePath}}
             />
             :
             <FontAwesome
@@ -133,7 +182,7 @@ const OnboardScreen = ({ navigation }) => {
             name='camera-alt'
             color={COLORS.green}
             size={25}
-            style={{ position: 'absolute', bottom: 0, right: 0, backgroundColor: COLORS.white, borderRadius: 20, padding: 2 }}
+            style={styles.cameraIcon}
           />
         </TouchableOpacity>
         <CustomInputField
@@ -142,32 +191,32 @@ const OnboardScreen = ({ navigation }) => {
           onchange={(text) => setName(text)}
         />
         <CustomInputField
-        iconType={'form'}
+          iconType={'form'}
           top={20}
           placeholder={'Bio'}
           onchange={(text) => setBio(text)}
           multiline={true}
         />
         <CustomInputField
-          iconType="mobile1"
+          iconType={'mobile1'}
           placeholder={"Mobile Number"}
           top={20}
           maxLength={10}
           keyboard={'numeric'}
-          onchange={(text) => { setNumber(text) }}
+          onchange={(text) => setNumber(text)}
         />
         <CustomInputField
-          iconType="idcard"
+          iconType={'idcard'}
           placeholder={"Unique ID"}
           top={20}
           autoCapitalize={'characters'}
           maxLength={10}
-          onchange={(text) => { setUniqueID(text) }}
+          onchange={(text) => setUniqueID(text)}
         />
         <View style={{
           marginTop: 20,
           alignSelf: 'flex-start',
-          paddingHorizontal: 25
+          paddingHorizontal: 25,
         }}>
           <Text style={{
             fontSize: 20,
@@ -186,17 +235,15 @@ const OnboardScreen = ({ navigation }) => {
             formHorizontal={true}
             radio_props={graduationOptions}
             initial={0} //initial value of this group
-            onPress={(value) => {
-              setGraduation(value);
-            }} //if the user changes options, set the new value
+            onPress={(value) => setGraduation(value)} //if the user changes options, set the new value
           />
         </View>
-        {graduation == 'UG'
+        {graduation === 'UG'
           ?
           <View style={{
             marginTop: 20,
             alignSelf: 'flex-start',
-            paddingHorizontal: 25
+            paddingHorizontal: 25,
           }}>
             <Text style={{
               fontSize: 20,
@@ -215,16 +262,14 @@ const OnboardScreen = ({ navigation }) => {
               formHorizontal={true}
               radio_props={ugYearOptions}
               initial={0} //initial value of this group
-              onPress={(value) => {
-                setYear(value);
-              }} //if the user changes options, set the new value
+              onPress={(value) => setYear(value)} //if the user changes options, set the new value
             />
           </View>
           :
           <View style={{
             marginTop: 20,
             alignSelf: 'flex-start',
-            paddingHorizontal: 25
+            paddingHorizontal: 25,
           }}>
             <Text style={{
               fontSize: 20,
@@ -243,28 +288,55 @@ const OnboardScreen = ({ navigation }) => {
               formHorizontal={true}
               radio_props={pgYearOptions}
               initial={0} //initial value of this group
-              onPress={(value) => {
-                setYear(value);
-              }} //if the user changes options, set the new value
+              onPress={(value) => setYear(value)} //if the user changes options, set the new value
             />
           </View>
         }
         <CustomInputField
-          iconType="idcard"
+          iconType={'idcard'}
           placeholder={"Ex: CSE, ME, CE"}
           top={20}
           autoCapitalize={'characters'}
-          onchange={(text) => { setBranch(text) }}
-        />
+          onchange={(text) => setBranch(text)}
+          />
         <CustomButton
-          style={{ width: '90%', marginTop: 20, }}
+          style={{
+            width: '90%',
+            marginTop: 20,
+          }}
           fontsize={20}
           title={'SAVE'}
-          onPress={() => { saveData() }}
-        />
+          onPress={() => saveData()}
+          />
       </View>
     </ScrollView>
-  )
-}
+  );
+};
+
+const styles = StyleSheet.create({
+  imageButton: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    flex: 1,
+    borderRadius: 50,
+    width: 100,
+    height: 100,
+    borderWidth: 2,
+    borderColor: COLORS.black,
+  },
+  cameraIcon: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    backgroundColor: COLORS.white,
+    borderRadius: 20,
+    padding: 2,
+  },
+});
 
 export default OnboardScreen;

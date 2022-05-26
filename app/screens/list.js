@@ -1,7 +1,7 @@
-import { ScrollView, Text } from 'react-native'
-import React, {useState, useEffect} from 'react'
+import {ScrollView} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import Communities from 'getsocial-react-native-sdk/Communities';
-import GroupsQuery from 'getsocial-react-native-sdk/models/communities/GroupsQuery'
+import GroupsQuery from 'getsocial-react-native-sdk/models/communities/GroupsQuery';
 import PagingQuery from 'getsocial-react-native-sdk/models/PagingQuery';
 import CustomCard from '../components/CustomCard';
 import GetSocial from 'getsocial-react-native-sdk/GetSocial';
@@ -29,16 +29,24 @@ const ListScreen = ({navigation}) => {
   }, [group])
 
   return (
-    <ScrollView contentContainerStyle={{
-      flex: 1,
-      justifyContent:'center',
-      alignItems: 'center',
-    }}>
-      {group && group.map((item, key)=>{return(
-        <CustomCard data={item} key={key} navigation={navigation} userId={userId} />
-      )})}
+    <ScrollView
+      contentContainerStyle={{
+        flex: 1,
+        justifyContent:'center',
+        alignItems: 'center',
+      }}>
+      {group && group.map((item, key)=>{
+        return(
+          <CustomCard
+            data={item}
+            key={key}
+            navigation={navigation}
+            userId={userId}
+            />
+        )
+      })}
     </ScrollView>
-  )
-}
+  );
+};
 
-export default ListScreen
+export default ListScreen;

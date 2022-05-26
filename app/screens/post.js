@@ -1,17 +1,23 @@
-import { View, Text, TouchableOpacity, Platform} from 'react-native'
-import React, {useState} from 'react'
-import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper'
-import CustomInputField from '../components/CustomInputField'
-import CustomButton from '../components/CustomButton'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import ActivityContent from 'getsocial-react-native-sdk/models/communities/ActivityContent'
-import Action from 'getsocial-react-native-sdk/models/actions/Action'
-import ActivityButton from 'getsocial-react-native-sdk/models/communities/ActivityButton'
-import PostActivityTarget from 'getsocial-react-native-sdk/models/communities/PostActivityTarget'
-import Communities from 'getsocial-react-native-sdk/Communities'
-import * as ImagePicker from 'react-native-image-picker'
-import MediaAttachment from 'getsocial-react-native-sdk/models/MediaAttachment'
-import storage from '@react-native-firebase/storage'
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    Platform,
+    StyleSheet,
+} from 'react-native';
+import React, {useState} from 'react';
+import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
+import CustomInputField from '../components/CustomInputField';
+import CustomButton from '../components/CustomButton';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import ActivityContent from 'getsocial-react-native-sdk/models/communities/ActivityContent';
+import Action from 'getsocial-react-native-sdk/models/actions/Action';
+import ActivityButton from 'getsocial-react-native-sdk/models/communities/ActivityButton';
+import PostActivityTarget from 'getsocial-react-native-sdk/models/communities/PostActivityTarget';
+import Communities from 'getsocial-react-native-sdk/Communities';
+import * as ImagePicker from 'react-native-image-picker';
+import MediaAttachment from 'getsocial-react-native-sdk/models/MediaAttachment';
+import storage from '@react-native-firebase/storage';
 
 const PostScreen = ({route, navigation}) => {
 
@@ -78,7 +84,7 @@ const PostScreen = ({route, navigation}) => {
     }
 
     const postData = () => {
-        console.log("posting data...")
+        console.log("posting data...");
         const action = Action.create('open_url', {'$url': url});
         const button = ActivityButton.create(title, action);
 
@@ -99,7 +105,7 @@ const PostScreen = ({route, navigation}) => {
     }
 
     return (
-        <KeyboardAvoidingWrapper style={{}}>
+        <KeyboardAvoidingWrapper>
             <View style={{
                 width:'100%',
                 alignItems:'center',
@@ -109,19 +115,12 @@ const PostScreen = ({route, navigation}) => {
                 style={{
                     width: '100%',
                     flexDirection: 'row',
-                    justifyContent: 'space-between'
+                    justifyContent: 'space-between',
                 }}>
                 <TouchableOpacity
                     onPress={()=>{navigation.goBack()}}
                     activeOpacity={0.6}
-                    style={{
-                        marginLeft: 20,
-                        alignSelf:'center',
-                        elevation: 5,
-                        borderRadius: 20,
-                        padding: 5,
-                        backgroundColor: '#F7F3F2'
-                }}>
+                    style={styles.headerButton}>
                     <AntDesign
                         name='arrowleft'
                         color={'#2D6CDF'}
@@ -133,20 +132,19 @@ const PostScreen = ({route, navigation}) => {
                         color: '#354354',
                         fontWeight: '900',
                         fontSize: 30,
-                    }}
-                >
+                    }}>
                     Add Post
                 </Text>
                 <CustomButton
                     style={{
                         height:39,
                         width:80,
-                        marginRight: 10
+                        marginRight: 10,
                     }}
                     title={"POST"} 
                     fontsize={12}
                     onPress={()=>{postData()}}
-                />
+                    />
             </View>
             <CustomInputField
                 top={20}
@@ -154,7 +152,7 @@ const PostScreen = ({route, navigation}) => {
                 iconType={'form'}
                 onchange={(text)=>{setText(text)}}
                 placeholder={"Enter Post Text"}
-            />
+                />
             <CustomButton
                 style={{
                     width:'60%',
@@ -162,7 +160,7 @@ const PostScreen = ({route, navigation}) => {
                 }}
                 title={"Add Custom Button"}
                 onPress={()=>{change()}}
-            />
+                />
             {custom===true && (
                 <View>
                     <CustomInputField
@@ -170,16 +168,15 @@ const PostScreen = ({route, navigation}) => {
                         top={20} 
                         iconType={'infocirlceo'}
                         onchange={(text)=>{setTitle(text)}}
-                    />
+                        />
                     <CustomInputField
                         placeholder={"Url Linked"}
                         top={20} 
                         iconType={'link'}
                         onchange={(text)=>{setUrl(text)}}
-                    />
+                        />
                 </View>
             )}
-
             <CustomButton
                 style={{
                     width:'60%',
@@ -190,7 +187,18 @@ const PostScreen = ({route, navigation}) => {
             />
             </View>
         </KeyboardAvoidingWrapper>
-    )
-}
+    );
+};
 
-export default PostScreen
+const styles = StyleSheet.create({
+    headerButton: {
+        marginLeft: 20,
+        alignSelf:'center',
+        elevation: 5,
+        borderRadius: 20,
+        padding: 5,
+        backgroundColor: '#F7F3F2',
+    },
+});
+
+export default PostScreen;

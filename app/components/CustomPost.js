@@ -1,14 +1,21 @@
-import { View, Image, Text, Linking, TouchableOpacity} from 'react-native'
-import React, {useState, useEffect} from 'react'
-import CustomButton from '../components/CustomButton'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import Communities from 'getsocial-react-native-sdk/Communities'
-import InviteContent from 'getsocial-react-native-sdk/models/invites/InviteContent'
-import Invites from 'getsocial-react-native-sdk/Invites'
+import {
+    View,
+    Image,
+    Text,
+    Linking,
+    TouchableOpacity,
+    StyleSheet,
+} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import CustomButton from '../components/CustomButton';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Communities from 'getsocial-react-native-sdk/Communities';
+import InviteContent from 'getsocial-react-native-sdk/models/invites/InviteContent';
+import Invites from 'getsocial-react-native-sdk/Invites';
 
 const CustomPost = ({navigation, data, showComments}) => {
 
-    const created = new Date(data.createdAt*1000)
+    const created = new Date(data.createdAt*1000);
     const date = created.getDate();
     const month = created.getMonth();
     const year = created.getFullYear();
@@ -25,8 +32,8 @@ const CustomPost = ({navigation, data, showComments}) => {
             setLikes(likes+1);
         }, (error)=>{
             console.error(error);
-        })
-    }
+        });
+    };
      
     const unlikePost = () => {
         Communities.removeReaction('like', data.id).then((result)=>{
@@ -34,20 +41,19 @@ const CustomPost = ({navigation, data, showComments}) => {
             setLikes(likes-1);
         },(error)=>{
             console.error(error);
-        })
-    }
+        });
+    };
 
     const [comments, setComments] = useState(data.commentsCount);
-
 
     const [imageUrl, setImageUrl] = useState();
     useEffect(()=>{
         try{
             setImageUrl(JSON.parse(JSON.stringify(data.mediaAttachments[0])).imageUrl);
         } catch {
-            setImageUrl(false)
+            setImageUrl(false);
         }
-    },[])
+    },[]);
     
     const sharePost = () => {
         let inviteContent = new InviteContent();
@@ -62,58 +68,35 @@ const CustomPost = ({navigation, data, showComments}) => {
             () => console.log("Cancel"),
             (error) => console.error(error)
         );
-    }
+    };
     
   return (
     <View
-        style={{
-            width: '90%', 
-            marginHorizontal:'5%', 
-            borderRadius: 12, 
-            elevation: 4, 
-            backgroundColor: '#F0FEFE', 
-            padding: 12, 
-            borderWidth:1,
-            marginBottom: 10,
-        }}>
+        style={styles.container}>
         <View
-            style={{
-                flexDirection: 'row', 
-                width: '100%', 
-                borderWidth: 1, 
-                paddingBottom:8, 
-                backgroundColor: '#FFFFFF', 
-                borderRadius: 12}}>
+            style={styles.profileContainer}>
             <Image
                 source={{
                     uri: data.author.avatarUrl
                 }}
-                style={{
-                    marginTop:8,
-                    marginLeft: 8,
-                    height: 50,
-                    width: 50,
-                    borderRadius: 25,
-                    borderWidth: 1,
-                    borderColor: '#354354'
-                }}/>
+                style={styles.profileImage}/>
             <View
                 style={{
                     width: '100%',
                     marginLeft: 10,
-                    justifyContent: 'center'
+                    justifyContent: 'center',
                 }}>
                 <Text
                     style={{
                         fontSize:20,
                         fontWeight: '700',
-                        color: '#354354'
+                        color: '#354354',
                     }}>
                     {data.author.displayName}
                 </Text>
                 <Text
                     style={{
-                        fontSize: 14
+                        fontSize: 14,
                     }}>
                     {date}-{month}-{year} {hours}:{mins}
                 </Text>
@@ -122,7 +105,7 @@ const CustomPost = ({navigation, data, showComments}) => {
         <View
             style={{
                 marginTop:5,
-                alignItems: 'center'
+                alignItems: 'center',
             }}>
             <Text
                 style={{
@@ -136,17 +119,12 @@ const CustomPost = ({navigation, data, showComments}) => {
             <View
                 style={{
                     width:'100%', 
-                    alignItems: 'center'
+                    alignItems: 'center',
                 }}>
                 <Image
-                source={{
-                    uri: imageUrl
-                    }}
-                style={{
-                    marginVertical: 10,
-                    height: 250,
-                    width: '80%',
-                    borderRadius: 10,
+                source={{uri: imageUrl}}
+                style={{ //postImage
+                    
                 }} />
             </View>
         )}
@@ -154,22 +132,17 @@ const CustomPost = ({navigation, data, showComments}) => {
             data.button.action.data.$url!==''&&
                 <CustomButton 
                     style={{
-                        marginTop: 20
+                        marginTop: 20,
                     }}
                     title={data.button.title}
                     onPress={()=>{Linking.openURL(url)}}
         />}
         <View
-            style={{
-                flexDirection: 'row',
-                justifyContent:'space-between',
-                marginTop: 20,
-                marginLeft: 10
-            }}>
+            style={styles.reactionContainer}>
             <View
                 style={{
                     flexDirection:'row',
-                    alignItems: 'flex-end'
+                    alignItems: 'flex-end',
                 }}>
                 <TouchableOpacity
                     activeOpacity={0.6}
@@ -184,7 +157,7 @@ const CustomPost = ({navigation, data, showComments}) => {
                 <Text
                     style={{
                         marginHorizontal:5, 
-                        color: '#3036D6'
+                        color: '#3036D6',
                     }}>
                     {likes} Likes
                 </Text>
@@ -195,7 +168,7 @@ const CustomPost = ({navigation, data, showComments}) => {
                     onPress={()=>{navigation.navigate('CommentScreen', {data: data})}}
                     style={{
                         flexDirection:'row',
-                        alignItems: 'flex-end'
+                        alignItems: 'flex-end',
                     }}>
                     <AntDesign
                         name='aliwangwang-o1'
@@ -206,7 +179,7 @@ const CustomPost = ({navigation, data, showComments}) => {
                     <Text
                         style={{
                             marginHorizontal:5,
-                            color: '#3036D6'
+                            color: '#3036D6',
                         }}>
                         {comments} Comments
                     </Text>
@@ -216,7 +189,7 @@ const CustomPost = ({navigation, data, showComments}) => {
                 onPress={()=>{sharePost()}}
                 style={{
                     flexDirection:'row',
-                    alignItems: 'flex-end'
+                    alignItems: 'flex-end',
                 }}>
                 <AntDesign
                     name='sharealt'
@@ -227,14 +200,56 @@ const CustomPost = ({navigation, data, showComments}) => {
                 <Text
                     style={{
                         marginHorizontal:5,
-                        color: '#3036D6'
+                        color: '#3036D6',
                     }}>
                     Share
                 </Text>
             </TouchableOpacity>
         </View>
     </View>
-  )
-}
+  );
+};
 
-export default CustomPost
+const styles = StyleSheet.create({
+    container: {
+        width: '90%', 
+        marginHorizontal:'5%', 
+        borderRadius: 12, 
+        elevation: 4, 
+        backgroundColor: '#F0FEFE', 
+        padding: 12, 
+        borderWidth:1,
+        marginBottom: 10,
+    },
+    profileContainer: {
+        flexDirection: 'row', 
+        width: '100%', 
+        borderWidth: 1, 
+        paddingBottom:8, 
+        backgroundColor: '#FFFFFF', 
+        borderRadius: 12,
+    },
+    profileImage: {
+        marginTop:8,
+        marginLeft: 8,
+        height: 50,
+        width: 50,
+        borderRadius: 25,
+        borderWidth: 1,
+        borderColor: '#354354',
+    },
+    postImage: {
+        marginVertical: 10,
+        height: 250,
+        width: '80%',
+        borderRadius: 10,
+    },
+    reactionContainer: {
+        flexDirection: 'row',
+        justifyContent:'space-between',
+        marginTop: 20,
+        marginLeft: 10,
+    },
+});
+
+export default CustomPost;

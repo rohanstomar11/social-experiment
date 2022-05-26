@@ -1,12 +1,17 @@
-import { View, ScrollView, Text } from 'react-native'
-import React, {useState, useEffect} from 'react'
+import {
+    View,
+    ScrollView,
+    Text,
+    StyleSheet,
+} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import CustomInputField from '../components/CustomInputField'
-import CustomButton from '../components/CustomButton'
-import UsersQuery from 'getsocial-react-native-sdk/models/communities/UsersQuery'
-import PagingQuery from 'getsocial-react-native-sdk/models/PagingQuery'
-import Communities from 'getsocial-react-native-sdk/Communities'
-import CustomProfileCard from '../components/CustomProfileCard'
-import GetSocial from 'getsocial-react-native-sdk/GetSocial'
+import CustomButton from '../components/CustomButton';
+import UsersQuery from 'getsocial-react-native-sdk/models/communities/UsersQuery';
+import PagingQuery from 'getsocial-react-native-sdk/models/PagingQuery';
+import Communities from 'getsocial-react-native-sdk/Communities';
+import CustomProfileCard from '../components/CustomProfileCard';
+import GetSocial from 'getsocial-react-native-sdk/GetSocial';
 
 const SearchUserScreen = ({navigation}) => {
 
@@ -40,26 +45,18 @@ const SearchUserScreen = ({navigation}) => {
         <View
             style={{
                 width: '100%',
-                alignItems: 'center'
+                alignItems: 'center',
             }}>
             <Text
-                style={{
-                    fontSize: 30,
-                    marginTop: 20,
-                    color: '#2D6CDF',
-                    fontWeight: '700',
-                    letterSpacing: 2,
-                }}>
+                style={styles.title}>
                 SEARCH
             </Text>
             <CustomInputField
-            top={20}
-            radius={30}
-            iconType={'search1'}
-            onchange={(text)=>{setName(text)}}
-            placeholder={"Search by Name (atleast 3 letters)"}
-            style={{
-            }}
+                top={20}
+                radius={30}
+                iconType={'search1'}
+                onchange={(text)=>{setName(text)}}
+                placeholder={"Search by Name (atleast 3 letters)"}
                 />
             <CustomButton
                 title={"Search"}  
@@ -74,19 +71,36 @@ const SearchUserScreen = ({navigation}) => {
         {data && (
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{
-                    width: '100%',
-                    alignItems: 'center',
-                    borderTopWidth: 1,
-                    borderColor: '#3036D6'
-                }}>
+                contentContainerStyle={styles.userScroll}>
                 {data.map((item, index)=>{
-                    return <CustomProfileCard data={item} key={index} navigation={navigation} userId={userId} />
+                    return (
+                        <CustomProfileCard
+                            data={item}
+                            key={index}
+                            navigation={navigation}
+                            userId={userId}
+                            />)
                 })}
             </ScrollView>
         )}
     </View>
-  )
-}
+  );
+};
 
-export default SearchUserScreen
+const styles = StyleSheet.create({
+    title: {
+        fontSize: 30,
+        marginTop: 20,
+        color: '#2D6CDF',
+        fontWeight: '700',
+        letterSpacing: 2,
+    },
+    userScroll: {
+        width: '100%',
+        alignItems: 'center',
+        borderTopWidth: 1,
+        borderColor: '#3036D6',
+    },
+});
+
+export default SearchUserScreen;

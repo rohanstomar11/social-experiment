@@ -1,11 +1,17 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React, {useState} from 'react'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import Communities from 'getsocial-react-native-sdk/Communities'
+import {
+    View,
+    Text,
+    Image,
+    TouchableOpacity,
+    StyleSheet,
+} from 'react-native';
+import React, {useState} from 'react';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Communities from 'getsocial-react-native-sdk/Communities';
 
 const CustomComment = ({data}) => {
     
-    const created = new Date(data.createdAt*1000)
+    const created = new Date(data.createdAt*1000);
     const date = created.getDate();
     const month = created.getMonth();
     const year = created.getFullYear();
@@ -21,8 +27,8 @@ const CustomComment = ({data}) => {
             setLikes(likes+1);
         }, (error)=>{
             console.error(error);
-        })
-    }
+        });
+    };
      
     const unlikePost = () => {
         Communities.removeReaction('like', data.id).then((result)=>{
@@ -30,40 +36,19 @@ const CustomComment = ({data}) => {
             setLikes(likes-1);
         },(error)=>{
             console.error(error);
-        })
-    }
+        });
+    };
     
   return (
     <View
-        style={{
-        width:'90%',
-        alignItems:'flex-start',
-        backgroundColor:'#F0FEFE',
-        borderWidth: 1,
-        borderRadius:12,
-        padding: 6,
-        }}>
+        style={styles.container}>
         <View
-            style={{
-                flexDirection: 'row', 
-                width: '100%', 
-                borderWidth: 1, 
-                paddingBottom:8, 
-                backgroundColor: '#FFFFFF', 
-                borderRadius: 12}}>
+            style={styles.profileContainer}>
             <Image
                 source={{
                     uri: data.author.avatarUrl
                 }}
-                style={{
-                    marginTop:8,
-                    marginLeft: 8,
-                    height: 50,
-                    width: 50,
-                    borderRadius: 25,
-                    borderWidth: 1,
-                    borderColor: '#354354'
-                }}/>
+                style={styles.image}/>
             <View
                 style={{
                     width: '100%',
@@ -87,14 +72,14 @@ const CustomComment = ({data}) => {
             </View>
         </View>
         <Text
-        style={{
+        style={{ //textContainer
             color:'#354354',
             margin: 12
         }}>
             {data.text}
         </Text>
         <View
-            style={{
+            style={{ 
                 flexDirection:'row',
                 alignItems: 'flex-end',
                 marginLeft: 10
@@ -118,7 +103,35 @@ const CustomComment = ({data}) => {
             </Text>
         </View>
     </View>
-  )
-}
+  );
+};
 
-export default CustomComment
+const styles = StyleSheet.create({
+    container: {
+        width:'90%',
+        alignItems:'flex-start',
+        backgroundColor:'#F0FEFE',
+        borderWidth: 1,
+        borderRadius:12,
+        padding: 6,
+    },
+    profileContainer: {
+        flexDirection: 'row', 
+        width: '100%', 
+        borderWidth: 1, 
+        paddingBottom:8, 
+        backgroundColor: '#FFFFFF', 
+        borderRadius: 12
+    },
+    image: {
+        marginTop:8,
+        marginLeft: 8,
+        height: 50,
+        width: 50,
+        borderRadius: 25,
+        borderWidth: 1,
+        borderColor: '#354354',
+    },
+});
+
+export default CustomComment;

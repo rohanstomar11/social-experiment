@@ -1,10 +1,15 @@
-import { View, Image, LogBox } from 'react-native'
-import React, {useEffect} from 'react'
-import { FullLogo } from '../assets/images'
-import { COLORS } from '../assets/color'
-import auth from '@react-native-firebase/auth'
-import { GetSocial } from 'getsocial-react-native-sdk'
-import { CONFIG } from '../utility/config'
+import {
+  View,
+  Image,
+  LogBox,
+  StyleSheet,
+} from 'react-native';
+import React, {useEffect} from 'react';
+import {FullLogo} from '../assets/images';
+import {COLORS} from '../assets/color';
+import auth from '@react-native-firebase/auth';
+import {GetSocial} from 'getsocial-react-native-sdk';
+import {CONFIG} from '../utility/config';
 
 LogBox.ignoreLogs(['new NativeEventEmitter']);
 
@@ -40,15 +45,23 @@ const SplashScreen = ({navigation}) => {
   };
 
   return (
-    <View style={{
-      flex:1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: COLORS.white,
-    }}>
-      <Image source={FullLogo} style={{width: '80%'}}/>
+    <View
+      style={styles.container}>
+      <Image
+        source={FullLogo}
+        style={{width: '80%'}}
+        />
     </View>
-  )
-}
+  );
+};
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.white,
+  },
+});
 
 export default SplashScreen;

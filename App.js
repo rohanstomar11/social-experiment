@@ -2,10 +2,10 @@ import React from 'react';
 import {
   SafeAreaView,
   LogBox,
-  View
+  View,
 } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SplashScreen from './app/screens/splash';
 import LoginScreen from './app/screens/login';
 import SignupScreen from './app/screens/signup';
@@ -17,12 +17,12 @@ import PostScreen from './app/screens/post';
 import CommentScreen from './app/screens/comment';
 import ProfileScreen from './app/screens/profile';
 import CreateGroupScreen from './app/screens/creategroup';
-import GroupChatScreen from './app/screens/groupchat'
+import GroupChatScreen from './app/screens/groupchat';
 import SearchUserScreen from './app/screens/searchuser';
-import UserScreen from './app/screens/user'
-import UserChatScreen from './app/screens/userchat'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import UserScreen from './app/screens/user';
+import UserChatScreen from './app/screens/userchat';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 LogBox.ignoreLogs(["ViewPropTypes will be removed from React Native. Migrate to ViewPropTypes exported from 'deprecated-react-native-prop-types'."]);
 
@@ -33,7 +33,11 @@ const App = () => {
 
   const MyTab = () => {
     return(
-      <Tab.Navigator initialRouteName='HomeScreen' screenOptions={{headerShown: false}}>
+      <Tab.Navigator
+        initialRouteName='HomeScreen'
+        screenOptions={{
+          headerShown: false
+        }}>
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
@@ -44,7 +48,13 @@ const App = () => {
             tabBarIcon: ({focused, color, size}) => {
               const colorIcon=focused?'#2D6CDF': '#354354';
               const sizeIcon=focused?27:23;
-              return (<AntDesign name='home' color={colorIcon} size={sizeIcon} />)
+              return (
+                <AntDesign
+                  name='home'
+                  color={colorIcon}
+                  size={sizeIcon}
+                  />
+              )
             }
           }}/>
         <Stack.Screen
@@ -57,7 +67,13 @@ const App = () => {
             tabBarIcon: ({focused, color, size}) => {
               const colorIcon=focused?'#2D6CDF': '#354354';
               const sizeIcon=focused?27:23;
-              return (<AntDesign name='search1' color={colorIcon} size={sizeIcon} />)
+              return (
+                <AntDesign 
+                  name='search1'
+                  color={colorIcon}
+                  size={sizeIcon}
+                  />
+              )
             }
           }}/>
         <Stack.Screen 
@@ -70,7 +86,13 @@ const App = () => {
             tabBarIcon: ({focused, color, size}) => {
               const colorIcon=focused?'#2D6CDF': '#354354';
               const sizeIcon=focused?27:23;
-              return (<AntDesign name='team' color={colorIcon} size={sizeIcon} />)
+              return (
+                <AntDesign
+                  name='team'
+                  color={colorIcon}
+                  size={sizeIcon}
+                  />
+              )
             }
           }}/>
         <Stack.Screen
@@ -83,7 +105,13 @@ const App = () => {
             tabBarIcon: ({focused, color, size}) => {
               const colorIcon=focused?'#2D6CDF': '#354354';
               const sizeIcon=focused?27:23;
-              return (<AntDesign name='user' color={colorIcon} size={sizeIcon} />)
+              return (
+                <AntDesign
+                  name='user'
+                  color={colorIcon}
+                  size={sizeIcon}
+                  />
+              )
             }
           }}/>
       </Tab.Navigator>
@@ -91,25 +119,68 @@ const App = () => {
   }
 
   return (
-    <SafeAreaView style={{ flex:1, }}>
+    <SafeAreaView
+      style={{
+        flex:1,
+      }}>
       <View
-        style={{ flex: 1, }}>
+        style={{
+          flex: 1,
+        }}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName='SplashScreen' screenOptions={{
-            headerShown: false
-          }}>
-          <Stack.Screen name="SplashScreen" component={SplashScreen} />
-          <Stack.Screen name="LoginScreen" component={LoginScreen} />
-          <Stack.Screen name="SignupScreen" component={SignupScreen} />
-          <Stack.Screen name='TabScreen' component={MyTab} />
-          <Stack.Screen name="OnboardScreen" component={OnboardScreen} />
-          <Stack.Screen name="GroupScreen" component={GroupScreen} />
-          <Stack.Screen name="PostScreen" component={PostScreen} />
-          <Stack.Screen name="CommentScreen" component={CommentScreen} />
-          <Stack.Screen name="CreateGroupScreen" component={CreateGroupScreen} />
-          <Stack.Screen name="GroupChatScreen" component={GroupChatScreen} />
-          <Stack.Screen name="UserScreen" component={UserScreen} />
-          <Stack.Screen name="UserChatScreen" component={UserChatScreen} />
+          <Stack.Navigator
+            initialRouteName='SplashScreen'
+            screenOptions={{
+              headerShown: false
+            }}>
+            <Stack.Screen
+              name="SplashScreen"
+              component={SplashScreen}
+              />
+            <Stack.Screen
+              name="LoginScreen"
+              component={LoginScreen}
+              />
+            <Stack.Screen
+              name="SignupScreen"
+              component={SignupScreen}
+              />
+            <Stack.Screen
+              name='TabScreen'
+              component={MyTab}
+              />
+            <Stack.Screen
+              name="OnboardScreen"
+              component={OnboardScreen}
+              />
+            <Stack.Screen
+              name="GroupScreen"
+              component={GroupScreen}
+              />
+            <Stack.Screen
+              name="PostScreen"
+              component={PostScreen}
+              />
+            <Stack.Screen
+              name="CommentScreen"
+              component={CommentScreen}
+              />
+            <Stack.Screen
+              name="CreateGroupScreen"
+              component={CreateGroupScreen}
+              />
+            <Stack.Screen
+              name="GroupChatScreen"
+              component={GroupChatScreen}
+              />
+            <Stack.Screen
+              name="UserScreen"
+              component={UserScreen}
+              />
+            <Stack.Screen
+              name="UserChatScreen"
+              component={UserChatScreen}
+              />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
