@@ -1,12 +1,18 @@
-import React, {useEffect} from 'react'
-import { Channel, MessageList, OverlayProvider, Chat, MessageInput } from 'stream-chat-react-native'
-import { CONFIG } from '../utility/config';
-import { StreamChat, } from 'stream-chat';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import React, {useEffect} from 'react';
+import {
+  Channel,
+  MessageList,
+  OverlayProvider,
+  Chat,
+  MessageInput,
+} from 'stream-chat-react-native';
+import {CONFIG} from '../utility/config';
+import {StreamChat} from 'stream-chat';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
-const UserChatScreen = ({navigation, route}) => {
+const UserChatScreen = ({ route }) => {
 
   const {userId, id} = route.params;
 
@@ -31,7 +37,7 @@ const UserChatScreen = ({navigation, route}) => {
         </Chat>
       </OverlayProvider>
     </GestureHandlerRootView>
-  )
-}
+  );
+};
 
-export default UserChatScreen
+export default UserChatScreen;

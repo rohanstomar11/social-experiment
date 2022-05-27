@@ -1,7 +1,7 @@
-import { Text, TouchableOpacity } from 'react-native'
+import {Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import { COLORS } from '../assets/color'
+import {COLORS} from '../assets/color';
 
 const CustomButton = ({
   colors, 
@@ -13,7 +13,7 @@ const CustomButton = ({
   fontweight, 
   title,
   radius,
-  letterSpacing
+  letterSpacing,
 }) => {
   return (
     <TouchableOpacity
@@ -21,7 +21,7 @@ const CustomButton = ({
       onPress={onPress}
       style={style}>
       <LinearGradient
-        colors={colors || ['#2D6CDF', '#6757D8']}
+        colors={colors || [COLORS.primary, COLORS.secondary]}
         start={{x:0, y:0}}
         end={{x:1, y:0}}
         style={{
@@ -40,7 +40,7 @@ const CustomButton = ({
         </Text>
       </LinearGradient>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
 export default CustomButton;

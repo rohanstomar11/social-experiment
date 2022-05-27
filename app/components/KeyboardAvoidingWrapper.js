@@ -9,22 +9,24 @@ import {
 const KeyboardAvoidingWrapper = ({ children, style }) => {
     return (
         <KeyboardAvoidingView
-            style={{ flex: 1, }}
-        >
+            style={{
+                flex: 1,
+            }}>
             <ScrollView
                 overScrollMode='never'
                 contentContainerStyle= { style || {
                     justifyContent: 'center',
                     alignItems: 'center',
-                    paddingTop: "20%"
+                    paddingTop: 20,
                 }}
             >
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <TouchableWithoutFeedback
+                    onPress={Keyboard.dismiss}>
                     {children}
                 </TouchableWithoutFeedback>
             </ScrollView>
         </KeyboardAvoidingView>
-    )
-}
+    );
+};
 
 export default KeyboardAvoidingWrapper;

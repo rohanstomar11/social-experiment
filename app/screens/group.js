@@ -1,7 +1,15 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+  Platform,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import Communities from 'getsocial-react-native-sdk/Communities';
-import { COLORS } from '../assets/color';
+import {COLORS} from '../assets/color';
 import JoinGroupQuery from 'getsocial-react-native-sdk/models/communities/JoinGroupQuery';
 import ActivitiesQuery from 'getsocial-react-native-sdk/models/communities/ActivitiesQuery';
 import PagingQuery from 'getsocial-react-native-sdk/models/PagingQuery';
@@ -10,8 +18,8 @@ import CustomButton from '../components/CustomButton';
 import RemoveGroupMembersQuery from 'getsocial-react-native-sdk/models/communities/RemoveGroupMembersQuery';
 import UserIdList from 'getsocial-react-native-sdk/models/UserIdList';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { CONFIG } from '../utility/config';
-import { StreamChat } from 'stream-chat';
+import {CONFIG} from '../utility/config';
+import {StreamChat} from 'stream-chat';
 
 const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
@@ -27,7 +35,7 @@ const GroupScreen = ({route, navigation}) => {
        result.isFollowedByMe===true ? setGroupMember(true) : setGroupMember(false)
        setMembersCount(result.membersCount)
      }), (error)=>{
-       console.error(error)
+       console.error(error);
      }
   }, [group, groupMember, membersCount])
 
@@ -53,18 +61,18 @@ const GroupScreen = ({route, navigation}) => {
       setGroupMember(true)
       chatJoin();
     }, (error) => {
-    console.error(error)
+    console.error(error);
     })
   }
 
   const leaveGroup = () => {
-    const userIdNew = UserIdList.create([userId])
+    const userIdNew = UserIdList.create([userId]);
     const query = RemoveGroupMembersQuery.create(id, userIdNew);
     Communities.removeGroupMembers(query).then((result)=>{
-      setGroupMember(false)
+      setGroupMember(false);
       chatLeave();
     }, (error) => {
-    console.error(error)
+    console.error(error);
     })
   }
 
@@ -73,7 +81,7 @@ const GroupScreen = ({route, navigation}) => {
     const query = ActivitiesQuery.inGroup(id);
     const pagingQuery = new PagingQuery(query);
     Communities.getActivities(pagingQuery).then((result)=>{
-      Object.keys(result.entries).length!==0? setFeed(result.entries): null
+      Object.keys(result.entries).length!==0? setFeed(result.entries): null;
     },(error)=>{
       console.error(error);
     })
@@ -84,7 +92,7 @@ const GroupScreen = ({route, navigation}) => {
     const query = ActivitiesQuery.inGroup(id);
     const pagingQuery = new PagingQuery(query);
     Communities.getActivities(pagingQuery).then((result)=>{
-      Object.keys(result.entries).length<3 ? setFeedIndex(Object.keys(result.entries).length) : setFeedIndex(3)
+      Object.keys(result.entries).length<3 ? setFeedIndex(Object.keys(result.entries).length) : setFeedIndex(3);
     },(error)=>{
       console.error(error);
     })
@@ -102,7 +110,7 @@ const GroupScreen = ({route, navigation}) => {
   },[])
 
   const loadMore = () => {
-    feedMaxIndex-feedIndex>2 ? setFeedIndex(feedIndex+3) : setFeedIndex(feedMaxIndex)
+    feedMaxIndex-feedIndex>2 ? setFeedIndex(feedIndex+3) : setFeedIndex(feedMaxIndex);
   }
 
   const openGroupChat = () => {
@@ -114,7 +122,7 @@ const GroupScreen = ({route, navigation}) => {
       showsVerticalScrollIndicator={false}
       overScrollMode={'never'}
       contentContainerStyle={{
-      paddingBottom: 20
+      paddingBottom: 20,
     }}>
       {group &&
         <View
@@ -124,68 +132,42 @@ const GroupScreen = ({route, navigation}) => {
             marginVertical: 20,
           }}>
             <View
-              style={{
-                width: '100%',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexDirection: 'row',
-              }}>
+              style={styles.headerContainer}>
               <TouchableOpacity
                 onPress={()=>{navigation.goBack()}}
                 activeOpacity={0.6}
-                style={{
-                  marginLeft: 20,
-                  alignSelf:'center',
-                  elevation: 5,
-                  borderRadius: 20,
-                  padding: 5,
-                  backgroundColor: '#F7F3F2'
-                }}>
+                style={[styles.headerButton,  {marginLeft: 15}]}>
                 <AntDesign
                   name='arrowleft'
-                  color={'#2D6CDF'}
+                  color={COLORS.primary}
                   size={30}
                 />
               </TouchableOpacity>
               <Text
-              style={{
-                color: '#354354',
-                fontWeight: '900', 
-                fontSize: 28,
-              }}>
+                style={{
+                  color: COLORS.text,
+                  fontWeight: '900', 
+                  fontSize: 28,
+                }}>
                 {group.title} Club
               </Text>
               <TouchableOpacity
                 onPress={()=>{openGroupChat()}}
                 activeOpacity={0.6}
-                style={{
-                  marginRight: 10,
-                  alignSelf:'center',
-                  elevation: 5,
-                  borderRadius: 20,
-                  padding: 5,
-                  backgroundColor: '#F7F3F2',
-                }}>
+                style={[styles.headerButton,  {marginRight: 20}]}>
                 <AntDesign
                   name='wechat'
-                  color={'#2D6CDF'}
+                  color={COLORS.primary}
                   size={30}
                 />
               </TouchableOpacity>
             </View>
           <Image
-            source={{
-              uri: group.avatarUrl
-            }}
-            style={{
-              height:150,
-              width:150,
-              marginTop: 20,
-              borderRadius: 15
-            }}/>
+            source={{uri: group.avatarUrl}}
+            style={styles.image}/>
           <View 
             style={{
-              marginTop: 8
+              marginTop: 8,
             }}>
             <Text>
               {group.description}
@@ -193,61 +175,38 @@ const GroupScreen = ({route, navigation}) => {
           </View>
         {groupMember === true
         ? <View
-            style={{
-              marginTop: 8,
-              backgroundColor: '#AAAAAA',
-              paddingVertical: 8,
-              borderRadius: 12,
-              paddingHorizontal: 30
-            }}>
+            style={styles.join}>
             <Text
-            style={{
-              color: '#354354', 
-              fontSize: 15
-            }}>
+              style={{
+                color: COLORS.text, 
+                fontSize: 15,
+              }}>
               Joined!
             </Text>
         </View>
         : <TouchableOpacity
             onPress={()=>{joinGroup()}}
             activeOpacity={0.75}
-            style={{
-              marginTop: 8,
-              backgroundColor: COLORS.link,
-              paddingVertical: 8,
-              borderRadius: 12,
-              paddingHorizontal: 30
-          }}>
+            style={[styles.join, {backgroundColor: COLORS.primary}]}>
           <Text
             style={{
-              color: '#FFFFFF', 
-              fontSize: 15
+              color: COLORS.white, 
+              fontSize: 15,
             }}>
               + Join
           </Text>
         </TouchableOpacity>}
         <Text
           style={{
-            color: '#267967',
-            marginTop: 2
+            color: COLORS.green,
+            marginTop: 2,
           }}>
           Members: {membersCount}
         </Text>
         <View
-          style={{
-            width: '100%', 
-            marginTop:2, 
-            flexDirection:'row', 
-            justifyContent:'space-between', 
-            alignItems:'center'
-          }}>
+          style={styles.feedContainer}>
           <Text
-            style={{
-              marginHorizontal: 16,
-              color:'#354354', 
-              fontSize: 24,
-              fontWeight:'700'
-            }}>
+            style={styles.feedTitle}>
             Feed
           </Text>
           {groupMember &&
@@ -256,27 +215,30 @@ const GroupScreen = ({route, navigation}) => {
               style={{
                 height:39, 
                 width:80, 
-                marginRight: 10
+                marginRight: 10,
               }}
               title={"POST"}
               fontsize={12}
-            />}
+            />
+          }
         </View>
       </View>}
       {!feed &&
         <Text
-        style={{
-          alignSelf:'center', 
-          color:'#3036D6', 
-          fontSize: 20, 
-          fontStyle: 'italic'
-        }}>
+        style={styles.emptyFeed}>
           There are no posts in this group!
         </Text>}
       {feed &&(
         feed.map((item, index)=>{
           if(index<feedIndex){
-            return <CustomPost data={feed[index]} key={index} navigation={navigation} showComments={true} />
+            return (
+              <CustomPost
+                data={feed[index]}
+                key={index}
+                navigation={navigation}
+                showComments={true} 
+                />
+            )
           }
         })
       )}
@@ -288,12 +250,12 @@ const GroupScreen = ({route, navigation}) => {
               activeOpacity={0.6}
               style={{
                 alignSelf: 'center', 
-                alignItems:'center'
+                alignItems:'center',
               }}>
               <Text
               style={{
-                color: '#3036D6',
-                fontWeight: '700'
+                color: COLORS.primary,
+                fontWeight: '700',
               }}> 
                 View More
               </Text>
@@ -302,13 +264,76 @@ const GroupScreen = ({route, navigation}) => {
       {groupMember===true && (
           <CustomButton
             title={"Leave Group!"}
-            colors={['#B31217', '#E52D27']}
-            style={{marginTop: 20, width: '45%', alignSelf:'center', }}
+            colors={[COLORS.gradRed1, COLORS.gradRed2]}
+            style={{
+              marginTop: 20,
+              width: '45%',
+              alignSelf:'center',
+            }}
             onPress={()=>{leaveGroup()}}
           />
       )}
     </ScrollView>
-  )
-}
+  );
+};
 
-export default GroupScreen
+const styles = StyleSheet.create({
+  headerContainer: {
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  headerButton: {
+    alignSelf:'center',
+    borderRadius: 20,
+    padding: 5,
+    backgroundColor: COLORS.cardBg,
+    ...Platform.select({
+      android: {
+        elevation: 24,
+        shadowColor: COLORS.shadowColor,
+      },
+      ios: {
+        shadowRadius: 24,
+        shadowOpacity: 1,
+        shadowColor: COLORS.shadowColor,
+        shadowOffset: { width: 0, height: 16 },
+      }
+    })
+  },
+  image: {
+    height:150,
+    width:150,
+    marginTop: 20,
+    borderRadius: 15,
+  },
+  join: {
+    marginTop: 8,
+    backgroundColor: COLORS.background,
+    paddingVertical: 8,
+    borderRadius: 12,
+    paddingHorizontal: 30,
+  },
+  feedContainer: {
+    width: '100%', 
+    marginTop:2, 
+    flexDirection:'row', 
+    justifyContent:'space-between', 
+    alignItems:'center',
+  },
+  feedTitle: {
+    marginHorizontal: 16,
+    color: COLORS.text, 
+    fontSize: 24,
+    fontWeight:'700',
+  },
+  emptyFeed: {
+    alignSelf:'center', 
+    color: COLORS.primary, 
+    fontSize: 20, 
+    fontStyle: 'italic',
+  },
+});
+
+export default GroupScreen;

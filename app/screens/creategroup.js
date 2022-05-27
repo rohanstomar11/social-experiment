@@ -1,50 +1,57 @@
-import { View, Text, ScrollView } from 'react-native'
-import React, {useState, useEffect} from 'react'
-import CustomInputField from  '../components/CustomInputField'
-import CustomButton from '../components/CustomButton'
-import * as ImagePicker from 'react-native-image-picker'
-import storage from '@react-native-firebase/storage'
-import GroupContent from 'getsocial-react-native-sdk/models/communities/GroupContent'
-import MediaAttachment from 'getsocial-react-native-sdk/models/MediaAttachment'
-import CommunitiesAction from 'getsocial-react-native-sdk/models/communities/CommunitiesAction'
-import Role from 'getsocial-react-native-sdk/models/communities/Role'
-import Communities from 'getsocial-react-native-sdk/Communities'
-import { CONFIG } from '../utility/config';
-import { StreamChat } from 'stream-chat';
+import {
+  Text,
+  ScrollView,
+  Platform,
+  StyleSheet,
+} from 'react-native';
+import React, {useState} from 'react';
+import CustomInputField from  '../components/CustomInputField';
+import CustomButton from '../components/CustomButton';
+import * as ImagePicker from 'react-native-image-picker';
+import storage from '@react-native-firebase/storage';
+import GroupContent from 'getsocial-react-native-sdk/models/communities/GroupContent';
+import MediaAttachment from 'getsocial-react-native-sdk/models/MediaAttachment';
+import CommunitiesAction from 'getsocial-react-native-sdk/models/communities/CommunitiesAction';
+import Role from 'getsocial-react-native-sdk/models/communities/Role';
+import Communities from 'getsocial-react-native-sdk/Communities';
+import {CONFIG} from '../utility/config';
+import {StreamChat} from 'stream-chat';
+import {COLORS} from '../assets/color';
 
 const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
 const CreateGroupScreen = ({navigation, route}) => {
-  const {userId} = route.params
+  const {userId} = route.params;
   const current = Math.round(new Date().getTime() / 1000);
 
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('')
+  const [description, setDescription] = useState('');
 
   const [imageUrl, setImageUrl] = useState('');
   const [filePath, setFilePath] = useState();
   const [indicator, setIndicator] = useState(false);
 
   const addImage = () => {
-      const options = {
-          storageOptions: {
-            skipBackup: true,
-            path: 'images',
-          },
-        };
-        ImagePicker.launchImageLibrary(options, res => {
-          console.log('Response = ', res);
-          if (res.didCancel) {
-            console.log('User cancelled image picker');
-          } else if (res.error) {
-            console.log('ImagePicker Error: ', res.error);
-          } else {
-              const path = res.assets[0].uri.toString()
-              uploadImageToStorage(path, getFileName(res.assets[0].fileName));
-              setFilePath(path)
-          }
-      });
+    const options = {
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.launchImageLibrary(options, res => {
+      console.log('Response = ', res);
+      if (res.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (res.error) {
+        console.log('ImagePicker Error: ', res.error);
+      } else {
+          const path = res.assets[0].uri.toString()
+          uploadImageToStorage(path, getFileName(res.assets[0].fileName));
+          setFilePath(path)
+      }
+    });
   }
+
   const getFileName = (name, path) => {
       if (name != null) {
         return name;
@@ -111,12 +118,7 @@ const CreateGroupScreen = ({navigation, route}) => {
         alignItems: 'center',
       }}>
       <Text
-        style={{
-          fontSize: 25,
-          color: '#3036D6',
-          fontWeight: '700',
-          marginTop: 10,
-        }}>
+        style={styles.headerText}>
         Create Group
       </Text>
       <CustomInputField 
@@ -140,7 +142,15 @@ const CreateGroupScreen = ({navigation, route}) => {
         title={"Upload"}
         onPress={()=>{addImage()}}
       />
-      {indicator && <Text style={{color: '#359458', fontSize: 13}}>Image Upload Successful!</Text>}
+      {indicator &&
+        <Text
+          style={{
+            color: COLORS.green,
+            fontSize: 13
+          }}>
+          Image Upload Successful!
+        </Text>
+      }
       <CustomButton
         style={{
           width: '80%',
@@ -150,7 +160,16 @@ const CreateGroupScreen = ({navigation, route}) => {
         onPress={()=>{createGroup()}}
       />
     </ScrollView>
-  )
-}
+  );
+};
 
-export default CreateGroupScreen
+const styles = StyleSheet.create({
+  headerText: {
+    fontSize: 25,
+    color: COLORS.primary,
+    fontWeight: '700',
+    marginTop: 10,
+  },
+});
+
+export default CreateGroupScreen;
