@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Linking,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import React from 'react';
 import {COLORS} from '../assets/color';
@@ -43,7 +44,18 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.formBg,
     borderRadius: 12,
     alignItems: 'center',
-    elevation:2,
+    ...Platform.select({
+      android: {
+        elevation: 24,
+        shadowColor: COLORS.shadowColor,
+      },
+      ios: {
+        shadowRadius: 24,
+        shadowOpacity: 1,
+        shadowColor: COLORS.shadowColor,
+        shadowOffset: { width: 0, height: 16 },
+      }
+    })
   },
   title: {
     fontSize:20,

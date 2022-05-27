@@ -17,7 +17,7 @@ const KeyboardAvoidingWrapper = ({ children, style }) => {
                 contentContainerStyle= { style || {
                     justifyContent: 'center',
                     alignItems: 'center',
-                    paddingTop: "20%",
+                    paddingTop: 20,
                 }}
             >
                 <TouchableWithoutFeedback

@@ -162,7 +162,8 @@ const ProfileScreen = ({ navigation }) => {
                     style={{
                         width: '100%',
                         alignSelf:'center',
-                        marginTop:30
+                        marginTop:30,
+                        marginBottom: 20,
                     }}
                     title={"Log out"}
                     fontsize={20}
@@ -188,10 +189,10 @@ const styles = StyleSheet.create({
         ...Platform.select({
             android: {
                 elevation: 10,
-                shadowColor: COLORS.cardShadow,
+                shadowColor: COLORS.shadowColor,
             },
             ios: {
-                shadowColor: COLORS.cardShadow,
+                shadowColor: COLORS.shadowColor,
                 shadowOffset: {
                     width: 0,
                     height: 5,
@@ -204,8 +205,8 @@ const styles = StyleSheet.create({
     profileCardBottom: {
         height: '60%',
         backgroundColor: COLORS.cardBg,
-        borderBottomRightRadius: 20,
-        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 19,
+        borderBottomLeftRadius: 19,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -232,7 +233,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderWidth: 2,
         borderColor: COLORS.primary,
-        marginTop: '10%',
+        marginTop: '5%',
         padding: '5%',
     },
     bioContainer: {
@@ -245,7 +246,7 @@ const styles = StyleSheet.create({
     },
     detailContainer: {
         backgroundColor: COLORS.cardBg,
-        marginTop: '10%',
+        marginTop: '5%',
         padding: '5%',
         borderRadius: 20,
     },

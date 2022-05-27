@@ -3,6 +3,7 @@ import {
   Text,
   Image,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import React from 'react';
 import {COLORS} from '../assets/color'
@@ -36,7 +37,11 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     height: 130,
     width: 130,
-    elevation: 2,
+    borderWidth:1,
+    borderLeftColor: COLORS.primary,
+    borderTopColor: COLORS.primary,
+    borderBottomColor: COLORS.secondary,
+    borderRightColor: COLORS.secondary,
   },
   image: {
     height: '75%',

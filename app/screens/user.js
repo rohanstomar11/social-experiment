@@ -5,6 +5,7 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -141,10 +142,10 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: {
         elevation: 10,
-        shadowColor: COLORS.cardShadow,
+        shadowColor: COLORS.shadowColor,
       },
       ios: {
-        shadowColor: COLORS.cardShadow,
+        shadowColor: COLORS.shadowColor,
         shadowOffset: {
           width: 0,
           height: 5,

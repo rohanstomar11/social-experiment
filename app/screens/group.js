@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Communities from 'getsocial-react-native-sdk/Communities';
@@ -285,10 +286,21 @@ const styles = StyleSheet.create({
   },
   headerButton: {
     alignSelf:'center',
-    elevation: 5,
     borderRadius: 20,
     padding: 5,
-    backgroundColor: COLORS.background,
+    backgroundColor: COLORS.cardBg,
+    ...Platform.select({
+      android: {
+        elevation: 24,
+        shadowColor: COLORS.shadowColor,
+      },
+      ios: {
+        shadowRadius: 24,
+        shadowOpacity: 1,
+        shadowColor: COLORS.shadowColor,
+        shadowOffset: { width: 0, height: 16 },
+      }
+    })
   },
   image: {
     height:150,

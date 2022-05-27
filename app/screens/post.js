@@ -110,7 +110,6 @@ const PostScreen = ({route, navigation}) => {
             <View style={{
                 width:'100%',
                 alignItems:'center',
-                marginTop: 20,
             }}>
             <View
                 style={{
@@ -195,10 +194,21 @@ const styles = StyleSheet.create({
     headerButton: {
         marginLeft: 20,
         alignSelf:'center',
-        elevation: 5,
         borderRadius: 20,
         padding: 5,
-        backgroundColor: COLORS.background,
+        backgroundColor: COLORS.cardBg,
+        ...Platform.select({
+            android: {
+              elevation: 24,
+              shadowColor: COLORS.shadowColor,
+            },
+            ios: {
+              shadowRadius: 24,
+              shadowOpacity: 1,
+              shadowColor: COLORS.shadowColor,
+              shadowOffset: { width: 0, height: 16 },
+            }
+          })
     },
 });
 

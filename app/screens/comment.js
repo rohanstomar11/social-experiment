@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: {
         elevation: 24,
-        shadowColor: 'rgba(146, 170, 212, 0.12)',
+        shadowColor: COLORS.shadowColor,
       },
       ios: {
         shadowRadius: 24,

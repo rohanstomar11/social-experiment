@@ -5,6 +5,7 @@ import {
     Linking,
     TouchableOpacity,
     StyleSheet,
+    Platform,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import CustomButton from '../components/CustomButton';
@@ -216,11 +217,22 @@ const styles = StyleSheet.create({
         width: '90%', 
         marginHorizontal:'5%', 
         borderRadius: 12, 
-        elevation: 4, 
         backgroundColor: COLORS.cardBg, 
         padding: 12, 
         borderWidth:1,
         marginBottom: 10,
+        ...Platform.select({
+            android: {
+              elevation: 24,
+              shadowColor: COLORS.shadowColor,
+            },
+            ios: {
+              shadowRadius: 24,
+              shadowOpacity: 1,
+              shadowColor: COLORS.shadowColor,
+              shadowOffset: { width: 0, height: 16 },
+            }
+        })
     },
     profileContainer: {
         flexDirection: 'row', 

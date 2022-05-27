@@ -40,12 +40,12 @@ const CustomInputField = ({
         ...Platform.select({
           android: {
             elevation: 24,
-            shadowColor: 'rgba(146, 170, 212, 0.12)',
+            shadowColor: COLORS.shadowColor,
           },
           ios: {
             shadowRadius: 24,
             shadowOpacity: 1,
-            shadowColor: 'rgba(146, 170, 212, 0.12)',
+            shadowColor: COLORS.shadowColor,
             shadowOffset: { width: 0, height: 16 },
           }
         })

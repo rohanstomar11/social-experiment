@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import GetSocial from 'getsocial-react-native-sdk/GetSocial'
@@ -235,12 +236,23 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: '100%',
     padding: 20,
-    elevation: 2,
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 20,
     backgroundColor: COLORS.cardBg,
     borderRadius: 20,
+    ...Platform.select({
+      android: {
+        elevation: 24,
+        shadowColor: COLORS.shadowColor,
+      },
+      ios: {
+        shadowRadius: 24,
+        shadowOpacity: 1,
+        shadowColor: COLORS.shadowColor,
+        shadowOffset: { width: 0, height: 16 },
+      }
+    })
   },
   bannerContainer: {
     width: '100%',
@@ -259,10 +271,21 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 15,
     left: 15,
-    elevation: 20,
     borderRadius: 27,
     padding: 7,
-    backgroundColor: COLORS.background,
+    backgroundColor: COLORS.cardBg,
+    ...Platform.select({
+      android: {
+        elevation: 24,
+        shadowColor: COLORS.shadowColor,
+      },
+      ios: {
+        shadowRadius: 24,
+        shadowOpacity: 1,
+        shadowColor: COLORS.shadowColor,
+        shadowOffset: { width: 0, height: 16 },
+      }
+    })
   },
 });
 
