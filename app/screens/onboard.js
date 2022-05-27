@@ -175,7 +175,7 @@ const OnboardScreen = ({ navigation }) => {
             <FontAwesome
               name='user-circle'
               size={90}
-              color={COLORS.lightgrey}
+              color={COLORS.grey}
             />
           }
           <MaterialIcons
@@ -221,7 +221,7 @@ const OnboardScreen = ({ navigation }) => {
           <Text style={{
             fontSize: 20,
             fontWeight: '500',
-            color: COLORS.black,
+            color: COLORS.text,
           }}>
             Select your graduation?
           </Text>
@@ -231,7 +231,7 @@ const OnboardScreen = ({ navigation }) => {
               width: '100%',
               justifyContent: 'space-around',
             }}
-            buttonColor={COLORS.link}
+            buttonColor={COLORS.primary}
             formHorizontal={true}
             radio_props={graduationOptions}
             initial={0} //initial value of this group
@@ -240,16 +240,18 @@ const OnboardScreen = ({ navigation }) => {
         </View>
         {graduation === 'UG'
           ?
-          <View style={{
-            marginTop: 20,
-            alignSelf: 'flex-start',
-            paddingHorizontal: 25,
-          }}>
-            <Text style={{
-              fontSize: 20,
-              fontWeight: '500',
-              color: COLORS.black,
+          <View
+            style={{
+              marginTop: 20,
+              alignSelf: 'flex-start',
+              paddingHorizontal: 25,
             }}>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: '500',
+                color: COLORS.text,
+              }}>
               Select Year?
             </Text>
             <RadioForm
@@ -258,7 +260,7 @@ const OnboardScreen = ({ navigation }) => {
                 width: '100%',
                 justifyContent: 'space-around',
               }}
-              buttonColor={COLORS.link}
+              buttonColor={COLORS.primary}
               formHorizontal={true}
               radio_props={ugYearOptions}
               initial={0} //initial value of this group
@@ -274,7 +276,7 @@ const OnboardScreen = ({ navigation }) => {
             <Text style={{
               fontSize: 20,
               fontWeight: '500',
-              color: COLORS.black,
+              color: COLORS.text,
             }}>
               Select Year?
             </Text>
@@ -284,7 +286,7 @@ const OnboardScreen = ({ navigation }) => {
                 width: '100%',
                 justifyContent: 'space-around',
               }}
-              buttonColor={COLORS.link}
+              buttonColor={COLORS.primary}
               formHorizontal={true}
               radio_props={pgYearOptions}
               initial={0} //initial value of this group
@@ -327,13 +329,13 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderWidth: 2,
-    borderColor: COLORS.black,
+    borderColor: COLORS.primary,
   },
   cameraIcon: {
     position: 'absolute',
     bottom: 0,
     right: 0,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.background,
     borderRadius: 20,
     padding: 2,
   },

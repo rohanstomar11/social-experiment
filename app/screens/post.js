@@ -18,6 +18,7 @@ import Communities from 'getsocial-react-native-sdk/Communities';
 import * as ImagePicker from 'react-native-image-picker';
 import MediaAttachment from 'getsocial-react-native-sdk/models/MediaAttachment';
 import storage from '@react-native-firebase/storage';
+import { COLORS } from '../assets/color';
 
 const PostScreen = ({route, navigation}) => {
 
@@ -123,13 +124,13 @@ const PostScreen = ({route, navigation}) => {
                     style={styles.headerButton}>
                     <AntDesign
                         name='arrowleft'
-                        color={'#2D6CDF'}
+                        color={COLORS.primary}
                         size={30}
                     />
                 </TouchableOpacity>
                 <Text
                     style={{
-                        color: '#354354',
+                        color: COLORS.text,
                         fontWeight: '900',
                         fontSize: 30,
                     }}>
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
         elevation: 5,
         borderRadius: 20,
         padding: 5,
-        backgroundColor: '#F7F3F2',
+        backgroundColor: COLORS.background,
     },
 });
 

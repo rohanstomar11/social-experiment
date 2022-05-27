@@ -12,6 +12,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Communities from 'getsocial-react-native-sdk/Communities';
 import InviteContent from 'getsocial-react-native-sdk/models/invites/InviteContent';
 import Invites from 'getsocial-react-native-sdk/Invites';
+import { COLORS } from '../assets/color';
 
 const CustomPost = ({navigation, data, showComments}) => {
 
@@ -90,7 +91,7 @@ const CustomPost = ({navigation, data, showComments}) => {
                     style={{
                         fontSize:20,
                         fontWeight: '700',
-                        color: '#354354',
+                        color: COLORS.text,
                     }}>
                     {data.author.displayName}
                 </Text>
@@ -109,7 +110,7 @@ const CustomPost = ({navigation, data, showComments}) => {
             }}>
             <Text
                 style={{
-                    color:'#354354',
+                    color: COLORS.text,
                     fontSize: 16,
                 }}>
                 {data.text}
@@ -150,14 +151,14 @@ const CustomPost = ({navigation, data, showComments}) => {
                 }}>
                     <AntDesign
                         name={liked===true?'like1':'like2'}
-                        color={'#3036D6'}
+                        color={COLORS.primary}
                         size={20}
                     />
                 </TouchableOpacity>
                 <Text
                     style={{
                         marginHorizontal:5, 
-                        color: '#3036D6',
+                        color: COLORS.primary,
                     }}>
                     {likes} Likes
                 </Text>
@@ -172,14 +173,14 @@ const CustomPost = ({navigation, data, showComments}) => {
                     }}>
                     <AntDesign
                         name='aliwangwang-o1'
-                        color={'#3036D6'}
+                        color={COLORS.primary}
                         size={20}
                         style={{}} 
                     />
                     <Text
                         style={{
                             marginHorizontal:5,
-                            color: '#3036D6',
+                            color: COLORS.primary,
                         }}>
                         {comments} Comments
                     </Text>
@@ -193,14 +194,14 @@ const CustomPost = ({navigation, data, showComments}) => {
                 }}>
                 <AntDesign
                     name='sharealt'
-                    color={'#3036D6'}
+                    color={COLORS.primary}
                     size={20}
                     style={{}} 
                 />
                 <Text
                     style={{
                         marginHorizontal:5,
-                        color: '#3036D6',
+                        color: COLORS.primary,
                     }}>
                     Share
                 </Text>
@@ -216,7 +217,7 @@ const styles = StyleSheet.create({
         marginHorizontal:'5%', 
         borderRadius: 12, 
         elevation: 4, 
-        backgroundColor: '#F0FEFE', 
+        backgroundColor: COLORS.cardBg, 
         padding: 12, 
         borderWidth:1,
         marginBottom: 10,
@@ -226,7 +227,7 @@ const styles = StyleSheet.create({
         width: '100%', 
         borderWidth: 1, 
         paddingBottom:8, 
-        backgroundColor: '#FFFFFF', 
+        backgroundColor: COLORS.white, 
         borderRadius: 12,
     },
     profileImage: {
@@ -236,7 +237,7 @@ const styles = StyleSheet.create({
         width: 50,
         borderRadius: 25,
         borderWidth: 1,
-        borderColor: '#354354',
+        borderColor: COLORS.grey,
     },
     postImage: {
         marginVertical: 10,

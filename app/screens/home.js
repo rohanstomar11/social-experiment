@@ -128,7 +128,7 @@ const HomeScreen = ({navigation}) => {;
           <Text
             style={{
               fontSize: 25,
-              color: '#000000',
+              color: COLORS.text,
               fontWeight: '600',
             }}>
             Hola, {name}!
@@ -146,7 +146,7 @@ const HomeScreen = ({navigation}) => {;
               style={{
                 flex: 1,
                 borderRadius: 24,
-                backgroundColor: '#000000',
+                backgroundColor: COLORS.black,
               }}
               source={{uri: imageUrl}}
               />
@@ -154,7 +154,7 @@ const HomeScreen = ({navigation}) => {;
             <FontAwesome
               name='user-circle'
               size={48}
-              color={COLORS.lightgrey}
+              color={COLORS.grey}
             />
           }
         </View>
@@ -166,7 +166,7 @@ const HomeScreen = ({navigation}) => {;
           style={styles.spacesContainer}>
             <Text
               style={{
-                color:'#354354',
+                color: COLORS.text,
                 fontSize: 24,
               }}>
                 Spaces
@@ -207,7 +207,7 @@ const HomeScreen = ({navigation}) => {;
                   }}>
                   <Text
                     style={{
-                      color: '#354354',
+                      color: COLORS.text,
                       fontWeight: '600',
                     }}>
                     View All
@@ -223,7 +223,7 @@ const HomeScreen = ({navigation}) => {;
         <AntDesign
           name='sharealt'
           size={40}
-          color='#2D6CDF'
+          color={COLORS.primary}
           />
       </TouchableOpacity>
       </ScrollView>
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 20,
-    backgroundColor: '#F0FEFE',
+    backgroundColor: COLORS.cardBg,
     borderRadius: 20,
   },
   bannerContainer: {
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     elevation: 20,
     borderRadius: 27,
     padding: 7,
-    backgroundColor: '#F7F3F2',
+    backgroundColor: COLORS.background,
   },
 });
 

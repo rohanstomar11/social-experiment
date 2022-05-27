@@ -72,7 +72,7 @@ const ProfileScreen = ({ navigation }) => {
             <View
                 style={styles.mainContainer}>
                 <LinearGradient
-                    colors={[COLORS.link, COLORS.formBg]}
+                    colors={[COLORS.primary, COLORS.formBg]}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 0 }}
                     style={styles.profileCard}>
@@ -80,7 +80,7 @@ const ProfileScreen = ({ navigation }) => {
                         style={styles.profileCardBottom}>
                         <View
                             style={styles.profileImg}>
-                            {imageUrl
+                            {!imageUrl
                                 ?
                                 <Image
                                     style={styles.image}
@@ -88,14 +88,14 @@ const ProfileScreen = ({ navigation }) => {
                                 />
                                 :
                                 <View style={{
-                                    backgroundColor: COLORS.background,
+                                    backgroundColor: COLORS.black,
                                     borderRadius: 50,
                                     padding: 4,
                                 }}>
                                     <FontAwesome
                                         name='user-circle'
                                         size={90}
-                                        color={COLORS.lightgrey}
+                                        color={COLORS.cardBg}
                                         />
                                 </View>
                             }
@@ -126,7 +126,7 @@ const ProfileScreen = ({ navigation }) => {
                         style={{
                             fontSize: 15,
                             fontWeight: '500',
-                            color: COLORS.black
+                            color: COLORS.text
                         }}>
                         {bio}
                     </Text>
@@ -188,10 +188,10 @@ const styles = StyleSheet.create({
         ...Platform.select({
             android: {
                 elevation: 10,
-                shadowColor: COLORS.shadowCards,
+                shadowColor: COLORS.cardShadow,
             },
             ios: {
-                shadowColor: COLORS.shadowCards,
+                shadowColor: COLORS.cardShadow,
                 shadowOffset: {
                     width: 0,
                     height: 5,
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     },
     profileCardBottom: {
         height: '60%',
-        backgroundColor: COLORS.white,
+        backgroundColor: COLORS.cardBg,
         borderBottomRightRadius: 20,
         borderBottomLeftRadius: 20,
         justifyContent: 'center',
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 25,
         fontWeight: '500',
-        color: COLORS.black,
+        color: COLORS.text,
         marginTop: '2%',
     },
     profileImg: {
@@ -225,25 +225,26 @@ const styles = StyleSheet.create({
         width: 105,
         height: 105,
         borderWidth: 3,
-        borderColor: COLORS.white,
+        borderColor: COLORS.cardBg,
     },
     mainDetailContainer: {
-        backgroundColor: COLORS.background,
+        backgroundColor: COLORS.cardBg,
         borderRadius: 20,
         borderWidth: 2,
-        borderColor: COLORS.black,
+        borderColor: COLORS.primary,
         marginTop: '10%',
         padding: '5%',
     },
     bioContainer: {
-        backgroundColor: COLORS.background,
+        backgroundColor: COLORS.cardBg,
         position: 'absolute',
         top: '-70%',
         left: 25,
-        paddingHorizontal: 5
+        paddingHorizontal: 5,
+        borderRadius: 15,
     },
     detailContainer: {
-        backgroundColor: '#eeeeee',
+        backgroundColor: COLORS.cardBg,
         marginTop: '10%',
         padding: '5%',
         borderRadius: 20,

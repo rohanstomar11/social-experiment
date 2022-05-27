@@ -7,6 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import React from 'react';
+import {COLORS} from '../assets/color';
 
 const CustomBanner = ({data}) => {
   return (
@@ -39,14 +40,14 @@ const CustomBanner = ({data}) => {
 const styles = StyleSheet.create({
   touch: {
     width:'100%',
-    backgroundColor:'#CBC3E3',
+    backgroundColor: COLORS.formBg,
     borderRadius: 12,
     alignItems: 'center',
     elevation:2,
   },
   title: {
     fontSize:20,
-    color: '#354354',
+    color: COLORS.text,
     fontWeight: '700',
     marginTop:10,
     textDecorationLine:'underline',
@@ -64,13 +65,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize:16,
-    color:'#354354',
+    color:COLORS.text,
   },
   image: {
     height:75,
     width:75,
     borderRadius: 12,
-    borderColor:'#354354',
+    borderColor: COLORS.grey,
     borderWidth:1,
     padding:1,
   },

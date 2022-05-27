@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {COLORS} from '../assets/color';
 
 const CustomInputField = ({
   height,
@@ -23,36 +24,42 @@ const CustomInputField = ({
   autoCapitalize,
 }) => {
   return (
-    <View style={{
-      flexDirection: 'row',
-      alignItems: 'center',
-      height: height || 56,
-      width: width || '90%',
-      backgroundColor: background || '#FFFFFF',
-      borderRadius: radius || 8,
-      color: '#354354',
-      borderWidth: 1,
-      borderColor: '#2D6CDF',
-      fontSize: 16,
-      marginTop: top || 0,
-      ...Platform.select({
-        android: {
-          elevation: 24,
-          shadowColor: 'rgba(146, 170, 212, 0.12)',
-        },
-        ios: {
-          shadowRadius: 24,
-          shadowOpacity: 1,
-          shadowColor: 'rgba(146, 170, 212, 0.12)',
-          shadowOffset: { width: 0, height: 16 },
-        }
-      })
-    }}>
-      <View style={styles.iconStyle}>
-        <AntDesign name={iconType || "user"} size={25} color="#2D6CDF" />
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        height: height || 56,
+        width: width || '90%',
+        backgroundColor: background || COLORS.background,
+        borderRadius: radius || 8,
+        color: COLORS.grey,
+        borderWidth: 1,
+        borderColor: COLORS.primary,
+        fontSize: 16,
+        marginTop: top || 0,
+        ...Platform.select({
+          android: {
+            elevation: 24,
+            shadowColor: 'rgba(146, 170, 212, 0.12)',
+          },
+          ios: {
+            shadowRadius: 24,
+            shadowOpacity: 1,
+            shadowColor: 'rgba(146, 170, 212, 0.12)',
+            shadowOffset: { width: 0, height: 16 },
+          }
+        })
+      }}>
+      <View
+        style={styles.iconStyle}>
+        <AntDesign
+          name={iconType || "user"}
+          size={25}
+          color={COLORS.primary} 
+          />
       </View>
       <TextInput
-        selectionColor={'#2D6CDF'}
+        selectionColor={COLORS.primary}
         style={styles.input}
         keyboardType={keyboard}
         onChangeText={onchange}
@@ -72,7 +79,7 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRightColor: '#ccc',
+    borderRightColor: COLORS.primary,
     borderRightWidth: 1,
     width: 50,
   },
@@ -80,7 +87,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flex: 1,
     fontSize: 16,
-    color: '#333',
+    color: COLORS.text,
     justifyContent: 'center',
     alignItems: 'center',
   },

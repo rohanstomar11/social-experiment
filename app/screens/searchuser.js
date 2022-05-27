@@ -12,6 +12,7 @@ import PagingQuery from 'getsocial-react-native-sdk/models/PagingQuery';
 import Communities from 'getsocial-react-native-sdk/Communities';
 import CustomProfileCard from '../components/CustomProfileCard';
 import GetSocial from 'getsocial-react-native-sdk/GetSocial';
+import {COLORS} from '../assets/color';
 
 const SearchUserScreen = ({navigation}) => {
 
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         marginTop: 20,
-        color: '#2D6CDF',
+        color: COLORS.primary,
         fontWeight: '700',
         letterSpacing: 2,
     },
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         borderTopWidth: 1,
-        borderColor: '#3036D6',
+        borderColor: COLORS.primary,
     },
 });
 

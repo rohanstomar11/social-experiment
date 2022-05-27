@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import {DefaultUser} from '../assets/images/index';
+import {COLORS} from '../assets/color';
 
 const CustomProfileCard = ({data, navigation, userId}) => {
 
@@ -40,23 +41,23 @@ const styles = StyleSheet.create({
     width: '80%',
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.cardBg,
     marginTop: 20,
     borderWidth: 1,
     borderRadius: 12,
     padding: 10,
-    borderColor: '#3036D6',
+    borderColor: COLORS.primary,
   },
   image: {
     width:50, 
     height: 50,
     borderRadius: 25,
     borderWidth: 1,
-    borderColor: '#3036D6',
+    borderColor: COLORS.primary,
   },
   name: {
     marginLeft: 15,
-    color: '#354354',
+    color: COLORS.text,
     fontSize: 20,
     fontWeight: '500',
   },

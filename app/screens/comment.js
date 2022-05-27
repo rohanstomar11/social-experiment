@@ -15,6 +15,7 @@ import CustomComment from '../components/CustomComment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import ActivityContent from 'getsocial-react-native-sdk/models/communities/ActivityContent';
 import PostActivityTarget from 'getsocial-react-native-sdk/models/communities/PostActivityTarget';
+import { COLORS } from '../assets/color';
 
 const CommentScreen = ({route, navigation}) => {
 
@@ -73,7 +74,7 @@ const CommentScreen = ({route, navigation}) => {
         style={styles.container}
         >
         <TextInput
-          selectionColor={'#2D6CDF'}
+          selectionColor={COLORS.primary}
           style={styles.input}
           onChangeText={(text)=>{setType(text)}}
           placeholder="Type Comment"
@@ -90,7 +91,7 @@ const CommentScreen = ({route, navigation}) => {
           <AntDesign
             name={"rightsquare"}
             size={30}
-            color="#2D6CDF"
+            color={COLORS.primary}
             />
         </TouchableOpacity>
       </View>
@@ -105,11 +106,11 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     height: 40,
     width: '80%',
-    backgrou2ndColor: '#FFFFFF',
+    backgroundColor: COLORS.cardBg,
     borderRadius: 8,
-    color: '#354354',
+    color: COLORS.grey,
     borderWidth: 1,
-    borderColor: '#2D6CDF',
+    borderColor: COLORS.primary,
     fontSize: 10,
     ...Platform.select({
       android: {
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flex: 1,
     fontSize: 12,
-    color: '#333',
+    color: COLORS.text,
     justifyContent: 'center',
     alignItems: 'center',
   },

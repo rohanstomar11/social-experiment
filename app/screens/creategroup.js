@@ -16,6 +16,7 @@ import Role from 'getsocial-react-native-sdk/models/communities/Role';
 import Communities from 'getsocial-react-native-sdk/Communities';
 import {CONFIG} from '../utility/config';
 import {StreamChat} from 'stream-chat';
+import {COLORS} from '../assets/color';
 
 const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
@@ -144,7 +145,7 @@ const CreateGroupScreen = ({navigation, route}) => {
       {indicator &&
         <Text
           style={{
-            color: '#359458',
+            color: COLORS.green,
             fontSize: 13
           }}>
           Image Upload Successful!
@@ -165,7 +166,7 @@ const CreateGroupScreen = ({navigation, route}) => {
 const styles = StyleSheet.create({
   headerText: {
     fontSize: 25,
-    color: '#3036D6',
+    color: COLORS.primary,
     fontWeight: '700',
     marginTop: 10,
   },

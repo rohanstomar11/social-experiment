@@ -26,7 +26,7 @@ const CustomCard = ({navigation, data, userId}) => {
 
 const styles = StyleSheet.create({
   container:{
-    backgroundColor: '#F0FEFE',
+    backgroundColor: COLORS.cardBg,
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
@@ -42,14 +42,14 @@ const styles = StyleSheet.create({
     height: '75%',
     width: '70%',
     marginTop:5,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.background,
     borderRadius: 12,
   },
   text: {
     marginTop: 5,
     fontSize:16,
     fontWeight: '900',
-    color: COLORS.black,
+    color: COLORS.text,
   },
 });
 

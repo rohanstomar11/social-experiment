@@ -101,14 +101,14 @@ const LoginScreen = ({ navigation }) => {
             activeOpacity={0.6}>
             <Text
               style={{
-                color: COLORS.black,
+                color: COLORS.text,
                 fontSize: 20,
               }}>
               Are you new here?{" "}
             </Text>
             <Text
               style={{
-                color: COLORS.link,
+                color: COLORS.primary,
                 fontSize: 20
               }}>
                 SignUp

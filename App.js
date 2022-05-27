@@ -23,6 +23,7 @@ import UserScreen from './app/screens/user';
 import UserChatScreen from './app/screens/userchat';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {COLORS} from './app/assets/color';
 
 LogBox.ignoreLogs(["ViewPropTypes will be removed from React Native. Migrate to ViewPropTypes exported from 'deprecated-react-native-prop-types'."]);
 
@@ -43,10 +44,10 @@ const App = () => {
           component={HomeScreen}
           options={{
             tabBarLabel: 'Home',
-            tabBarActiveTintColor: '#2D6CDF',
-            tabBarInctiveTintColor: '#354354',
+            tabBarActiveTintColor: COLORS.primary,
+            tabBarInctiveTintColor: COLORS.grey,
             tabBarIcon: ({focused, color, size}) => {
-              const colorIcon=focused?'#2D6CDF': '#354354';
+              const colorIcon=focused? COLORS.primary : COLORS.grey;
               const sizeIcon=focused?27:23;
               return (
                 <AntDesign
@@ -62,10 +63,10 @@ const App = () => {
           component={SearchUserScreen}
           options={{
             tabBarLabel: 'Search',
-            tabBarActiveTintColor: '#2D6CDF',
-            tabBarInctiveTintColor: '#354354',
+            tabBarActiveTintColor: COLORS.primary,
+            tabBarInctiveTintColor: COLORS.grey,
             tabBarIcon: ({focused, color, size}) => {
-              const colorIcon=focused?'#2D6CDF': '#354354';
+              const colorIcon=focused? COLORS.primary : COLORS.grey;
               const sizeIcon=focused?27:23;
               return (
                 <AntDesign 
@@ -81,10 +82,10 @@ const App = () => {
           component={ListScreen}
           options={{
             tabBarLabel: 'Spaces',
-            tabBarActiveTintColor: '#2D6CDF',
-            tabBarInctiveTintColor: '#354354',
+            tabBarActiveTintColor: COLORS.primary,
+            tabBarInctiveTintColor: COLORS.grey,
             tabBarIcon: ({focused, color, size}) => {
-              const colorIcon=focused?'#2D6CDF': '#354354';
+              const colorIcon=focused? COLORS.primary: COLORS.grey;
               const sizeIcon=focused?27:23;
               return (
                 <AntDesign
@@ -100,10 +101,10 @@ const App = () => {
           component={ProfileScreen}
           options={{
             tabBarLabel: 'Profile',
-            tabBarActiveTintColor: '#2D6CDF',
-            tabBarInctiveTintColor: '#354354',
+            tabBarActiveTintColor: COLORS.primary,
+            tabBarInctiveTintColor: COLORS.grey,
             tabBarIcon: ({focused, color, size}) => {
-              const colorIcon=focused?'#2D6CDF': '#354354';
+              const colorIcon=focused? COLORS.primary: COLORS.grey;
               const sizeIcon=focused?27:23;
               return (
                 <AntDesign

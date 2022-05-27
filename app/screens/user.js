@@ -27,7 +27,7 @@ const UserScreen = ({ navigation, route }) => {
       <View
         style={styles.mainContainer}>
         <LinearGradient
-          colors={[COLORS.link, COLORS.formBg]}
+          colors={[COLORS.primary, COLORS.formBg]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           style={styles.profileCard}>
@@ -51,7 +51,7 @@ const UserScreen = ({ navigation, route }) => {
                   <FontAwesome
                     name='user-circle'
                     size={90}
-                    color={COLORS.lightgrey}
+                    color={COLORS.grey}
                     />
                 </View>
               }
@@ -75,7 +75,7 @@ const UserScreen = ({ navigation, route }) => {
                 activeOpacity={1}>
                 <Text
                   style={{
-                    color: COLORS.darkGreen,
+                    color: COLORS.green,
                     fontSize: 20,
                     fontWeight: '500',
                   }}>
@@ -91,7 +91,7 @@ const UserScreen = ({ navigation, route }) => {
             style={{
               fontSize: 15,
               fontWeight: '500',
-              color: COLORS.black,
+              color: COLORS.text,
             }}>
             {data.publicProperties['bio']}
           </Text>
@@ -141,10 +141,10 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: {
         elevation: 10,
-        shadowColor: COLORS.shadowCards,
+        shadowColor: COLORS.cardShadow,
       },
       ios: {
-        shadowColor: COLORS.shadowCards,
+        shadowColor: COLORS.cardShadow,
         shadowOffset: {
           width: 0,
           height: 5,
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   },
   profileCardBottom: {
     height: '60%',
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.cardBg,
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
     justifyContent: 'center',
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 25,
     fontWeight: '500',
-    color: COLORS.black,
+    color: COLORS.text,
     marginTop: '2%',
   },
   profileImg: {
@@ -178,21 +178,21 @@ const styles = StyleSheet.create({
     width: 105,
     height: 105,
     borderWidth: 3,
-    borderColor: COLORS.white,
+    borderColor: COLORS.background,
   },
   messageButton: {
     paddingVertical: 10,
     paddingHorizontal: 30,
     marginTop: 15,
-    borderColor: COLORS.darkGreen,
+    borderColor: COLORS.green,
     borderWidth: 2,
     borderRadius: 20,
   },
   mainDetailsContainer: {
-    backgroundColor: COLORS.background,
+    backgroundColor: COLORS.cardBg,
     borderRadius: 20,
     borderWidth: 2,
-    borderColor: COLORS.black,
+    borderColor: COLORS.primary,
     marginTop: '10%',
     padding: '5%',
   },
@@ -202,9 +202,10 @@ const styles = StyleSheet.create({
     top: '-70%',
     left: 25,
     paddingHorizontal: 5,
+    borderRadius: 15,
   },
   detailsContainer: {
-    backgroundColor: '#eeeeee',
+    backgroundColor: COLORS.cardBg,
     marginTop: '10%',
     padding: '5%',
     borderRadius: 20,

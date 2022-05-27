@@ -21,7 +21,7 @@ const CustomButton = ({
       onPress={onPress}
       style={style}>
       <LinearGradient
-        colors={colors || ['#2D6CDF', '#6757D8']}
+        colors={colors || [COLORS.primary, COLORS.secondary]}
         start={{x:0, y:0}}
         end={{x:1, y:0}}
         style={{

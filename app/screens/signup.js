@@ -117,15 +117,15 @@ const SignupScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('LoginScreen')}
             activeOpacity={0.6}>
             <Text
-            style={{
-              color: COLORS.black,
-              fontSize: 20,
-            }}>
+              style={{
+                color: COLORS.text,
+                fontSize: 20,
+              }}>
               Already have account?{" "}
             </Text>
             <Text
             style={{
-              color: COLORS.link,
+              color: COLORS.primary,
               fontSize: 20,
             }}>
               LogIn

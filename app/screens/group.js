@@ -138,16 +138,16 @@ const GroupScreen = ({route, navigation}) => {
                 style={[styles.headerButton,  {marginLeft: 15}]}>
                 <AntDesign
                   name='arrowleft'
-                  color={'#2D6CDF'}
+                  color={COLORS.primary}
                   size={30}
                 />
               </TouchableOpacity>
               <Text
-              style={{
-                color: '#354354',
-                fontWeight: '900', 
-                fontSize: 28,
-              }}>
+                style={{
+                  color: COLORS.text,
+                  fontWeight: '900', 
+                  fontSize: 28,
+                }}>
                 {group.title} Club
               </Text>
               <TouchableOpacity
@@ -156,7 +156,7 @@ const GroupScreen = ({route, navigation}) => {
                 style={[styles.headerButton,  {marginRight: 20}]}>
                 <AntDesign
                   name='wechat'
-                  color={'#2D6CDF'}
+                  color={COLORS.primary}
                   size={30}
                 />
               </TouchableOpacity>
@@ -176,20 +176,20 @@ const GroupScreen = ({route, navigation}) => {
         ? <View
             style={styles.join}>
             <Text
-            style={{
-              color: '#354354', 
-              fontSize: 15,
-            }}>
+              style={{
+                color: COLORS.text, 
+                fontSize: 15,
+              }}>
               Joined!
             </Text>
         </View>
         : <TouchableOpacity
             onPress={()=>{joinGroup()}}
             activeOpacity={0.75}
-            style={[styles.join, {backgroundColor: COLORS.link}]}>
+            style={[styles.join, {backgroundColor: COLORS.primary}]}>
           <Text
             style={{
-              color: '#FFFFFF', 
+              color: COLORS.white, 
               fontSize: 15,
             }}>
               + Join
@@ -197,7 +197,7 @@ const GroupScreen = ({route, navigation}) => {
         </TouchableOpacity>}
         <Text
           style={{
-            color: '#267967',
+            color: COLORS.green,
             marginTop: 2,
           }}>
           Members: {membersCount}
@@ -253,7 +253,7 @@ const GroupScreen = ({route, navigation}) => {
               }}>
               <Text
               style={{
-                color: '#3036D6',
+                color: COLORS.primary,
                 fontWeight: '700',
               }}> 
                 View More
@@ -263,7 +263,7 @@ const GroupScreen = ({route, navigation}) => {
       {groupMember===true && (
           <CustomButton
             title={"Leave Group!"}
-            colors={['#B31217', '#E52D27']}
+            colors={[COLORS.gradRed1, COLORS.gradRed2]}
             style={{
               marginTop: 20,
               width: '45%',
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 20,
     padding: 5,
-    backgroundColor: '#F7F3F2',
+    backgroundColor: COLORS.background,
   },
   image: {
     height:150,
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
   },
   join: {
     marginTop: 8,
-    backgroundColor: '#AAAAAA',
+    backgroundColor: COLORS.background,
     paddingVertical: 8,
     borderRadius: 12,
     paddingHorizontal: 30,
@@ -312,13 +312,13 @@ const styles = StyleSheet.create({
   },
   feedTitle: {
     marginHorizontal: 16,
-    color:'#354354', 
+    color: COLORS.text, 
     fontSize: 24,
     fontWeight:'700',
   },
   emptyFeed: {
     alignSelf:'center', 
-    color:'#3036D6', 
+    color: COLORS.primary, 
     fontSize: 20, 
     fontStyle: 'italic',
   },

@@ -8,6 +8,7 @@ import {
 import React, {useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Communities from 'getsocial-react-native-sdk/Communities';
+import {COLORS} from '../assets/color';
 
 const CustomComment = ({data}) => {
     
@@ -59,7 +60,7 @@ const CustomComment = ({data}) => {
                     style={{
                         fontSize:20,
                         fontWeight: '700',
-                        color: '#354354'
+                        color: COLORS.text,
                     }}>
                     {data.author.displayName}
                 </Text>
@@ -72,10 +73,10 @@ const CustomComment = ({data}) => {
             </View>
         </View>
         <Text
-        style={{ //textContainer
-            color:'#354354',
-            margin: 12
-        }}>
+            style={{
+                color: COLORS.text,
+                margin: 12
+            }}>
             {data.text}
         </Text>
         <View
@@ -90,14 +91,14 @@ const CustomComment = ({data}) => {
             }}>
                 <AntDesign
                     name={liked===true?'like1':'like2'}
-                    color={'#3036D6'}
+                    color={COLORS.primary}
                     size={20}
                 />
             </TouchableOpacity>
             <Text
                 style={{
                     marginHorizontal:5, 
-                    color: '#3036D6'
+                    color: COLORS.primary
                 }}>
                 {likes} Likes
             </Text>
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
     container: {
         width:'90%',
         alignItems:'flex-start',
-        backgroundColor:'#F0FEFE',
+        backgroundColor:COLORS.cardBg,
         borderWidth: 1,
         borderRadius:12,
         padding: 6,
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
         width: '100%', 
         borderWidth: 1, 
         paddingBottom:8, 
-        backgroundColor: '#FFFFFF', 
+        backgroundColor: COLORS.background, 
         borderRadius: 12
     },
     image: {
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
         width: 50,
         borderRadius: 25,
         borderWidth: 1,
-        borderColor: '#354354',
+        borderColor: COLORS.grey,
     },
 });
 
