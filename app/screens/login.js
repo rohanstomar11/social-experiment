@@ -15,10 +15,16 @@ import GetSocial from 'getsocial-react-native-sdk/GetSocial';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import {CollegeLogo} from '../assets/images';
 import {CONFIG} from '../utility/config';
+import MyAppText from '../components/MyAppText';
+import { FONTS } from '../assets/fontFamily';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // Taking Care of the error data
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const login = () => {
     auth()
@@ -50,6 +56,33 @@ const LoginScreen = ({ navigation }) => {
   }
 
   const validate = () => {
+    if (
+      (!email || email === '' || email.length === 0) &&
+      (!password || password === '' || password.length === 0)
+    ) {
+      setPasswordError('Please fill in the required field');
+      setEmailError('Please fill in the required field');
+      return;
+    }
+
+    if (!password || password === '' || password.length === 0) {
+      setPasswordError('Please fill in the required field');
+      return;
+    }
+
+    if (!email || email === '' || email.length === 0) {
+      setEmailError('Please fill in the required field');
+      return;
+    }
+
+    // For non empty email validation
+    if (
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.trim())
+    ) {
+      setEmailError('Please enter valid Email Id');
+      return;
+    }
+
     login();
   }
 
@@ -61,27 +94,36 @@ const LoginScreen = ({ navigation }) => {
           source={CollegeLogo}
           style={{
             width: '90%',
-            marginBottom: '18%'
+            marginBottom: '8%',
+            marginTop: 30,
           }}
           resizeMode={'stretch'}
           />
         <View style={styles.secondaryContainer}>
-          <Text
-            style={styles.title}>
-            Log In
-          </Text>
+          <MyAppText
+          family={FONTS.Bold}
+          textSize={30}
+          textColor={COLORS.primary}
+          marginBottom={30}
+          >
+            LOG IN
+          </MyAppText>
           <CustomInputField
+            autoFocus={true}
+            header={'Email ID'}
             iconType="user"
             placeholder={"Email"}
             onchange={(text) => {setEmail(text)}}
             keyboard={'email-address'}
+            errorText={emailError}
             />
           <CustomInputField
+          header={'Password'}
             iconType="lock"
             placeholder={"Password"}
-            top={20}
             hide={true}
             onchange={(text) => {setPassword(text)}}
+            errorText={passwordError}
             />
           <CustomButton
             title={'LogIn'}
@@ -103,13 +145,15 @@ const LoginScreen = ({ navigation }) => {
               style={{
                 color: COLORS.text,
                 fontSize: 20,
+                fontFamily: FONTS.Regular
               }}>
               Are you new here?{" "}
             </Text>
             <Text
               style={{
                 color: COLORS.primary,
-                fontSize: 20
+                fontSize: 20,
+                fontFamily: FONTS.Regular
               }}>
                 SignUp
             </Text>
@@ -130,20 +174,11 @@ container: {
 secondaryContainer: {
   width: "100%",
   alignItems: 'center',
-  backgroundColor: COLORS.formBg,
   marginTop: "10%",
   paddingTop: "5%",
   paddingBottom: '10%',
   borderTopRightRadius: 50,
   borderTopLeftRadius: 50,
-},
-title: {
-  fontSize: 25,
-  fontWeight: 'bold',
-  color: COLORS.black,
-  marginTop: "5%",
-  marginBottom: "20%",
-  letterSpacing: 5,
 },
 });
 
