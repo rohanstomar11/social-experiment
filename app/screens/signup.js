@@ -75,16 +75,6 @@ const SignupScreen = ({ navigation }) => {
         setRepasswordError('Please fill in the required field');
         return;
       }
-
-      if (
-        (!password || password === '' || password.length === 0) &&
-        (!repassword || repassword === '' || repassword.length === 0)
-
-      ) {
-        setPasswordError('Please fill in the required field');
-        setRepasswordError('Please fill in the required field');
-        return;
-      }
       
       if (!email || email === '' || email.length === 0) {
         setEmailError('Please fill in the required field');
@@ -184,6 +174,7 @@ const SignupScreen = ({ navigation }) => {
               style={{
                 color: COLORS.text,
                 fontSize: 20,
+                fontFamily: FONTS.Regular
               }}>
               Already have account?{" "}
             </Text>
@@ -191,6 +182,7 @@ const SignupScreen = ({ navigation }) => {
             style={{
               color: COLORS.primary,
               fontSize: 20,
+              fontFamily: FONTS.Regular
             }}>
               LogIn
             </Text>

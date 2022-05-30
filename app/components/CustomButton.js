@@ -35,7 +35,7 @@ const CustomButton = ({
         <Text style={{
           color: textcolor || COLORS.white,
           fontSize: fontsize || 16,
-          fontWeight: fontweight || '700',
+          fontWeight: fontweight || '500',
           letterSpacing: letterSpacing || 3,
           fontFamily: fontFamily || FONTS.Bold
         }}>
