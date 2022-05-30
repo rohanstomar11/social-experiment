@@ -20,6 +20,7 @@ import UserIdList from 'getsocial-react-native-sdk/models/UserIdList';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {CONFIG} from '../utility/config';
 import {StreamChat} from 'stream-chat';
+import {FONTS} from '../assets/fontFamily';
 
 const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
@@ -123,6 +124,7 @@ const GroupScreen = ({route, navigation}) => {
       overScrollMode={'never'}
       contentContainerStyle={{
       paddingBottom: 20,
+      alignItems: 'center'
     }}>
       {group &&
         <View
@@ -255,7 +257,8 @@ const GroupScreen = ({route, navigation}) => {
               <Text
               style={{
                 color: COLORS.primary,
-                fontWeight: '700',
+                fontFamily: FONTS.Bold,
+                marginTop: 10,
               }}> 
                 View More
               </Text>
@@ -283,6 +286,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
+    backgroundColor: COLORS.background,
   },
   headerButton: {
     alignSelf:'center',

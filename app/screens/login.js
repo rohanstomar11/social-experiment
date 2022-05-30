@@ -16,7 +16,7 @@ import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import {CollegeLogo} from '../assets/images';
 import {CONFIG} from '../utility/config';
 import MyAppText from '../components/MyAppText';
-import { FONTS } from '../assets/fontFamily';
+import {FONTS} from '../assets/fontFamily';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');

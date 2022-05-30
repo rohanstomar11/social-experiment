@@ -17,8 +17,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import ActivityContent from 'getsocial-react-native-sdk/models/communities/ActivityContent';
 import PostActivityTarget from 'getsocial-react-native-sdk/models/communities/PostActivityTarget';
-import { COLORS } from '../assets/color';
-import { FONTS } from '../assets/fontFamily';
+import {COLORS} from '../assets/color';
+import {FONTS} from '../assets/fontFamily';
 
 const CommentScreen = ({route, navigation}) => {
 
@@ -122,8 +122,6 @@ const styles = StyleSheet.create({
     width: '85%',
     backgroundColor: COLORS.commentInput,
     borderRadius: 30,
-    // color: COLORS.grey,
-    // fontSize: 15,
     ...Platform.select({
       android: {
         elevation: 24,
@@ -138,12 +136,10 @@ const styles = StyleSheet.create({
     }),
   },
   input: {
-    textAlign: 'center',
+    marginLeft: '5%',
     flex: 1,
     fontSize: 15,
     color: COLORS.text,
-    justifyContent: 'center',
-    alignItems: 'center',
     fontFamily: FONTS.Medium
   },
 });

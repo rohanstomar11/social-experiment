@@ -9,7 +9,7 @@ import React, {useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Communities from 'getsocial-react-native-sdk/Communities';
 import {COLORS} from '../assets/color';
-import { FONTS } from '../assets/fontFamily';
+import {FONTS} from '../assets/fontFamily';
 
 const CustomComment = ({data}) => {
     
@@ -109,7 +109,7 @@ const CustomComment = ({data}) => {
             <Text
                 style={{
                     marginHorizontal:5, 
-                    color: COLORS.black,
+                    color: COLORS.text,
                     fontFamily: FONTS.Regular,
                 }}>
                 {likes} Likes
@@ -126,14 +126,13 @@ const styles = StyleSheet.create({
         paddingBottom: '3%',
         paddingHorizontal: '5%',
         borderBottomWidth: 1,
-        borderColor: COLORS.black
+        borderColor: COLORS.grey
     },
     profileContainer: {
         flexDirection: 'row', 
         width: '100%',
     },
     image: {
-        // marginTop:8,
         marginLeft: 8,
         height: 50,
         width: 50,

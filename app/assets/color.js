@@ -14,4 +14,5 @@ export const COLORS = {
     shadowColor: 'rgba(146, 170, 212, 0.88)',
     error: '#900000',
     commentInput: '#FDEAD1',
+    line: '#DDDDDD',
 };

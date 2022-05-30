@@ -80,7 +80,7 @@ const ProfileScreen = ({ navigation }) => {
                         style={styles.profileCardBottom}>
                         <View
                             style={styles.profileImg}>
-                            {!imageUrl
+                            {imageUrl
                                 ?
                                 <Image
                                     style={styles.image}

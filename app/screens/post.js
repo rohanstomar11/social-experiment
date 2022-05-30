@@ -18,7 +18,7 @@ import Communities from 'getsocial-react-native-sdk/Communities';
 import * as ImagePicker from 'react-native-image-picker';
 import MediaAttachment from 'getsocial-react-native-sdk/models/MediaAttachment';
 import storage from '@react-native-firebase/storage';
-import { COLORS } from '../assets/color';
+import {COLORS} from '../assets/color';
 
 const PostScreen = ({route, navigation}) => {
 

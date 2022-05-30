@@ -14,8 +14,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Communities from 'getsocial-react-native-sdk/Communities';
 import InviteContent from 'getsocial-react-native-sdk/models/invites/InviteContent';
 import Invites from 'getsocial-react-native-sdk/Invites';
-import { COLORS } from '../assets/color';
-import { FONTS } from '../assets/fontFamily';
+import {COLORS} from '../assets/color';
+import {FONTS} from '../assets/fontFamily';
 
 const CustomPost = ({navigation, data, showComments}) => {
 
@@ -103,7 +103,7 @@ const CustomPost = ({navigation, data, showComments}) => {
                     style={{
                         fontSize: 14,
                         fontFamily: FONTS.Light,
-                        marginTop: -6
+                        marginTop: -6,
                     }}>
                     {date}-{month}-{year} {hours}:{mins}
                 </Text>
@@ -125,7 +125,7 @@ const CustomPost = ({navigation, data, showComments}) => {
         {imageUrl && (
             <View
                 style={{ 
-                    paddingVertical: 10,
+                    paddingBottom: 10,
                     marginLeft: 60,
                 }}>
                 <Image
@@ -144,7 +144,13 @@ const CustomPost = ({navigation, data, showComments}) => {
                     title={data.button.title}
                     onPress={()=>{Linking.openURL(url)}}
         />}
-        <View style={{width: '100%', borderBottomWidth: 1, borderColor: '#ddd'}} ></View>
+        <View
+            style={{
+                width: '100%',
+                borderBottomWidth: 1,
+                borderColor: COLORS.line
+            }}>    
+        </View>
         <View
             style={styles.reactionContainer}>
             <View
@@ -164,7 +170,7 @@ const CustomPost = ({navigation, data, showComments}) => {
                 <Text
                     style={{
                         marginHorizontal:5, 
-                        color: COLORS.black,
+                        color: COLORS.text,
                         fontFamily: FONTS.Regular,
                         fontSize: 15
                     }}>
@@ -186,7 +192,7 @@ const CustomPost = ({navigation, data, showComments}) => {
                     <Text
                         style={{
                             marginHorizontal:5,
-                            color: COLORS.black,
+                            color: COLORS.text,
                             fontFamily: FONTS.Regular,
                             fontSize: 15
                         }}>
@@ -216,11 +222,12 @@ const CustomPost = ({navigation, data, showComments}) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%', 
+        width: '100%',
         paddingHorizontal:'5%', 
-        paddingVertical: '6%',
+        paddingVertical: '4%',
         backgroundColor: COLORS.white,
         borderBottomWidth:1,
+        borderBottomColor: COLORS.grey,
         ...Platform.select({
             android: {
               elevation: 24,
@@ -239,7 +246,6 @@ const styles = StyleSheet.create({
         width: '100%', 
     },
     profileImage: {
-        // marginTop:8,
         height: 50,
         width: 50,
         borderRadius: 25,

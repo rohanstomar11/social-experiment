@@ -23,7 +23,7 @@ const CustomCard = ({navigation, data, userId}) => {
           <View
             style={styles.title}>
             <MyAppText
-              family={FONTS.SemiBold}
+              family={FONTS.Bold}
               textColor={COLORS.primary}>
               {data.title}
             </MyAppText>
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
   title: {
-    backgroundColor: COLORS.cardBg,
+    backgroundColor: COLORS.background,
     width: '90%',
     alignItems: 'center',
     borderRadius: 15,
