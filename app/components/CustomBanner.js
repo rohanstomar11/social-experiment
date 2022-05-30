@@ -9,6 +9,7 @@ import React from 'react';
 import {COLORS} from '../assets/color';
 import CustomButton from './CustomButton';
 import MyAppText from '../components/MyAppText';
+import {FONTS} from '../assets/fontFamily';
 
 const CustomBanner = ({data}) => {
   return (
@@ -16,7 +17,7 @@ const CustomBanner = ({data}) => {
       style={styles.container}>
       <MyAppText
         textColor={COLORS.white}
-        family={"Poppins-Bold"}
+        family={FONTS.Bold}
         textSize={20}>
         {data[0].title}
       </MyAppText>
@@ -29,7 +30,10 @@ const CustomBanner = ({data}) => {
           style={{
             width: '75%'
           }}>
-          <MyAppText textColor={COLORS.white} marginLeft={16} textSize={14} >
+          <MyAppText
+            textColor={COLORS.white}
+            marginLeft={16}
+            textSize={14}>
             {data[0].description}
           </MyAppText>
         </View>
@@ -66,9 +70,9 @@ const styles = StyleSheet.create({
   rowContainer: {
     alignItems: 'center',
     width: '100%',
-    marginTop: 12,
+    marginTop: 5,
     flexDirection: 'row',
-    padding:5,
+    padding: 5,
   },
   image: {
     height: '100%',

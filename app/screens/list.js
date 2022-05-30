@@ -1,10 +1,13 @@
-import {ScrollView} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Communities from 'getsocial-react-native-sdk/Communities';
 import GroupsQuery from 'getsocial-react-native-sdk/models/communities/GroupsQuery';
 import PagingQuery from 'getsocial-react-native-sdk/models/PagingQuery';
 import CustomCard from '../components/CustomCard';
 import GetSocial from 'getsocial-react-native-sdk/GetSocial';
+import MyAppText from '../components/MyAppText';
+import {FONTS} from '../assets/fontFamily';
+import {COLORS} from '../assets/color';
 
 const ListScreen = ({navigation}) => {
 
@@ -31,18 +34,30 @@ const ListScreen = ({navigation}) => {
   return (
     <ScrollView
       contentContainerStyle={{
-        flex: 1,
+        flexGrow: 1,
         justifyContent:'center',
         alignItems: 'center',
+        paddingTop: 20,
       }}>
+      <MyAppText
+        family={FONTS.Bold}
+        textColor={COLORS.text}
+        textSize={25}>
+        Spaces
+      </MyAppText>
       {group && group.map((item, key)=>{
         return(
-          <CustomCard
-            data={item}
+          <View
             key={key}
+            style={{
+              marginVertical: 15,
+            }}>
+            <CustomCard
+            data={item}
             navigation={navigation}
             userId={userId}
             />
+          </View>
         )
       })}
     </ScrollView>

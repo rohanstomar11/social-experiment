@@ -26,6 +26,7 @@ import {StreamChat} from 'stream-chat';
 import CustomButton from '../components/CustomButton';
 import {COLORS} from '../assets/color';
 import MyAppText from '../components/MyAppText';
+import { FONTS } from '../assets/fontFamily';
 
 const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
@@ -133,7 +134,7 @@ const HomeScreen = ({navigation}) => {;
           />
         }
         <MyAppText
-          family={"Poppins-Bold"}
+          family={FONTS.Bold}
           textColor={COLORS.text}
           textSize={25}>
           {name}
@@ -145,7 +146,8 @@ const HomeScreen = ({navigation}) => {;
               marginTop: -10,
             }}>
             <MyAppText
-              textColor={COLORS.primary}>
+              textColor={COLORS.primary}
+              textSize={14}>
               Admin
             </MyAppText>
           </View>
@@ -155,7 +157,8 @@ const HomeScreen = ({navigation}) => {;
               marginTop: -10,
             }}>
             <MyAppText
-              textColor={COLORS.green}>
+              textColor={COLORS.green}
+              textSize={14}>
               Member
             </MyAppText>
           </View>
@@ -167,7 +170,7 @@ const HomeScreen = ({navigation}) => {;
           }}>
           <MyAppText
             textColor={COLORS.text}
-            family={"Poppins-SemiBold"}
+            family={FONTS.SemiBold}
             textSize={20}
             marginBottom={10}>
             Ongoing Events
@@ -178,15 +181,60 @@ const HomeScreen = ({navigation}) => {;
           style={{
             width: '90%',
             marginTop: 10,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center'
           }}>
           <MyAppText
             textColor={COLORS.text}
-            family={"Poppins-SemiBold"}
-            textSize={20}
-            marginBottom={10}>
+            family={FONTS.SemiBold}
+            textSize={20}>
             Spaces
           </MyAppText>
+          {admin &&
+            <CustomButton
+              title={"Create"}
+              onPress={()=>{navigation.navigate('CreateGroupScreen', {userId: userId})}}
+              />}
         </View>
+
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            height: 'auto',
+            alignItems: 'center',
+            marginLeft: '5%'
+          }}>
+          {group && group.map((item, index)=>{
+            if(index<3){
+              return (
+                <CustomCard
+                  data={item}
+                  navigation={navigation}
+                  userId={userId}
+                  key={index}
+                  />
+              )
+            }
+          })}
+          {group &&
+            Object.keys(group).length>3 &&
+            <TouchableOpacity
+              onPress={()=>navigation.navigate('ListScreen')}
+              activeOpacity={0.75}
+              style={{
+                justifyContent:'center',
+                marginRight: 30,
+              }}>
+              <MyAppText
+                textColor={COLORS.primary}
+                family={FONTS.SemiBold}>
+                View All
+              </MyAppText>
+            </TouchableOpacity>
+          }
+        </ScrollView>
       {/* <View
         style={styles.headerContainer}>
         <View
