@@ -10,10 +10,12 @@ import {
 import React, {useState, useEffect} from 'react';
 import CustomButton from '../components/CustomButton';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Communities from 'getsocial-react-native-sdk/Communities';
 import InviteContent from 'getsocial-react-native-sdk/models/invites/InviteContent';
 import Invites from 'getsocial-react-native-sdk/Invites';
 import { COLORS } from '../assets/color';
+import { FONTS } from '../assets/fontFamily';
 
 const CustomPost = ({navigation, data, showComments}) => {
 
@@ -91,14 +93,17 @@ const CustomPost = ({navigation, data, showComments}) => {
                 <Text
                     style={{
                         fontSize:20,
-                        fontWeight: '700',
+                        fontWeight: '500',
                         color: COLORS.text,
+                        fontFamily: FONTS.SemiBold,
                     }}>
                     {data.author.displayName}
                 </Text>
                 <Text
                     style={{
                         fontSize: 14,
+                        fontFamily: FONTS.Light,
+                        marginTop: -6
                     }}>
                     {date}-{month}-{year} {hours}:{mins}
                 </Text>
@@ -106,8 +111,8 @@ const CustomPost = ({navigation, data, showComments}) => {
         </View>
         <View
             style={{
-                marginTop:5,
-                alignItems: 'center',
+                paddingVertical: 10,
+                marginLeft: 60,
             }}>
             <Text
                 style={{
@@ -119,47 +124,49 @@ const CustomPost = ({navigation, data, showComments}) => {
         </View>
         {imageUrl && (
             <View
-                style={{
-                    width:'100%', 
-                    alignItems: 'center',
+                style={{ 
+                    paddingVertical: 10,
+                    marginLeft: 60,
                 }}>
                 <Image
                 source={{uri: imageUrl}}
-                style={{ //postImage
-                    
-                }} />
+                style={styles.postImage} 
+                resizeMode={'stretch'}
+                />
             </View>
         )}
         {data.button!=='' &&
             data.button.action.data.$url!==''&&
                 <CustomButton 
                     style={{
-                        marginTop: 20,
+                        marginVertical: 20,
                     }}
                     title={data.button.title}
                     onPress={()=>{Linking.openURL(url)}}
         />}
+        <View style={{width: '100%', borderBottomWidth: 1, borderColor: '#ddd'}} ></View>
         <View
             style={styles.reactionContainer}>
             <View
                 style={{
                     flexDirection:'row',
-                    alignItems: 'flex-end',
                 }}>
                 <TouchableOpacity
                     activeOpacity={0.6}
                     onPress={()=>{liked===true? unlikePost() : likePost()
                 }}>
                     <AntDesign
-                        name={liked===true?'like1':'like2'}
-                        color={COLORS.primary}
+                        name={liked===true?'heart':'hearto'}
+                        color={liked === true ? COLORS.gradRed2 : COLORS.black}
                         size={20}
                     />
                 </TouchableOpacity>
                 <Text
                     style={{
                         marginHorizontal:5, 
-                        color: COLORS.primary,
+                        color: COLORS.black,
+                        fontFamily: FONTS.Regular,
+                        fontSize: 15
                     }}>
                     {likes} Likes
                 </Text>
@@ -170,42 +177,37 @@ const CustomPost = ({navigation, data, showComments}) => {
                     onPress={()=>{navigation.navigate('CommentScreen', {data: data})}}
                     style={{
                         flexDirection:'row',
-                        alignItems: 'flex-end',
                     }}>
-                    <AntDesign
-                        name='aliwangwang-o1'
-                        color={COLORS.primary}
-                        size={20}
-                        style={{}} 
+                    <FontAwesome
+                        name='comment-o'
+                        color={COLORS.black}
+                        size={20} 
                     />
                     <Text
                         style={{
                             marginHorizontal:5,
-                            color: COLORS.primary,
+                            color: COLORS.black,
+                            fontFamily: FONTS.Regular,
+                            fontSize: 15
                         }}>
                         {comments} Comments
                     </Text>
                 </TouchableOpacity>}
             <TouchableOpacity
                 activeOpacity={0.6}
-                onPress={()=>{sharePost()}}
-                style={{
-                    flexDirection:'row',
-                    alignItems: 'flex-end',
-                }}>
+                onPress={()=>{sharePost()}}>
                 <AntDesign
                     name='sharealt'
-                    color={COLORS.primary}
+                    color={COLORS.black}
                     size={20}
-                    style={{}} 
                 />
-                <Text
+                {/* <Text
                     style={{
                         marginHorizontal:5,
                         color: COLORS.primary,
                     }}>
                     Share
-                </Text>
+                </Text> */}
             </TouchableOpacity>
         </View>
     </View>
@@ -214,13 +216,11 @@ const CustomPost = ({navigation, data, showComments}) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: '90%', 
-        marginHorizontal:'5%', 
-        borderRadius: 12, 
-        backgroundColor: COLORS.cardBg, 
-        padding: 12, 
-        borderWidth:1,
-        marginBottom: 10,
+        width: '100%', 
+        paddingHorizontal:'5%', 
+        paddingVertical: '6%',
+        backgroundColor: COLORS.white,
+        borderBottomWidth:1,
         ...Platform.select({
             android: {
               elevation: 24,
@@ -237,14 +237,9 @@ const styles = StyleSheet.create({
     profileContainer: {
         flexDirection: 'row', 
         width: '100%', 
-        borderWidth: 1, 
-        paddingBottom:8, 
-        backgroundColor: COLORS.white, 
-        borderRadius: 12,
     },
     profileImage: {
-        marginTop:8,
-        marginLeft: 8,
+        // marginTop:8,
         height: 50,
         width: 50,
         borderRadius: 25,
@@ -253,15 +248,14 @@ const styles = StyleSheet.create({
     },
     postImage: {
         marginVertical: 10,
-        height: 250,
-        width: '80%',
+        height: 300,
+        width: '100%',
         borderRadius: 10,
     },
     reactionContainer: {
         flexDirection: 'row',
-        justifyContent:'space-between',
+        justifyContent:'space-around',
         marginTop: 20,
-        marginLeft: 10,
     },
 });
 

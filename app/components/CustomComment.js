@@ -9,6 +9,7 @@ import React, {useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Communities from 'getsocial-react-native-sdk/Communities';
 import {COLORS} from '../assets/color';
+import { FONTS } from '../assets/fontFamily';
 
 const CustomComment = ({data}) => {
     
@@ -59,46 +60,57 @@ const CustomComment = ({data}) => {
                 <Text
                     style={{
                         fontSize:20,
-                        fontWeight: '700',
+                        fontWeight: '500',
                         color: COLORS.text,
+                        fontFamily: FONTS.SemiBold,
                     }}>
                     {data.author.displayName}
                 </Text>
                 <Text
                     style={{
-                        fontSize: 14
+                        fontSize: 14,
+                        marginTop: -6,
+                        fontFamily: FONTS.Regular,
                     }}>
                     {date}-{month}-{year} {hours}:{mins}
                 </Text>
             </View>
         </View>
-        <Text
+        <View
             style={{
-                color: COLORS.text,
-                margin: 12
+                paddingVertical: 10,
+                marginLeft: 70,
             }}>
-            {data.text}
-        </Text>
+            <Text
+                style={{
+                    color: COLORS.text,
+                    fontSize: 16,
+                }}>
+                {data.text}
+            </Text>
+        </View>
+        <View style={{width: '100%', borderBottomWidth: 1, borderColor: '#ddd'}} ></View>
         <View
             style={{ 
                 flexDirection:'row',
-                alignItems: 'flex-end',
-                marginLeft: 10
+                justifyContent: 'center',
+                marginTop: 15
             }}>
             <TouchableOpacity
                 activeOpacity={0.6}
                 onPress={()=>{liked===true? unlikePost() : likePost()
             }}>
                 <AntDesign
-                    name={liked===true?'like1':'like2'}
-                    color={COLORS.primary}
+                    name={liked===true?'heart':'hearto'}
+                    color={liked === true ? COLORS.gradRed2 : COLORS.black}
                     size={20}
                 />
             </TouchableOpacity>
             <Text
                 style={{
                     marginHorizontal:5, 
-                    color: COLORS.primary
+                    color: COLORS.black,
+                    fontFamily: FONTS.Regular,
                 }}>
                 {likes} Likes
             </Text>
@@ -109,23 +121,19 @@ const CustomComment = ({data}) => {
 
 const styles = StyleSheet.create({
     container: {
-        width:'90%',
-        alignItems:'flex-start',
-        backgroundColor:COLORS.cardBg,
-        borderWidth: 1,
-        borderRadius:12,
-        padding: 6,
+        width:'100%',
+        paddingTop: '5%',
+        paddingBottom: '3%',
+        paddingHorizontal: '5%',
+        borderBottomWidth: 1,
+        borderColor: COLORS.black
     },
     profileContainer: {
         flexDirection: 'row', 
-        width: '100%', 
-        borderWidth: 1, 
-        paddingBottom:8, 
-        backgroundColor: COLORS.background, 
-        borderRadius: 12
+        width: '100%',
     },
     image: {
-        marginTop:8,
+        // marginTop:8,
         marginLeft: 8,
         height: 50,
         width: 50,

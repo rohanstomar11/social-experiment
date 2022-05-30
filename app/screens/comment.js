@@ -2,6 +2,7 @@ import {
   ScrollView,
   TextInput,
   View,
+  Text,
   TouchableOpacity,
   Platform,
   StyleSheet,
@@ -13,9 +14,11 @@ import PagingQuery from 'getsocial-react-native-sdk/models/PagingQuery';
 import Communities from 'getsocial-react-native-sdk/Communities';
 import CustomComment from '../components/CustomComment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import ActivityContent from 'getsocial-react-native-sdk/models/communities/ActivityContent';
 import PostActivityTarget from 'getsocial-react-native-sdk/models/communities/PostActivityTarget';
 import { COLORS } from '../assets/color';
+import { FONTS } from '../assets/fontFamily';
 
 const CommentScreen = ({route, navigation}) => {
 
@@ -53,12 +56,23 @@ const CommentScreen = ({route, navigation}) => {
       contentContainerStyle={{
         width: '100%',
         alignItems: 'center',
-        paddingTop: 20,
+        flexGrow: 1,
+        paddingBottom: 20
       }}>
       <CustomPost
         data={data}
         showComments={false}
         />
+        <Text
+            style={{
+                fontSize: 20,
+                fontFamily: FONTS.SemiBold,
+                color: COLORS.black,
+                marginTop:12,
+                marginLeft: 20,
+                alignSelf: 'flex-start'
+            }}
+            >Comments</Text>
       {comments &&
         comments.map((item, index)=>{
           const length = Object.keys(comments).length;
@@ -70,6 +84,7 @@ const CommentScreen = ({route, navigation}) => {
           );
         })
       }
+      <View style={{marginVertical: 12}} />
       <View
         style={styles.container}
         >
@@ -84,12 +99,11 @@ const CommentScreen = ({route, navigation}) => {
           onPress={()=>{postComment()}}
           activeOpacity={0.6}
           style={{
-            marginRight: 5,
-            padding:2,
-            borderRadius: 25,
+            marginRight: 25,
+            paddingVertical: 2,
           }}>
-          <AntDesign
-            name={"rightsquare"}
+          <FontAwesome
+            name={"send"}
             size={30}
             color={COLORS.primary}
             />
@@ -103,15 +117,13 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 20,
-    height: 40,
-    width: '80%',
-    backgroundColor: COLORS.cardBg,
-    borderRadius: 8,
-    color: COLORS.grey,
-    borderWidth: 1,
-    borderColor: COLORS.primary,
-    fontSize: 10,
+    marginTop: 'auto',
+    height: 55,
+    width: '85%',
+    backgroundColor: COLORS.commentInput,
+    borderRadius: 30,
+    // color: COLORS.grey,
+    // fontSize: 15,
     ...Platform.select({
       android: {
         elevation: 24,
@@ -126,12 +138,13 @@ const styles = StyleSheet.create({
     }),
   },
   input: {
-    padding: 10,
+    textAlign: 'center',
     flex: 1,
-    fontSize: 12,
+    fontSize: 15,
     color: COLORS.text,
     justifyContent: 'center',
     alignItems: 'center',
+    fontFamily: FONTS.Medium
   },
 });
 
