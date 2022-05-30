@@ -1,6 +1,5 @@
 import {
   TouchableOpacity,
-  Text,
   View,
   StyleSheet,
   Platform,
@@ -19,23 +18,10 @@ const CustomCard = ({navigation, data, userId}) => {
       onPress={()=>{navigation.navigate('GroupScreen', {id: data.id, userId: userId})}}
       style={styles.container}>
       <ImageBackground
-        style={{
-          flex:1,
-          justifyContent:'flex-end',
-          alignItems: 'center',
-          paddingBottom: 12,
-          }}
+        style={styles.image}
         source={{uri:data.avatarUrl}}>
           <View
-            style={{
-              backgroundColor: COLORS.cardBg,
-              width: '90%',
-              alignItems: 'center',
-              borderRadius: 15,
-              paddingVertical: 5,
-              borderWidth:  1,
-              borderColor: COLORS.primary
-            }}>
+            style={styles.title}>
             <MyAppText
               family={FONTS.SemiBold}
               textColor={COLORS.primary}>
@@ -43,12 +29,6 @@ const CustomCard = ({navigation, data, userId}) => {
             </MyAppText>
           </View>
       </ImageBackground>
-        {/* <Image
-            source={{uri: data.avatarUrl}}
-            style={styles.image} />
-        <Text style={styles.text}>
-            {data.title}
-        </Text> */}
     </TouchableOpacity>
   );
 };
@@ -73,37 +53,21 @@ const styles = StyleSheet.create({
       }
     })
   },
-  // container:{
-  //   backgroundColor: COLORS.cardBg,
-  //   borderRadius: 12,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   marginRight: 12,
-  //   marginTop: 12,
-  //   paddingBottom: 12,
-  //   paddingTop: 12,
-  //   height: 130,
-  //   width: 130,
-  //   borderWidth:1,
-  //   borderLeftColor: COLORS.primary,
-  //   borderTopColor: COLORS.primary,
-  //   borderBottomColor: COLORS.secondary,
-  //   borderRightColor: COLORS.secondary,
-  //   elevation: 3,
-  // },
-  // image: {
-  //   height: '75%',
-  //   width: '70%',
-  //   marginTop:5,
-  //   backgroundColor: COLORS.background,
-  //   borderRadius: 12,
-  // },
-  // text: {
-  //   marginTop: 5,
-  //   fontSize:16,
-  //   fontWeight: '900',
-  //   color: COLORS.text,
-  // },
+  image: {
+    flex:1,
+    justifyContent:'flex-end',
+    alignItems: 'center',
+    paddingBottom: 12,
+  },
+  title: {
+    backgroundColor: COLORS.cardBg,
+    width: '90%',
+    alignItems: 'center',
+    borderRadius: 15,
+    paddingVertical: 5,
+    borderWidth:  1,
+    borderColor: COLORS.primary
+  },
 });
 
 export default CustomCard;
