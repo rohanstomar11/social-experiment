@@ -51,7 +51,7 @@ const CustomCard = ({navigation, data, userId}) => {
               <MyAppText
                 family={FONTS.Bold}
                 textColor={COLORS.black}
-                textSize={22}>
+                textSize={18}>
                 {title} Club
               </MyAppText>
             </View>

@@ -155,7 +155,7 @@ const GroupScreen = ({route, navigation}) => {
                   fontWeight: '900', 
                   fontSize: 28,
                 }}>
-                {group.title} Club
+                {group.title.trim()} Club
               </Text>
               <TouchableOpacity
                 onPress={()=>{openGroupChat()}}
