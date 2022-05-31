@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-  Platform,
+  StatusBar,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import GetSocial from 'getsocial-react-native-sdk/GetSocial'
@@ -15,7 +15,6 @@ import TopicsQuery from 'getsocial-react-native-sdk/models/communities/TopicsQue
 import GroupsQuery from 'getsocial-react-native-sdk/models/communities/GroupsQuery';
 import PagingQuery from 'getsocial-react-native-sdk/models/PagingQuery';
 import CustomCard from '../components/CustomCard';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import InviteContent from 'getsocial-react-native-sdk/models/invites/InviteContent';
 import MediaAttachment from 'getsocial-react-native-sdk/models/MediaAttachment';
@@ -24,10 +23,15 @@ import {CONFIG} from '../utility/config';
 import {StreamChat} from 'stream-chat';
 import CustomButton from '../components/CustomButton';
 import {COLORS} from '../assets/color';
+import MyAppText from '../components/MyAppText';
+import {FONTS} from '../assets/fontFamily';
+import AppSpinner from '../components/ActivityIndicator';
 
 const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
 const HomeScreen = ({navigation}) => {;
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const [name, setName] = useState();
   const [imageUrl, setImageUrl] = useState();
@@ -39,6 +43,7 @@ const HomeScreen = ({navigation}) => {;
       setName(currentUser.displayName);
       setImageUrl(currentUser.avatarUrl);
       currentUser.privateProperties.admin === 'true' ? setAdmin(true) : setAdmin(false);
+      setIsLoading(false);
     },(error)=>{
       console.error(error);
     })
@@ -74,8 +79,10 @@ const HomeScreen = ({navigation}) => {;
     const pagingQuery = new PagingQuery(query);
     Communities.getTopics(pagingQuery).then((result) => {
       var topics = result.entries;
-      setData(topics)
+      setData(topics);
+      setIsLoading(false);
     }).catch((error) => {
+      setIsLoading(false);
       console.error(error);
     })
   }, [data])
@@ -86,8 +93,10 @@ const HomeScreen = ({navigation}) => {;
     const pagingQuery = new PagingQuery(query);
     Communities.getGroups(pagingQuery).then((result) => {
       var groups = result.entries;
-      setGroup(groups)
+      setGroup(groups);
+      setIsLoading(false);
     }).catch((error) => {
+      setIsLoading(false);
       console.error(error);
     })
   }, [group])
@@ -108,19 +117,129 @@ const HomeScreen = ({navigation}) => {;
   }
 
   return (
-    <View
-      style={{
-        flex:1,
-      }}>
-      <ScrollView
+    <ScrollView
       showsVerticalScrollIndicator={false}
       alwaysBounceVertical={false}
       overScrollMode={'never'}
       contentContainerStyle={{
-        flex: 1,
+        flexGrow: 1,
         alignItems: 'center',
       }}>
-      <View
+      {imageUrl
+        ?
+        <Image
+          style={styles.image}
+          source={{uri: imageUrl}}
+          />
+        :
+        <FontAwesome
+          name='user-circle'
+          size={80}
+          style={styles.image}
+          color={COLORS.grey}
+          />
+        }
+        <MyAppText
+          family={FONTS.Bold}
+          textColor={COLORS.text}
+          textSize={25}>
+          {name}
+        </MyAppText>
+        {admin
+          ?
+          <View
+            style={{
+              marginTop: -10,
+            }}>
+            <MyAppText
+              textColor={COLORS.primary}
+              textSize={14}>
+              Admin
+            </MyAppText>
+          </View>
+          :
+          <View
+            style={{
+              marginTop: -10,
+            }}>
+            <MyAppText
+              textColor={COLORS.green}
+              textSize={14}>
+              Member
+            </MyAppText>
+          </View>
+        }
+        <View
+          style={{
+            width: '90%',
+            marginTop: 20,
+          }}>
+          <MyAppText
+            textColor={COLORS.text}
+            family={FONTS.SemiBold}
+            marginBottom={10}>
+            Ongoing Events
+          </MyAppText>
+          {data && <CustomBanner data={data} />}
+        </View>
+        <View
+          style={{
+            width: '90%',
+            marginTop: 10,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}>
+          <MyAppText
+            textColor={COLORS.text}
+            family={FONTS.SemiBold}>
+            Spaces
+          </MyAppText>
+          {admin &&
+            <CustomButton
+              title={"Create"}
+              onPress={()=>{navigation.navigate('CreateGroupScreen', {userId: userId})}}
+              />}
+        </View>
+
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            height: 'auto',
+            alignItems: 'center',
+            marginLeft: '5%'
+          }}>
+          {group && group.map((item, index)=>{
+            if(index<3){
+              return (
+                <CustomCard
+                  data={item}
+                  navigation={navigation}
+                  userId={userId}
+                  key={index}
+                  />
+              )
+            }
+          })}
+          {group &&
+            Object.keys(group).length>3 &&
+            <TouchableOpacity
+              onPress={()=>navigation.navigate('ListScreen')}
+              activeOpacity={0.75}
+              style={{
+                justifyContent:'center',
+                marginRight: 30,
+              }}>
+              <MyAppText
+                textColor={COLORS.primary}
+                family={FONTS.SemiBold}>
+                View All
+              </MyAppText>
+            </TouchableOpacity>
+          }
+        </ScrollView>
+      {/* <View
         style={styles.headerContainer}>
         <View
           style={{
@@ -226,67 +345,90 @@ const HomeScreen = ({navigation}) => {;
           size={40}
           color={COLORS.primary}
           />
-      </TouchableOpacity>
-      </ScrollView>
-    </View>
+      </TouchableOpacity> */}
+      <StatusBar
+        barStyle='dark-content'
+        backgroundColor={COLORS.background}
+        />
+
+      {isLoading && (
+        <AppSpinner bgColor="transparent" color={COLORS.primary} />
+      )}
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    width: '100%',
-    padding: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
-    backgroundColor: COLORS.cardBg,
-    borderRadius: 20,
-    ...Platform.select({
-      android: {
-        elevation: 24,
-        shadowColor: COLORS.shadowColor,
-      },
-      ios: {
-        shadowRadius: 24,
-        shadowOpacity: 1,
-        shadowColor: COLORS.shadowColor,
-        shadowOffset: { width: 0, height: 16 },
-      }
-    })
+  image: {
+    height: 80,
+    width: 80,
+    borderRadius: 40,
+    marginTop: 25,
   },
-  bannerContainer: {
-    width: '100%',
-    height: '100%',
-    alignItems:'center',
-    padding: '5%',
+  name: {
+    fontFamily: 'Poppins-Bold',
+    color: COLORS.text,
+    fontSize: 25,
   },
-  spacesContainer: {
-    width: '100%',
-    marginVertical: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  status: {
+    fontFamily: 'Poppins-Regular',
+    color: COLORS.green,
+    marginTop: -10
   },
-  share: {
-    position: 'absolute',
-    bottom: 15,
-    left: 15,
-    borderRadius: 27,
-    padding: 7,
-    backgroundColor: COLORS.cardBg,
-    ...Platform.select({
-      android: {
-        elevation: 24,
-        shadowColor: COLORS.shadowColor,
-      },
-      ios: {
-        shadowRadius: 24,
-        shadowOpacity: 1,
-        shadowColor: COLORS.shadowColor,
-        shadowOffset: { width: 0, height: 16 },
-      }
-    })
-  },
+  // headerContainer: {
+  //   width: '100%',
+  //   padding: 20,
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between',
+  //   marginTop: 20,
+  //   backgroundColor: COLORS.cardBg,
+  //   borderRadius: 20,
+  //   ...Platform.select({
+  //     android: {
+  //       elevation: 24,
+  //       shadowColor: COLORS.shadowColor,
+  //     },
+  //     ios: {
+  //       shadowRadius: 24,
+  //       shadowOpacity: 1,
+  //       shadowColor: COLORS.shadowColor,
+  //       shadowOffset: { width: 0, height: 16 },
+  //     }
+  //   })
+  // },
+  // bannerContainer: {
+  //   width: '100%',
+  //   height: '100%',
+  //   alignItems:'center',
+  //   padding: '5%',
+  // },
+  // spacesContainer: {
+  //   width: '100%',
+  //   marginVertical: 12,
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between',
+  //   alignItems: 'center',
+  // },
+  // share: {
+  //   position: 'absolute',
+  //   bottom: 15,
+  //   left: 15,
+  //   borderRadius: 27,
+  //   padding: 7,
+  //   backgroundColor: COLORS.cardBg,
+  //   ...Platform.select({
+  //     android: {
+  //       elevation: 24,
+  //       shadowColor: COLORS.shadowColor,
+  //     },
+  //     ios: {
+  //       shadowRadius: 24,
+  //       shadowOpacity: 1,
+  //       shadowColor: COLORS.shadowColor,
+  //       shadowOffset: { width: 0, height: 16 },
+  //     }
+  //   })
+  // },
 });
 
 export default HomeScreen;

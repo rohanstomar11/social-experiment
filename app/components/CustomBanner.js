@@ -1,49 +1,59 @@
 import {
-  View, 
-  Text,
+  View,
   Image,
-  TouchableOpacity,
   Linking,
   StyleSheet,
   Platform,
 } from 'react-native';
 import React from 'react';
 import {COLORS} from '../assets/color';
+import CustomButton from './CustomButton';
+import MyAppText from '../components/MyAppText';
+import {FONTS} from '../assets/fontFamily';
 
 const CustomBanner = ({data}) => {
   return (
-    <TouchableOpacity 
-      activeOpacity={0.75}
-      style={styles.touch}
-      onPress={()=>{Linking.openURL(data[0].settings.properties.url)}}
-      >
-      <Text
-        style={styles.title}>
+    <View
+      style={styles.container}>
+      <MyAppText
+        textColor={COLORS.white}
+        family={FONTS.Bold}
+        textSize={20}>
         {data[0].title}
-      </Text>
+      </MyAppText>
       <View
-        style={styles.container}>
-        <View
-          style={styles.textContainer}>
-          <Text
-            style={styles.text}>
-            {data[0].description}
-          </Text>
-        </View>
-        <Image 
-          source={{uri: data[0].avatarUrl}} 
+        style={styles.rowContainer}>
+        <Image
+          source={{uri: data[0].avatarUrl}}
           style={styles.image}/>
+        <View
+          style={{
+            width: '75%'
+          }}>
+          <MyAppText
+            textColor={COLORS.white}
+            marginLeft={16}
+            textSize={14}>
+            {data[0].description}
+          </MyAppText>
+        </View>
       </View>
-    </TouchableOpacity>
+      <CustomButton
+        title={"Know More"}
+        style={styles.button}
+        onPress={()=>{Linking.openURL(data[0].settings.properties.url)}}
+        />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  touch: {
-    width:'100%',
-    backgroundColor: COLORS.formBg,
-    borderRadius: 12,
+  container: {
+    width: '100%',
     alignItems: 'center',
+    backgroundColor: COLORS.black,
+    borderRadius: 20,
+    paddingTop: 10,
     ...Platform.select({
       android: {
         elevation: 24,
@@ -57,35 +67,25 @@ const styles = StyleSheet.create({
       }
     })
   },
-  title: {
-    fontSize:20,
-    color: COLORS.text,
-    fontWeight: '700',
-    marginTop:10,
-    textDecorationLine:'underline',
-  },
-  container: {
+  rowContainer: {
+    alignItems: 'center',
+    width: '100%',
+    marginTop: 5,
     flexDirection: 'row',
-    width:'100%',
-    padding: '5%',
-    justifyContent:'space-between',
-  },
-  textContainer: {
-    flex:1,
-    marginRight:'2%',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize:16,
-    color:COLORS.text,
+    padding: 5,
   },
   image: {
-    height:75,
-    width:75,
-    borderRadius: 12,
-    borderColor: COLORS.grey,
-    borderWidth:1,
-    padding:1,
+    height: '100%',
+    width: '19%',
+    borderRadius: 8,
+    borderWidth :1,
+    borderColor: COLORS.background,
+    marginLeft: 10,
+  },
+  button: {
+    width: '90%',
+    marginTop: 15,
+    marginBottom: 20,
   },
 });
 

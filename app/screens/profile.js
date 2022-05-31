@@ -15,10 +15,13 @@ import auth from '@react-native-firebase/auth';
 import CustomButton from '../components/CustomButton';
 import {CONFIG} from '../utility/config';
 import {StreamChat} from 'stream-chat';
+import AppSpinner from '../components/ActivityIndicator';
 
 const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
 const ProfileScreen = ({ navigation }) => {
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [name, setName] = useState('User');
     const [bio, setBio] = useState();
@@ -49,17 +52,22 @@ const ProfileScreen = ({ navigation }) => {
 
 
     const logout = () => {
+        setIsLoading(true);
         auth().signOut().then(() => {
             GetSocial.resetUser().then(() => {
                 client.disconnectUser().then(()=>{
+                    setIsLoading(false);
                     navigation.replace('LoginScreen');
                 }, (error)=>{
+                    setIsLoading(false);
                     console.error(error);
                 })
             }, (error) => {
+                setIsLoading(false);
                 console.error(error);
             })
         },(error)=>{
+            setIsLoading(false);
             console.error(error);
         })
     }
@@ -80,7 +88,7 @@ const ProfileScreen = ({ navigation }) => {
                         style={styles.profileCardBottom}>
                         <View
                             style={styles.profileImg}>
-                            {!imageUrl
+                            {imageUrl
                                 ?
                                 <Image
                                     style={styles.image}
@@ -171,6 +179,9 @@ const ProfileScreen = ({ navigation }) => {
                     />
                 </View>
             </View>
+        {isLoading && (
+          <AppSpinner bgColor="transparent" color={COLORS.primary} />
+        )}
         </ScrollView>
     );
 };

@@ -1,60 +1,98 @@
 import {
   TouchableOpacity,
-  Text,
-  Image,
+  View,
   StyleSheet,
   Platform,
+  ImageBackground,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {COLORS} from '../assets/color'
+import MyAppText from './MyAppText';
+import {FONTS} from '../assets/fontFamily';
 
 const CustomCard = ({navigation, data, userId}) => {
 
+  const [count, setCount] = useState(data.membersCount);
+  const [title, setTitle] = useState(data.title.trim())
+
   return (
     <TouchableOpacity 
-        activeOpacity={0.75}
-        onPress={()=>{navigation.navigate('GroupScreen', {id: data.id, userId: userId})}}
-        style={styles.container}>
-        <Image
-            source={{uri: data.avatarUrl}}
-            style={styles.image} />
-        <Text style={styles.text}>
-            {data.title}
-        </Text>
+      activeOpacity={0.75}
+      onPress={()=>{navigation.navigate('GroupScreen', {id: data.id, userId: userId})}}
+      style={styles.container}>
+      <ImageBackground
+        style={styles.image}
+        source={{uri:data.avatarUrl}}>
+          <View
+            style={styles.title}>
+            <View
+              style={{
+                marginTop: 10,
+                flexDirection: 'row',
+                alignItems: 'center'
+              }}>
+              <MyAppText
+                family={FONTS.Medium}
+                textColor={COLORS.text}
+                textSize={11}>
+                TOTAL MEMBERS:
+              </MyAppText>
+              <MyAppText
+                family={FONTS.Medium}
+                textColor={COLORS.text}
+                textSize={10}>
+                {' '}{count}
+              </MyAppText>
+            </View>
+            <View
+              style={{
+                marginTop: -5,
+              }}>
+              <MyAppText
+                family={FONTS.Bold}
+                textColor={COLORS.black}
+                textSize={18}>
+                {title} Club
+              </MyAppText>
+            </View>
+          </View>
+      </ImageBackground>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container:{
-    backgroundColor: COLORS.cardBg,
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 12,
-    marginTop: 12,
-    paddingBottom: 12,
-    paddingTop: 12,
-    height: 130,
-    width: 130,
-    borderWidth:1,
-    borderLeftColor: COLORS.primary,
-    borderTopColor: COLORS.primary,
-    borderBottomColor: COLORS.secondary,
-    borderRightColor: COLORS.secondary,
+    height: 300,
+    width: 240,
+    margin: 10,
+    borderRadius: 20,
+    overflow: 'hidden',
+    ...Platform.select({
+      android: {
+        elevation: 25,
+        shadowColor: COLORS.shadowColor,
+      },
+      ios: {
+        shadowRadius: 24,
+        shadowOpacity: 1,
+        shadowColor: COLORS.shadowColor,
+        shadowOffset: { width: 0, height: 16 },
+      }
+    })
   },
   image: {
-    height: '75%',
-    width: '70%',
-    marginTop:5,
-    backgroundColor: COLORS.background,
-    borderRadius: 12,
+    flex:1,
+    justifyContent:'flex-end',
+    alignItems: 'center',
+    paddingBottom: 12,
   },
-  text: {
-    marginTop: 5,
-    fontSize:16,
-    fontWeight: '900',
-    color: COLORS.text,
+  title: {
+    backgroundColor: COLORS.background,
+    width: '90%',
+    alignItems: 'flex-start',
+    borderRadius: 18,
+    paddingHorizontal: 20,
   },
 });
 

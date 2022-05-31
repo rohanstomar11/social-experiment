@@ -18,9 +18,12 @@ import Communities from 'getsocial-react-native-sdk/Communities';
 import * as ImagePicker from 'react-native-image-picker';
 import MediaAttachment from 'getsocial-react-native-sdk/models/MediaAttachment';
 import storage from '@react-native-firebase/storage';
-import { COLORS } from '../assets/color';
+import {COLORS} from '../assets/color';
+import AppSpinner from '../components/ActivityIndicator';
 
 const PostScreen = ({route, navigation}) => {
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const {id} = route.params;
 
@@ -85,6 +88,7 @@ const PostScreen = ({route, navigation}) => {
     }
 
     const postData = () => {
+        setIsLoading(true);
         console.log("posting data...");
         const action = Action.create('open_url', {'$url': url});
         const button = ActivityButton.create(title, action);
@@ -99,8 +103,10 @@ const PostScreen = ({route, navigation}) => {
         const target = PostActivityTarget.group(id);
         Communities.postActivity(activityContent, target).then((result)=>{
             console.log("Activity successfully Posted!");
+            setIsLoading(false);
             navigation.goBack();
         }, (error)=>{
+            setIsLoading(false);
             console.log(error);
         })
     }
@@ -185,6 +191,9 @@ const PostScreen = ({route, navigation}) => {
                 title={"Add Media"}
                 onPress={()=>{addImage()}}
             />
+            {isLoading && (
+              <AppSpinner bgColor="transparent" color={COLORS.primary} />
+            )}
             </View>
         </KeyboardAvoidingWrapper>
     );

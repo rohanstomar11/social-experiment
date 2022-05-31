@@ -19,8 +19,11 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {COLORS} from '../assets/color';
 import RadioForm from 'react-native-simple-radio-button';
+import AppSpinner from '../components/ActivityIndicator';
 
 const OnboardScreen = ({ navigation }) => {
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [name, setName] = useState();
   const [bio, setBio] = useState();
@@ -32,6 +35,14 @@ const OnboardScreen = ({ navigation }) => {
   const [branch, setBranch] = useState();
   const uid = auth().currentUser.uid
   const [avatarUrl, setAvatarUrl] = useState('');
+
+   // Taking Care of the error data
+  const [nameError, setNameError] = useState();
+  const [bioError, setBioError] = useState();
+  const [numberError, setNumberError] = useState();
+  const [uniqueIDError, setUniqueIDError] = useState();
+  const [branchError, setBranchError] = useState();
+
 
   const publicProperties = {
     'college': 'DYPSOET',
@@ -133,6 +144,7 @@ const OnboardScreen = ({ navigation }) => {
   }
 
   const saveData = () => {
+    setIsLoading(true);
     GetSocial.getCurrentUser().then((currentUser) => {
       var batchUpdate = new UserUpdate();
       batchUpdate.displayName = name;
@@ -140,14 +152,65 @@ const OnboardScreen = ({ navigation }) => {
       batchUpdate.publicProperties = publicProperties;
       batchUpdate.privateProperties = privateProperties;
       currentUser.updateDetails(batchUpdate).then(() => {
+        setIsLoading(false);
         navigation.replace('TabScreen');
       },(error)=>{
+        setIsLoading(false);
         console.error(error);
       });
     },(error)=>{
+      setIsLoading(false);
       console.error(error);
     })
   }
+
+
+  const validate = () => {
+    if (
+      (!name || name === '' || name.length === 0) &&
+      (!bio || bio === '' || bio.length === 0) &&
+      (!number || number === '' || number.length === 0) &&
+      (!uniqueID || uniqueID === '' || uniqueID.length === 0) &&
+      (!branch || branch === '' || branch.length === 0)
+
+    ) {
+      setNameError('Please fill in the required field');
+      setBioError('Please fill in the required field');
+      setNumberError('Please fill in the required field');
+      setUniqueIDError('Please fill in the required field');
+      setBranchError('Please fill in the required field');
+      return;
+    }
+
+    if (!name || name === '' || name.length === 0) {
+      setNameError('Please fill in the required field');
+      return;
+    }
+
+    if (!bio || bio === '' || bio.length === 0) {
+      setBioError('Please fill in the required field');
+      return;
+    }
+
+    if (!number || number === '' || number.length === 0) {
+      setNameError('Please fill in the required field');
+      return;
+    }
+
+    if (!uniqueID || uniqueID === '' || uniqueID.length === 0) {
+      setUniqueIDError('Please fill in the required field');
+      return;
+    }
+
+    if (!branch || branch === '' || branch.length === 0) {
+      setBranchError('Please fill in the required field');
+      return;
+    }
+
+    saveData();
+  }
+
+
 
   return (
     <ScrollView
@@ -186,32 +249,37 @@ const OnboardScreen = ({ navigation }) => {
           />
         </TouchableOpacity>
         <CustomInputField
-          top={20}
+          header={'Full Name'}
           placeholder={'Name'}
           onchange={(text) => setName(text)}
+          errorText={nameError}
         />
         <CustomInputField
+          header={'Bio'}
           iconType={'form'}
-          top={20}
           placeholder={'Bio'}
           onchange={(text) => setBio(text)}
           multiline={true}
+          errorText={bioError}
         />
         <CustomInputField
           iconType={'mobile1'}
           placeholder={"Mobile Number"}
-          top={20}
+          header={'Mobile Number'}
           maxLength={10}
           keyboard={'numeric'}
           onchange={(text) => setNumber(text)}
+          errorText={numberError}
         />
         <CustomInputField
           iconType={'idcard'}
           placeholder={"Unique ID"}
-          top={20}
+          header={"Unique ID"}
           autoCapitalize={'characters'}
           maxLength={10}
           onchange={(text) => setUniqueID(text)}
+          noBottomMargin={true}
+          errorText={uniqueIDError}
         />
         <View style={{
           marginTop: 20,
@@ -238,13 +306,12 @@ const OnboardScreen = ({ navigation }) => {
             onPress={(value) => setGraduation(value)} //if the user changes options, set the new value
           />
         </View>
-        {graduation === 'UG'
-          ?
           <View
             style={{
               marginTop: 20,
               alignSelf: 'flex-start',
               paddingHorizontal: 25,
+              marginBottom: 15
             }}>
             <Text
               style={{
@@ -254,6 +321,8 @@ const OnboardScreen = ({ navigation }) => {
               }}>
               Select Year?
             </Text>
+        {graduation === 'UG'
+          ?
             <RadioForm
               style={{
                 marginTop: 10,
@@ -266,20 +335,20 @@ const OnboardScreen = ({ navigation }) => {
               initial={0} //initial value of this group
               onPress={(value) => setYear(value)} //if the user changes options, set the new value
             />
-          </View>
+          // </View>
           :
-          <View style={{
-            marginTop: 20,
-            alignSelf: 'flex-start',
-            paddingHorizontal: 25,
-          }}>
-            <Text style={{
-              fontSize: 20,
-              fontWeight: '500',
-              color: COLORS.text,
-            }}>
-              Select Year?
-            </Text>
+          // <View style={{
+          //   marginTop: 20,
+          //   alignSelf: 'flex-start',
+          //   paddingHorizontal: 25,
+          // }}>
+          //   <Text style={{
+          //     fontSize: 20,
+          //     fontWeight: '500',
+          //     color: COLORS.text,
+          //   }}>
+          //     Select Year?
+          //   </Text>
             <RadioForm
               style={{
                 marginTop: 10,
@@ -292,14 +361,15 @@ const OnboardScreen = ({ navigation }) => {
               initial={0} //initial value of this group
               onPress={(value) => setYear(value)} //if the user changes options, set the new value
             />
+          }
           </View>
-        }
         <CustomInputField
-          iconType={'idcard'}
+          iconType={'USB'}
           placeholder={"Ex: CSE, ME, CE"}
-          top={20}
+          header={'Branch'}
           autoCapitalize={'characters'}
           onchange={(text) => setBranch(text)}
+          errorText={branchError}
           />
         <CustomButton
           style={{
@@ -308,9 +378,12 @@ const OnboardScreen = ({ navigation }) => {
           }}
           fontsize={20}
           title={'SAVE'}
-          onPress={() => saveData()}
+          onPress={() => validate()}
           />
       </View>
+      {isLoading && (
+        <AppSpinner bgColor="transparent" color={COLORS.primary} />
+      )}
     </ScrollView>
   );
 };

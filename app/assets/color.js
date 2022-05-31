@@ -12,4 +12,7 @@ export const COLORS = {
     gradRed1: '#B31217',
     gradRed2: '#E52D27',
     shadowColor: 'rgba(146, 170, 212, 0.88)',
+    error: '#900000',
+    commentInput: '#FDEAD1',
+    line: '#DDDDDD',
 };

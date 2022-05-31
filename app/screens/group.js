@@ -20,11 +20,15 @@ import UserIdList from 'getsocial-react-native-sdk/models/UserIdList';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {CONFIG} from '../utility/config';
 import {StreamChat} from 'stream-chat';
+import {FONTS} from '../assets/fontFamily';
+import AppSpinner from '../components/ActivityIndicator';
 
 const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
 const GroupScreen = ({route, navigation}) => {
   const {id, userId} = route.params;
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const [group, setGroup] = useState();
   const [groupMember, setGroupMember] = useState();
@@ -33,7 +37,8 @@ const GroupScreen = ({route, navigation}) => {
     Communities.getGroup(id, userId).then((result)=>{
        setGroup(result);
        result.isFollowedByMe===true ? setGroupMember(true) : setGroupMember(false)
-       setMembersCount(result.membersCount)
+       setMembersCount(result.membersCount);
+       setIsLoading(false);
      }), (error)=>{
        console.error(error);
      }
@@ -58,7 +63,7 @@ const GroupScreen = ({route, navigation}) => {
   const joinGroup = () => {
     const query = JoinGroupQuery.create(id);
     Communities.joinGroup(query).then((member)=>{
-      setGroupMember(true)
+      setGroupMember(true);
       chatJoin();
     }, (error) => {
     console.error(error);
@@ -123,6 +128,7 @@ const GroupScreen = ({route, navigation}) => {
       overScrollMode={'never'}
       contentContainerStyle={{
       paddingBottom: 20,
+      alignItems: 'center'
     }}>
       {group &&
         <View
@@ -149,7 +155,7 @@ const GroupScreen = ({route, navigation}) => {
                   fontWeight: '900', 
                   fontSize: 28,
                 }}>
-                {group.title} Club
+                {group.title.trim()} Club
               </Text>
               <TouchableOpacity
                 onPress={()=>{openGroupChat()}}
@@ -255,7 +261,8 @@ const GroupScreen = ({route, navigation}) => {
               <Text
               style={{
                 color: COLORS.primary,
-                fontWeight: '700',
+                fontFamily: FONTS.Bold,
+                marginTop: 10,
               }}> 
                 View More
               </Text>
@@ -273,6 +280,9 @@ const GroupScreen = ({route, navigation}) => {
             onPress={()=>{leaveGroup()}}
           />
       )}
+      {isLoading && (
+        <AppSpinner bgColor="transparent" color={COLORS.primary} />
+      )}
     </ScrollView>
   );
 };
@@ -283,6 +293,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
+    backgroundColor: COLORS.background,
   },
   headerButton: {
     alignSelf:'center',
