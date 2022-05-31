@@ -17,15 +17,12 @@ import Invites from 'getsocial-react-native-sdk/Invites';
 import {COLORS} from '../assets/color';
 import {FONTS} from '../assets/fontFamily';
 import MyAppText from '../components/MyAppText';
+import moment from 'moment';
 
 const CustomPost = ({navigation, data, showComments}) => {
 
-    const created = new Date(data.createdAt*1000);
-    const date = created.getDate();
-    const month = created.getMonth();
-    const year = created.getFullYear();
-    const hours = created.getHours();
-    const mins = created.getMinutes();
+    const postDate = moment(new Date(data.createdAt*1000)).fromNow();
+
     const url = data.button!==''? data.button.action.data.$url : null;
 
     const [likes, setLikes] = useState(data.reactionsCount.like || 0);
@@ -104,7 +101,7 @@ const CustomPost = ({navigation, data, showComments}) => {
                         textSize={12}
                         family={FONTS.Light}
                         textColor={COLORS.grey}>
-                        {date}-{month}-{year} {hours}:{mins}
+                        {postDate}
                     </MyAppText>
                 </View>
             </View>

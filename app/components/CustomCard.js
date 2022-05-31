@@ -5,12 +5,15 @@ import {
   Platform,
   ImageBackground,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {COLORS} from '../assets/color'
 import MyAppText from './MyAppText';
 import {FONTS} from '../assets/fontFamily';
 
 const CustomCard = ({navigation, data, userId}) => {
+
+  const [count, setCount] = useState(data.membersCount);
+  const [title, setTitle] = useState(data.title.trim())
 
   return (
     <TouchableOpacity 
@@ -22,11 +25,36 @@ const CustomCard = ({navigation, data, userId}) => {
         source={{uri:data.avatarUrl}}>
           <View
             style={styles.title}>
-            <MyAppText
-              family={FONTS.Bold}
-              textColor={COLORS.text}>
-              {data.title}
-            </MyAppText>
+            <View
+              style={{
+                marginTop: 10,
+                flexDirection: 'row',
+                alignItems: 'center'
+              }}>
+              <MyAppText
+                family={FONTS.Medium}
+                textColor={COLORS.text}
+                textSize={11}>
+                TOTAL MEMBERS:
+              </MyAppText>
+              <MyAppText
+                family={FONTS.Medium}
+                textColor={COLORS.text}
+                textSize={10}>
+                {' '}{count}
+              </MyAppText>
+            </View>
+            <View
+              style={{
+                marginTop: -5,
+              }}>
+              <MyAppText
+                family={FONTS.Bold}
+                textColor={COLORS.black}
+                textSize={22}>
+                {title} Club
+              </MyAppText>
+            </View>
           </View>
       </ImageBackground>
     </TouchableOpacity>
@@ -62,9 +90,9 @@ const styles = StyleSheet.create({
   title: {
     backgroundColor: COLORS.background,
     width: '90%',
-    alignItems: 'center',
-    borderRadius: 15,
-    paddingVertical: 5,
+    alignItems: 'flex-start',
+    borderRadius: 18,
+    paddingHorizontal: 20,
   },
 });
 
