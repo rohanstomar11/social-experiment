@@ -13,7 +13,6 @@ import ActivitiesQuery from 'getsocial-react-native-sdk/models/communities/Activ
 import PagingQuery from 'getsocial-react-native-sdk/models/PagingQuery';
 import Communities from 'getsocial-react-native-sdk/Communities';
 import CustomComment from '../components/CustomComment';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import ActivityContent from 'getsocial-react-native-sdk/models/communities/ActivityContent';
 import PostActivityTarget from 'getsocial-react-native-sdk/models/communities/PostActivityTarget';

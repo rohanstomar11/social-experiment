@@ -10,15 +10,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Communities from 'getsocial-react-native-sdk/Communities';
 import {COLORS} from '../assets/color';
 import {FONTS} from '../assets/fontFamily';
+import moment from 'moment';
 
 const CustomComment = ({data}) => {
     
-    const created = new Date(data.createdAt*1000);
-    const date = created.getDate();
-    const month = created.getMonth();
-    const year = created.getFullYear();
-    const hours = created.getHours();
-    const mins = created.getMinutes();
+    const postDate = moment(new Date(data.createdAt*1000)).fromNow();
 
     const [likes, setLikes] = useState(data.reactionsCount.like || 0);
     const [liked, setLiked] = useState(data.myReactions[0]==="like"?true:false);
@@ -59,7 +55,7 @@ const CustomComment = ({data}) => {
                 }}>
                 <Text
                     style={{
-                        fontSize:20,
+                        fontSize:16,
                         fontWeight: '500',
                         color: COLORS.text,
                         fontFamily: FONTS.SemiBold,
@@ -68,11 +64,11 @@ const CustomComment = ({data}) => {
                 </Text>
                 <Text
                     style={{
-                        fontSize: 14,
+                        fontSize: 12,
                         marginTop: -6,
                         fontFamily: FONTS.Regular,
                     }}>
-                    {date}-{month}-{year} {hours}:{mins}
+                    {postDate}
                 </Text>
             </View>
         </View>
