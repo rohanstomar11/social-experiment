@@ -153,7 +153,6 @@ const PostScreen = ({route, navigation}) => {
                     />
             </View>
             <CustomInputField
-                top={20}
                 multiline={true}
                 iconType={'form'}
                 onchange={(text)=>{setText(text)}}
@@ -164,20 +163,22 @@ const PostScreen = ({route, navigation}) => {
                     width:'60%',
                     marginTop: 20,
                 }}
-                title={"Add Custom Button"}
+                title={"Add Button"}
                 onPress={()=>{change()}}
                 />
             {custom===true && (
-                <View>
+                <View
+                    style={{
+                        width: '100%',
+                        alignItems: 'center',
+                    }}>
                     <CustomInputField
                         placeholder={"Button Title"}
-                        top={20} 
                         iconType={'infocirlceo'}
                         onchange={(text)=>{setTitle(text)}}
                         />
                     <CustomInputField
                         placeholder={"Url Linked"}
-                        top={20} 
                         iconType={'link'}
                         onchange={(text)=>{setUrl(text)}}
                         />
