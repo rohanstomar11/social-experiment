@@ -25,10 +25,13 @@ import CustomButton from '../components/CustomButton';
 import {COLORS} from '../assets/color';
 import MyAppText from '../components/MyAppText';
 import {FONTS} from '../assets/fontFamily';
+import AppSpinner from '../components/ActivityIndicator';
 
 const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
 const HomeScreen = ({navigation}) => {;
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const [name, setName] = useState();
   const [imageUrl, setImageUrl] = useState();
@@ -40,6 +43,7 @@ const HomeScreen = ({navigation}) => {;
       setName(currentUser.displayName);
       setImageUrl(currentUser.avatarUrl);
       currentUser.privateProperties.admin === 'true' ? setAdmin(true) : setAdmin(false);
+      setIsLoading(false);
     },(error)=>{
       console.error(error);
     })
@@ -342,6 +346,10 @@ const HomeScreen = ({navigation}) => {;
         barStyle='dark-content'
         backgroundColor={COLORS.background}
         />
+
+      {isLoading && (
+        <AppSpinner bgColor="transparent" color={COLORS.primary} />
+      )}
     </ScrollView>
   );
 };

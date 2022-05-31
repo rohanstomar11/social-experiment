@@ -19,8 +19,11 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {COLORS} from '../assets/color';
 import RadioForm from 'react-native-simple-radio-button';
+import AppSpinner from '../components/ActivityIndicator';
 
 const OnboardScreen = ({ navigation }) => {
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [name, setName] = useState();
   const [bio, setBio] = useState();
@@ -141,6 +144,7 @@ const OnboardScreen = ({ navigation }) => {
   }
 
   const saveData = () => {
+    setIsLoading(true);
     GetSocial.getCurrentUser().then((currentUser) => {
       var batchUpdate = new UserUpdate();
       batchUpdate.displayName = name;
@@ -148,11 +152,14 @@ const OnboardScreen = ({ navigation }) => {
       batchUpdate.publicProperties = publicProperties;
       batchUpdate.privateProperties = privateProperties;
       currentUser.updateDetails(batchUpdate).then(() => {
+        setIsLoading(false);
         navigation.replace('TabScreen');
       },(error)=>{
+        setIsLoading(false);
         console.error(error);
       });
     },(error)=>{
+      setIsLoading(false);
       console.error(error);
     })
   }
@@ -374,6 +381,9 @@ const OnboardScreen = ({ navigation }) => {
           onPress={() => validate()}
           />
       </View>
+      {isLoading && (
+        <AppSpinner bgColor="transparent" color={COLORS.primary} />
+      )}
     </ScrollView>
   );
 };

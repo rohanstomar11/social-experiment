@@ -19,8 +19,11 @@ import ActivityContent from 'getsocial-react-native-sdk/models/communities/Activ
 import PostActivityTarget from 'getsocial-react-native-sdk/models/communities/PostActivityTarget';
 import {COLORS} from '../assets/color';
 import {FONTS} from '../assets/fontFamily';
+import AppSpinner from '../components/ActivityIndicator';
 
 const CommentScreen = ({route, navigation}) => {
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const {data} = route.params;
   
@@ -30,21 +33,26 @@ const CommentScreen = ({route, navigation}) => {
     var pagingQuery = new PagingQuery(query);
     Communities.getActivities(pagingQuery).then((result)=>{
       setComments(result.entries);
+      setIsLoading(false);
     }, (error)=>{
+      setIsLoading(false);
       console.error(error);
     })
   },[comments]);
 
   const [type, setType] = useState('');
   const postComment = () => {
+    setIsLoading(true);
     const activityContent = new ActivityContent();
     activityContent.text = type;
 
     const target = PostActivityTarget.comment(data.id);
 
     Communities.postActivity(activityContent, target).then((result)=>{
+      setIsLoading(false);
       alert("Comment Posted");
     }, (error)=>{
+      setIsLoading(false);
       console.log(error);
     })
   };
@@ -109,6 +117,9 @@ const CommentScreen = ({route, navigation}) => {
             />
         </TouchableOpacity>
       </View>
+      {isLoading && (
+        <AppSpinner bgColor="transparent" color={COLORS.primary} />
+      )}
     </ScrollView>
   );
 };

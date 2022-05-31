@@ -17,10 +17,14 @@ import Communities from 'getsocial-react-native-sdk/Communities';
 import {CONFIG} from '../utility/config';
 import {StreamChat} from 'stream-chat';
 import {COLORS} from '../assets/color';
+import AppSpinner from '../components/ActivityIndicator';
 
 const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
 const CreateGroupScreen = ({navigation, route}) => {
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const {userId} = route.params;
   const current = Math.round(new Date().getTime() / 1000);
 
@@ -80,6 +84,7 @@ const CreateGroupScreen = ({navigation, route}) => {
   }
 
   const createGroup = () => {
+    setIsLoading(true);
     const groupContent = new GroupContent();
     groupContent.id=userId+current;
     groupContent.title=title;
@@ -102,11 +107,14 @@ const CreateGroupScreen = ({navigation, route}) => {
     Communities.createGroup(groupContent).then((group)=>{
       console.log("Group Created");
       createChat().then(()=>{
+        setIsLoading(false);
         navigation.goBack();
       },(error)=>{
+        setIsLoading(false);
         console.error(error)
       });
     }, (error)=>{
+      setIsLoading(false);
       console.error(error)
     })
   }
@@ -159,6 +167,9 @@ const CreateGroupScreen = ({navigation, route}) => {
         title={"Create"}
         onPress={()=>{createGroup()}}
       />
+      {isLoading && (
+        <AppSpinner bgColor="transparent" color={COLORS.primary} />
+      )}
     </ScrollView>
   );
 };

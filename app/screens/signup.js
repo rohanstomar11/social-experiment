@@ -17,8 +17,12 @@ import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import {CONFIG} from '../utility/config';
 import MyAppText from '../components/MyAppText';
 import {FONTS} from '../assets/fontFamily';
+import AppSpinner from '../components/ActivityIndicator';
 
 const SignupScreen = ({ navigation }) => {
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repassword, setRepassword] = useState('');
@@ -29,6 +33,7 @@ const SignupScreen = ({ navigation }) => {
   const [repasswordError, setRepasswordError] = useState('');
 
   const signup = () => {
+    setIsLoading(true);
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
@@ -37,22 +42,27 @@ const SignupScreen = ({ navigation }) => {
           currentUser.addIdentity(
             customIdentity, () => {
               console.log('Successfully Logged into ' + currentUser.id);
+              setIsLoading(false);
               navigation.replace('OnboardScreen');
             },
             (conflictUser) => {
               GetSocial.switchUser(customIdentity).then(()=>{
+                setIsLoading(false);
                 navigation.replace('OnboardScreen');
               },(error)=>{
+                setIsLoading(false);
                 console.error(error);
               });
             },
             (error) => {
+              setIsLoading(false);
               console.log('failed' + error);
             }
           )
         })
       })
       .catch(error => {
+        setIsLoading(false);
         if (error.code === 'auth/email-already-in-use') {
           console.log('That email address is already in use!');
         }
@@ -188,6 +198,9 @@ const SignupScreen = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
+      {isLoading && (
+        <AppSpinner bgColor="transparent" color={COLORS.primary} />
+      )}
       </View>
     </KeyboardAvoidingWrapper>
   );

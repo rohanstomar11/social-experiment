@@ -21,11 +21,14 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {CONFIG} from '../utility/config';
 import {StreamChat} from 'stream-chat';
 import {FONTS} from '../assets/fontFamily';
+import AppSpinner from '../components/ActivityIndicator';
 
 const client = StreamChat.getInstance(CONFIG.getStreamApiKey);
 
 const GroupScreen = ({route, navigation}) => {
   const {id, userId} = route.params;
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const [group, setGroup] = useState();
   const [groupMember, setGroupMember] = useState();
@@ -34,7 +37,8 @@ const GroupScreen = ({route, navigation}) => {
     Communities.getGroup(id, userId).then((result)=>{
        setGroup(result);
        result.isFollowedByMe===true ? setGroupMember(true) : setGroupMember(false)
-       setMembersCount(result.membersCount)
+       setMembersCount(result.membersCount);
+       setIsLoading(false);
      }), (error)=>{
        console.error(error);
      }
@@ -59,7 +63,7 @@ const GroupScreen = ({route, navigation}) => {
   const joinGroup = () => {
     const query = JoinGroupQuery.create(id);
     Communities.joinGroup(query).then((member)=>{
-      setGroupMember(true)
+      setGroupMember(true);
       chatJoin();
     }, (error) => {
     console.error(error);
@@ -275,6 +279,9 @@ const GroupScreen = ({route, navigation}) => {
             }}
             onPress={()=>{leaveGroup()}}
           />
+      )}
+      {isLoading && (
+        <AppSpinner bgColor="transparent" color={COLORS.primary} />
       )}
     </ScrollView>
   );

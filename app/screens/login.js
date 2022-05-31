@@ -17,8 +17,12 @@ import {CollegeLogo} from '../assets/images';
 import {CONFIG} from '../utility/config';
 import MyAppText from '../components/MyAppText';
 import {FONTS} from '../assets/fontFamily';
+import AppSpinner from '../components/ActivityIndicator';
 
 const LoginScreen = ({ navigation }) => {
+
+  const [isLoading, setIsLoading] = useState(false)
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -27,6 +31,7 @@ const LoginScreen = ({ navigation }) => {
   const [passwordError, setPasswordError] = useState('');
 
   const login = () => {
+    setIsLoading(true);
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
@@ -35,22 +40,27 @@ const LoginScreen = ({ navigation }) => {
           currentUser.addIdentity(
             customIdentity, () => {
               console.log('Successfully Logged into ' + currentUser.id);
+              setIsLoading(false);
               navigation.replace('TabScreen');
             },
             (conflictUser) => {
               GetSocial.switchUser(customIdentity).then(() => {
+                setIsLoading(false);
                 navigation.replace('TabScreen');
               },(error)=>{
+                setIsLoading(false);
                 console.error(error);
               });
             },
             (error) => {
+              setIsLoading(false);
               console.log('failed' + error);
             }
           )
         })
       })
       .catch(error => {
+        setIsLoading(false);
         console.error(error);
       })
   }
@@ -159,6 +169,9 @@ const LoginScreen = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
+        {isLoading && (
+          <AppSpinner bgColor="transparent" color={COLORS.primary} />
+        )}
       </View>
     </KeyboardAvoidingWrapper>
   );

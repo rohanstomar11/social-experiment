@@ -8,8 +8,11 @@ import GetSocial from 'getsocial-react-native-sdk/GetSocial';
 import MyAppText from '../components/MyAppText';
 import {FONTS} from '../assets/fontFamily';
 import {COLORS} from '../assets/color';
+import AppSpinner from '../components/ActivityIndicator';
 
 const ListScreen = ({navigation}) => {
+
+  const [isLoading, setIsLoading] = useState(true)
 
   const [userId, setUserId] = useState();
   useEffect(()=>{
@@ -26,6 +29,7 @@ const ListScreen = ({navigation}) => {
     const pagingQuery = new PagingQuery(query);
     Communities.getGroups(pagingQuery).then((result)=>{
       setGroup(result.entries)
+      setIsLoading(false);
     }).catch((error)=>{
       console.error(error);
     })
@@ -60,6 +64,10 @@ const ListScreen = ({navigation}) => {
           </View>
         )
       })}
+
+      {isLoading && (
+        <AppSpinner bgColor="transparent" color={COLORS.primary} />
+      )}
     </ScrollView>
   );
 };
