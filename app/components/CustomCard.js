@@ -3,7 +3,7 @@ import {
   View,
   StyleSheet,
   Platform,
-  ImageBackground
+  ImageBackground,
 } from 'react-native';
 import React from 'react';
 import {COLORS} from '../assets/color'
@@ -24,7 +24,7 @@ const CustomCard = ({navigation, data, userId}) => {
             style={styles.title}>
             <MyAppText
               family={FONTS.Bold}
-              textColor={COLORS.primary}>
+              textColor={COLORS.text}>
               {data.title}
             </MyAppText>
           </View>
@@ -35,9 +35,9 @@ const CustomCard = ({navigation, data, userId}) => {
 
 const styles = StyleSheet.create({
   container:{
-    height: 200,
-    width: 200,
-    marginHorizontal: 10,
+    height: 300,
+    width: 240,
+    margin: 10,
     borderRadius: 20,
     overflow: 'hidden',
     ...Platform.select({
@@ -65,8 +65,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 15,
     paddingVertical: 5,
-    borderWidth:  1,
-    borderColor: COLORS.primary
   },
 });
 

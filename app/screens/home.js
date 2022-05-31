@@ -169,7 +169,6 @@ const HomeScreen = ({navigation}) => {;
           <MyAppText
             textColor={COLORS.text}
             family={FONTS.SemiBold}
-            textSize={20}
             marginBottom={10}>
             Ongoing Events
           </MyAppText>
@@ -185,8 +184,7 @@ const HomeScreen = ({navigation}) => {;
           }}>
           <MyAppText
             textColor={COLORS.text}
-            family={FONTS.SemiBold}
-            textSize={20}>
+            family={FONTS.SemiBold}>
             Spaces
           </MyAppText>
           {admin &&

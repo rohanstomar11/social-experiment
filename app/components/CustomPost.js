@@ -16,6 +16,7 @@ import InviteContent from 'getsocial-react-native-sdk/models/invites/InviteConte
 import Invites from 'getsocial-react-native-sdk/Invites';
 import {COLORS} from '../assets/color';
 import {FONTS} from '../assets/fontFamily';
+import MyAppText from '../components/MyAppText';
 
 const CustomPost = ({navigation, data, showComments}) => {
 
@@ -90,23 +91,22 @@ const CustomPost = ({navigation, data, showComments}) => {
                     marginLeft: 10,
                     justifyContent: 'center',
                 }}>
-                <Text
-                    style={{
-                        fontSize:20,
-                        fontWeight: '500',
-                        color: COLORS.text,
-                        fontFamily: FONTS.SemiBold,
-                    }}>
+                <MyAppText
+                    family={FONTS.SemiBold}
+                    textColor={COLORS.text}>
                     {data.author.displayName}
-                </Text>
-                <Text
+                </MyAppText>
+                <View
                     style={{
-                        fontSize: 14,
-                        fontFamily: FONTS.Light,
                         marginTop: -6,
                     }}>
-                    {date}-{month}-{year} {hours}:{mins}
-                </Text>
+                    <MyAppText
+                        textSize={12}
+                        family={FONTS.Light}
+                        textColor={COLORS.grey}>
+                        {date}-{month}-{year} {hours}:{mins}
+                    </MyAppText>
+                </View>
             </View>
         </View>
         <View
@@ -116,8 +116,9 @@ const CustomPost = ({navigation, data, showComments}) => {
             }}>
             <Text
                 style={{
-                    color: COLORS.text,
+                    color: COLORS.black,
                     fontSize: 16,
+                    fontFamily: FONTS.Regular,
                 }}>
                 {data.text}
             </Text>
