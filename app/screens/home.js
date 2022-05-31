@@ -79,8 +79,10 @@ const HomeScreen = ({navigation}) => {;
     const pagingQuery = new PagingQuery(query);
     Communities.getTopics(pagingQuery).then((result) => {
       var topics = result.entries;
-      setData(topics)
+      setData(topics);
+      setIsLoading(false);
     }).catch((error) => {
+      setIsLoading(false);
       console.error(error);
     })
   }, [data])
@@ -91,8 +93,10 @@ const HomeScreen = ({navigation}) => {;
     const pagingQuery = new PagingQuery(query);
     Communities.getGroups(pagingQuery).then((result) => {
       var groups = result.entries;
-      setGroup(groups)
+      setGroup(groups);
+      setIsLoading(false);
     }).catch((error) => {
+      setIsLoading(false);
       console.error(error);
     })
   }, [group])
