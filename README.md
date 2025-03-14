@@ -1,9 +1,14 @@
 # SocialXP
 
-• Comprehensive social networking platform for college students and faculty<br/>
-• Features include creating and managing clubs and forums, real-time discussions, resource sharing, and searching for other users<br/>
-• Personal profile pages for each user to connect with others and stay informed about college happenings<br/>
-• User-friendly interface and comprehensive feature set<br/>
-•	Popular choice for building and maintaining online communities within the college<br/>
+SocialXP is a comprehensive social networking platform designed specifically for college students and faculty. It enables users to create and manage clubs, participate in real-time discussions, share resources, and connect with others in their institution.
 
-[Download](https://github.com/rohanstomar11/social-experiment/blob/master/socialxp.apk) on Android.
+## Features
+- **Club & Forum Management** – Create, join, and manage college clubs and forums.
+- **Real-time Discussions** – Engage in meaningful conversations with peers and faculty.
+- **Resource Sharing** – Easily share documents, notes, and other materials.
+- **User Search & Connectivity** – Find and connect with other students and faculty.
+- **Personal Profiles** – Stay updated with college events and happenings through personalized profile pages.
+- **User-Friendly Interface** – Intuitive design for seamless navigation.
+
+## Demo
+![SocialXP in Action](demo.gif)
