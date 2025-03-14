@@ -15,4 +15,4 @@ SocialXP is a **comprehensive social networking platform** designed for college 
 ---
 
 ## 🎥 Demo
-![SocialXP in Action](https://github.com/rohanstomar11/social-experiment/blob/master/demo/social-space.mp4)
+![SocialXP in Action](https://github.com/rohanstomar11/social-experiment/blob/master/demo/Social%20Space.mp4)
